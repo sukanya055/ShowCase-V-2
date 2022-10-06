@@ -1,10 +1,15 @@
-import './App.css';
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Home, Product } from "./pages";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello Show Case</h1>
-      <button className="btn btn-primary">ShowCase</button>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/product/:id" element={<Product />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
