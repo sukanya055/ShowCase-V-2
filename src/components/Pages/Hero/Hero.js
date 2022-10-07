@@ -1,12 +1,12 @@
 import React from 'react'
-import circle1 from '../../assets/circle1.png'
-import circle2 from '../../assets/circle2.png'
-import circle3 from '../../assets/circle3.png'
-import circle4 from '../../assets/circle4.png'
-import shoes from '../../assets/shoes1.png'
+import circle1 from '../../../assets/circle1.png'
+import circle2 from '../../../assets/circle2.png'
+import circle3 from '../../../assets/circle3.png'
+import circle4 from '../../../assets/circle4.png'
+import shoes from '../../../assets/shoes1.png'
 // import person from '../../assets/person.png'
-import elipse1 from '../../assets/Ellipse1.png'
-import elipse2 from '../../assets/Ellipse 2.png'
+import elipse1 from '../../../assets/Ellipse1.png'
+import elipse2 from '../../../assets/Ellipse 2.png'
 
 const Hero = () => {
 
@@ -37,18 +37,18 @@ const Hero = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='w-[40%]'>
+                    <div className='w-full lg:w-[40%] '>
                         <div>
                             <img src={elipse1} alt="" />
                             <img src={elipse2} alt="" />
                         </div>
-                        <div className='pl-14'>
-                            <h1 className="lg:text-[44px] xl:text-[53px] 2xl:text-[64px] text-[#112D57] font-bold">Let’s Showcase</h1>
-                            <p className="py-6 text-[#5C5C5C] lg:text-[23px] xl:[26px] 2xl:text-[30px] leading-[48px]">Bringing your product online is now easy and brezzy.You have
+                        <div className='pl-5 md:pl-14'>
+                            <h1 className="text-[27px] md:text-[34px] lg:text-[44px] xl:text-[53px] 2xl:text-[64px] text-[#112D57] font-bold">Let’s Showcase</h1>
+                            <p className="py-6 text-[#5C5C5C] lg:text-[23px] xl:[26px] 2xl:text-[30px] leading-[34px] md:leading-[48px]">Bringing your product online is now easy and brezzy.You have
                                 something to sell , show is online.</p>
 
                         </div>
-                        <div className='pl-14 flex gap-9'>
+                        <div className='pl:5  md:pl-14 flex justify-center lg:justify-start gap-9'>
                             <button className="btn btn-primary bg-[#FF109F] rounded-full border-0 outline-none text-white px-7">Shop more</button>
                             <button className="btn btn-primary bg-[#719efd] opacity-[0.3] rounded-full border-0 outline-none text-white px-10">Read more</button>
                         </div>
