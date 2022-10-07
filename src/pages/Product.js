@@ -12,13 +12,14 @@ const Product = () => {
     <div>
       <Layout>
         <div className="lg:px-28 py-4 sm:px-8">
-          <div className="flex items-center justify-center">
+          <div className="flex relative items-center justify-center">
             {/* <Player
               autoplay
               loop
               src={circularAnimation}
               style={{ height: "400px", width: "400px" }}
             ></Player> */}
+
             <div className="relative">
               <HiOutlineChevronLeft className="absolute text-5xl font-bold cursor-pointer text-white top-1/2 " />
 
@@ -51,7 +52,7 @@ const Product = () => {
               </button>
             </div>
             <div className="flex flex-row place-items-stretch  justify-between gap-8 mt-12">
-              <div className="basis-1/3 px-8 py-3 shadow-lg rounded-xl ">
+              <div className="basis-1/3 px-8 py-3 shadow-md rounded-xl cursor-pointer hover:scale-105 transition-transform ease-out delay-100 ">
                 <div className="flex items-center justify-center gap-1 flex-col">
                   <img
                     src={whatsApp}
@@ -62,14 +63,14 @@ const Product = () => {
                   <p className="text-md font-light">contact on WhatsApp</p>
                 </div>
               </div>
-              <div className="basis-1/3 px-8 py-3 shadow-lg rounded-xl ">
+              <div className="basis-1/3 px-8 py-3 shadow-md rounded-xl cursor-pointer  hover:scale-105 transition-transform ease-out delay-100 ">
                 <div className="flex items-center justify-center gap-1 flex-col">
                   <img src={gps} alt="whatsapp" className="w-[50px] h-[62px]" />
                   <h1 className="text-lg font-semibold">GPS</h1>
                   <p className="text-md font-light">look for directions</p>
                 </div>
               </div>
-              <div className="basis-1/3 px-8 py-3 shadow-lg rounded-xl ">
+              <div className="basis-1/3 px-8 py-3 shadow-md rounded-xl cursor-pointer  hover:scale-105 transition-transform ease-out delay-100">
                 <div className="flex items-center justify-center gap-1 flex-col">
                   <img
                     src={save}
