@@ -5,7 +5,7 @@ const Count = () => {
     return (
         <>
             <div className=' gap-9 flex flex-col md:flex-row justify-between  items-center px-10 mt-60'>
-                <div className='w-[158px] relative'>
+                <div className='w-[168px] relative'>
                     <img className='w-full' src={circleGif} alt="" />
                     <div
                         style={{
@@ -18,7 +18,7 @@ const Count = () => {
                         <p className=' text-[19px] lg:text-[22px] text-[#182F43] leading-[1px]' >Accounts</p>
                     </div>
                 </div>
-                <div className='w-[158px] relative mb-0 md:mb-[351px]'>
+                <div className='w-[168px] relative mb-0 md:mb-[351px]'>
                     <div>
                         <img className='w-full' src={circleGif} alt="" />
                         <div
@@ -34,7 +34,7 @@ const Count = () => {
                         </div>
                     </div>
                 </div>
-                <div className='w-[158px] relative'>
+                <div className='w-[168px] relative'>
                     <div
 
                     >

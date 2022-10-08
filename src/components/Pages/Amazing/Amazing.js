@@ -7,8 +7,8 @@ const Amazing = () => {
         <>
             <div className="hero min-h-screen overflow-x-hidden mt-28 lg:mt-0">
                 <div className="hero-content max-w-[1400px] justify-between flex-col lg:flex-row-reverse">
-                    <div 
-                    className='w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] lg:w-[504px] lg:h-[500px]  xl:w-[604px] xl:h-[600px] rounded-[50%] bg-green-300 relative overflow-hidden'>
+                    <div
+                        className='w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] lg:w-[504px] lg:h-[500px]  xl:w-[604px] xl:h-[600px] rounded-[50%] bg-green-300 relative overflow-hidden'>
                         <div
                             style={{
                                 top: '50%',
@@ -43,7 +43,7 @@ const Amazing = () => {
                     <div className='lg:w-[60%] w-full pr-10 mt-10 lg:mt-0'>
                         <div className=' pl-4 md:pl-12 mt-10 '>
                             <h1 className="text-[27px] sm:text-[30px] lg:text-[44px] xl:text-[53px] 2xl:text-[64px] text-[#112D57] font-bold">An Amazing Journey</h1>
-                            <p className="py-6 text-[#5C5C5C] lg:text-[23px] xl:[26px] 2xl:text-[30px] leading-[34px] md:leading-[48px]">
+                            <p className="py-6 text-[#5C5C5C] lg:text-[23px] xl:[26px] 2xl:text-[30px] leading-[34px] md:leading-[48px] lg:pr-52">
                                 We design and develop world-class websites and applications, design better and spend less time without restricting creative freedom.
                             </p>
 
