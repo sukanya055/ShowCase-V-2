@@ -49,8 +49,8 @@ const Hero = () => {
 
                         </div>
                         <div className='pl:5  md:pl-14 flex justify-center lg:justify-start gap-9'>
-                            <button className="btn btn-primary bg-[#FF109F] rounded-full border-0 outline-none text-white px-7">Shop more</button>
-                            <button className="btn btn-primary bg-[#719efd] opacity-[0.3] rounded-full border-0 outline-none text-white px-10">Read more</button>
+                            <button className="btn btn-primary bg-[#FF109F] rounded-full border-0 outline-none text-white px-5 sm:px-7">Shop more</button>
+                            <button className="btn btn-primary bg-[#719efd] opacity-[0.3] rounded-full border-0 outline-none text-white px-5 sm:px-7">Read more</button>
                         </div>
                     </div>
                 </div>

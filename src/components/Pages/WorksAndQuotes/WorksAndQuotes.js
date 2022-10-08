@@ -1,5 +1,6 @@
 import React from 'react';
 import circleGif2 from '../../../assets/circle2.gif'
+import rocket from '../../../assets/rocket.png'
 const WorksAndQuotes = () => {
 
 
@@ -24,12 +25,12 @@ const WorksAndQuotes = () => {
 
     return (
         <>
-            <div className="hero min-h-screen">
-                <div className="hero-content flex-col lg:flex-row">
-                    <div className='w-[50%]'>
-                        <img src="https://placeimg.com/260/400/arch" className="max-w-sm rounded-lg shadow-2xl" alt='' />
+            <div className="hero min-h-screen mt-20 w-full">
+                <div className="hero-content flex-col lg:flex-row justify-evenly w-full">
+                    <div className='w-full flex justify-center md:w-[50%]'>
+                        <img src={rocket} className="rounded-lg" alt='' />
                     </div>
-                    <div className='w-[50%] gap-[44px]'>
+                    <div className='w-full lg:w-[50%] gap-[44px] mt-20'>
                         <div>
                             {
                                 quotes.map(({number,title,desc}) => (
@@ -37,9 +38,9 @@ const WorksAndQuotes = () => {
                                     key={number}
                                     className='mb-[44px]'
                                     >
-                                        <div className='flex items-center gap-10 '>
+                                        <div className='flex items-center gap-5 md:gap-10 '>
                                             <div className='relative'>
-                                                <img className='w-[108px] ' src={circleGif2} alt="" />
+                                                <img className='w-[75px] sm:w-[85px] md:w-[108px] ' src={circleGif2} alt="" />
                                                 <span
                                                     style={{
                                                         top: '50%',
@@ -50,11 +51,11 @@ const WorksAndQuotes = () => {
                                                 >{number}</span>
                                             </div>
                                             <div>
-                                                <h4 className='text-[28px] text-[#182F43] font-bold'>{title}</h4>
+                                                <h4 className='text-[22px] md:text-[24px] lg:text-[28px] text-[#182F43] font-bold'>{title}</h4>
                                             </div>
                                         </div>
                                         <div>
-                                            <p className='mt-4 pl-4 text-[16px] text-[#182F43]'>
+                                            <p className='mt-4 pl-4 text-[13px] md:text-[16px] text-[#182F43]'>
                                                 {
                                                     desc
                                                 }

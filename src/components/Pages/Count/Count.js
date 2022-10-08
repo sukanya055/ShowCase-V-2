@@ -4,7 +4,7 @@ import circleGif from '../../../assets/circle.gif'
 const Count = () => {
     return (
         <>
-            <div className=' gap-9 flex flex-col md:flex-row justify-between  items-center px-10 mt-60'>
+            <div className=' gap-32 md:gap-9 flex flex-col md:flex-row justify-between  items-center px-10 mt-40 md:mt-60'>
                 <div className='w-[168px] relative'>
                     <img className='w-full' src={circleGif} alt="" />
                     <div

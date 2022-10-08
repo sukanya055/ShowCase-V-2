@@ -6,7 +6,7 @@ const Amazing = () => {
     return (
         <>
             <div className="hero min-h-screen overflow-x-hidden mt-28 lg:mt-0">
-                <div className="hero-content max-w-[1400px] justify-between flex-col lg:flex-row-reverse">
+                <div className="hero-content max-w-[1400px] justify-between flex-col lg:flex-row-reverse p-2 md:p-4">
                     <div
                         className='w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] lg:w-[504px] lg:h-[500px]  xl:w-[604px] xl:h-[600px] rounded-[50%] bg-green-300 relative overflow-hidden'>
                         <div
