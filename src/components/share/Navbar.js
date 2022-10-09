@@ -4,10 +4,19 @@ import search from '../../assets/search.png'
 import userIcon from '../../assets/userIcon.png'
 import styles from './Navbar.module.css'
 import { AiOutlineUser } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [inputValue, setInputValue] = useState('')
     const [navbar, setNavbar] = useState(false);
+    const navigate=useNavigate()
+    // const [first, setFirst] = useState('')
+
+    const handleDashboard=()=>{
+        navigate('/joinUs')
+    }
+
+
     return (
         <nav className="w-full bg-base-100 shadow ">
             <div className="justify-between px-4 mx-auto lg:max-w-[1400px] lg:items-center lg:flex lg:px-4">
@@ -91,11 +100,25 @@ const Navbar = () => {
                                 Home And Kitchen
                             </li>
                             <li className=" xl:text-[16px] lg:text-[14px] text-[#858A89] ">
-                                <span>
+                                {/* <span>
                                     <AiOutlineUser
                                         className='text-[42px] bg-[#E5EDFF] p-1 rounded-md'
                                     />
-                                </span>
+                                </span> */}
+
+
+
+                                <div className="dropdown dropdown-end cursor-pointer">
+                                    <label tabIndex={0} /* className="btn btn-ghost rounded-btn" */>
+                                        <AiOutlineUser
+                                            className='text-[42px] bg-[#E5EDFF] p-1 rounded-md cursor-pointer'
+                                        />
+                                    </label>
+                                    <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+                                        <li><p onClick={handleDashboard}>My Account</p></li>
+                                        <li><p>Create Account</p></li>
+                                    </ul>
+                                </div>
                             </li>
                             <li className=" xl:text-[16px] lg:text-[14px] text-[#858A89] ">
                                 <div className="space-x-2 inline-block ">

@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './components/Home/Home';
+import NormalProfile from './components/Profile/NormalProfile';
 import Footer from './components/share/Footer';
 import Navbar from './components/share/Navbar';
 
@@ -10,6 +11,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/normalProfile' element={<NormalProfile />} />
+
       </Routes>
       <Footer />
     </div>
