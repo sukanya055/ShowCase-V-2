@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsChevronLeft } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import profileImg from '../../../assets/images/profile.png'
@@ -6,9 +6,18 @@ import styles from '.././NormalProfile.module.css'
 
 const BusinessProfile = () => {
     const navigate = useNavigate()
-    const handleForm=(e)=>{
+    const [image, setImage] = useState('')
+    const handleForm = (e) => {
         e.preventDefault()
     }
+
+    const onImageChange = (event) => {
+        console.log('click')
+        if (event.target.files && event.target.files[0]) {
+            setImage(URL.createObjectURL(event.target.files[0]));
+        }
+    }
+    console.log(image)
     return (
         <>
             <div className='my-20'>
@@ -36,15 +45,17 @@ const BusinessProfile = () => {
                     <div className='py-10 flex justify-center '>
                         <div>
                             <div className='w-[140px] h-[140px] md:w-[154px] md:h-[154px] rounded-[50%] mx-auto' >
-                                <img className='w-full h-full object-cover' src={profileImg} alt="" />
+                                <img className='w-[140px] h-[140px] md:w-[154px] md:h-[154px] rounded-[50%] mx-auto object-cover' src={image ? image : profileImg} alt="" />
                             </div>
                             <div className='text-center'>
                                 <input
+                                   onChange={onImageChange}
                                     type="file"
                                     id='img'
                                     className='hidden'
                                 />
                                 <label
+                                 
                                     className='btn bg-[#858A89] px-[26px] md:px-[36px] mt-[14px] text-white font-bold text-[14px] md:text-[16px] rounded-full '
                                     htmlFor="img"
                                 >Add pic</label>
@@ -53,9 +64,9 @@ const BusinessProfile = () => {
                         </div>
                     </div>
                     <div>
-                        <form 
-                        onSubmit={handleForm}
-                        className='w-full lg:w-[80%] mx-auto'>
+                        <form
+                            onSubmit={handleForm}
+                            className='w-full lg:w-[80%] mx-auto'>
                             <div className='w-full mb-9'>
                                 <label
                                     className='block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]'

@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsChevronLeft } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import profileImg from '../../../assets/images/profile.png'
 import styles from '.././NormalProfile.module.css'
 const NormalProfile = () => {
     const navigate = useNavigate()
+    const [image, setImage] = useState('')
     const handleForm=(e)=>{
         e.preventDefault()
+    }
+
+    const onImageChange = (event) => {
+        console.log('click')
+        if (event.target.files && event.target.files[0]) {
+            setImage(URL.createObjectURL(event.target.files[0]));
+        }
     }
     return (
         <>
@@ -31,10 +39,11 @@ const NormalProfile = () => {
                     <div className='py-10 flex justify-center '>
                         <div>
                             <div className='w-[140px] h-[140px] md:w-[154px] md:h-[154px] rounded-[50%] mx-auto' >
-                                <img className='w-full h-full object-cover' src={profileImg} alt="" />
+                            <img className='w-[140px] h-[140px] md:w-[154px] md:h-[154px] rounded-[50%] mx-auto object-cover' src={image ? image : profileImg} alt="" />
                             </div>
                             <div className='text-center'>
                                 <input
+                                onChange={onImageChange}
                                     type="file"
                                     id='img'
                                     className='hidden'
