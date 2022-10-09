@@ -1,7 +1,7 @@
 import React from 'react';
 import { BsChevronLeft } from 'react-icons/bs';
-import profileImg from '../../assets/images/profile.png'
-import styles from './NormalProfile.module.css'
+import profileImg from '../../../assets/images/profile.png'
+import styles from '.././NormalProfile.module.css'
 const NormalProfile = () => {
     return (
         <>
