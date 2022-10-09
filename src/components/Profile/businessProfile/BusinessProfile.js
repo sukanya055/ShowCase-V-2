@@ -3,7 +3,8 @@ import { BsChevronLeft } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import profileImg from '../../../assets/images/profile.png'
 import styles from '.././NormalProfile.module.css'
-const NormalProfile = () => {
+
+const BusinessProfile = () => {
     const navigate = useNavigate()
     const handleForm=(e)=>{
         e.preventDefault()
@@ -15,7 +16,7 @@ const NormalProfile = () => {
                     className={`w-full lg:w-[830px]  mx-auto bg-[#FAFAFA] px-4 md:px-16 lg:px-20 py-20 rounded-lg ${styles.normalProfileBoxShadow}`}
                 >
                     <button
-                    onClick={() => navigate(-1)}
+                        onClick={() => navigate(-1)}
                         className='flex gap-2 items-center text-[#858A89] text-[15px] md:text-[20px] '
                     ><BsChevronLeft /> Back</button>
                     <div className='flex items-center gap-2 mt-12'>
@@ -26,6 +27,10 @@ const NormalProfile = () => {
                         <div className='flex items-center gap-2'>
                             <input type="radio" name="radio-2" className="radio radio-primary" />
                             <label className='text-[#1B1C21] text-[14px] md:text-[16px] font-bold' htmlFor="">Change Password</label>
+                        </div>
+                        <div className='flex items-center gap-2'>
+                            <input type="radio" name="radio-2" className="radio radio-primary" />
+                            <label className='text-[#1B1C21] text-[14px] md:text-[16px] font-bold' htmlFor="">GPS</label>
                         </div>
                     </div>
                     <div className='py-10 flex justify-center '>
@@ -51,10 +56,32 @@ const NormalProfile = () => {
                         <form 
                         onSubmit={handleForm}
                         className='w-full lg:w-[80%] mx-auto'>
-                            <div className='w-full'>
+                            <div className='w-full mb-9'>
+                                <label
+                                    className='block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]'
+                                    htmlFor="">User Name</label>
                                 <input
                                     type="text"
-                                    placeholder="User name"
+
+                                    className="input input-bordered w-full"
+                                />
+                            </div>
+                            <div className='w-full mb-9'>
+                                <label
+                                    className='block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]'
+                                    htmlFor="">Whatsapp link</label>
+                                <input
+                                    type="text"
+
+                                    className="input input-bordered w-full"
+                                />
+                            </div>
+                            <div className='w-full mb-9'>
+                                <label
+                                    className='block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]'
+                                    htmlFor="">Phone Number</label>
+                                <input
+                                    type="text"
                                     className="input input-bordered w-full"
                                 />
                             </div>
@@ -64,7 +91,7 @@ const NormalProfile = () => {
                                     htmlFor="">About Me</label>
                                 <textarea
                                     className="textarea textarea-bordered w-full min-h-[165px]"
-                                    placeholder="Bio"
+
                                 ></textarea>
                             </div>
                             <div className='flex gap-4 justify-center mt-[64px] flex-col md:flex-row'>
@@ -84,4 +111,4 @@ const NormalProfile = () => {
     );
 };
 
-export default NormalProfile;
+export default BusinessProfile;

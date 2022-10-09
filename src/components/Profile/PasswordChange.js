@@ -1,6 +1,11 @@
 import React from 'react';
 import { BsChevronLeft } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 const PasswordChange = () => {
+    const navigate = useNavigate()
+    const handleForm=(e)=>{
+        e.preventDefault()
+    }
     return (
         <div>
             <>
@@ -9,6 +14,7 @@ const PasswordChange = () => {
                         className={`w-full lg:w-[830px]  mx-auto bg-[#FAFAFA] px-4 md:px-16 lg:px-20 py-20 rounded-lg`}
                     >
                         <button
+                            onClick={() => navigate(-1)}
                             className='flex gap-2 items-center text-[#858A89] text-[15px] md:text-[20px] '
                         ><BsChevronLeft /> Back</button>
                         <div className='flex items-center gap-2 mt-12'>
@@ -22,7 +28,9 @@ const PasswordChange = () => {
                             </div>
                         </div>
                         <div>
-                            <form className='w-full lg:w-[80%] mx-auto mt-20'>
+                            <form 
+                            onSubmit={handleForm}
+                            className='w-full lg:w-[80%] mx-auto mt-20'>
                                 <div className='w-full mb-9'>
                                     <label
                                         className='block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]'
