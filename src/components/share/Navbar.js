@@ -22,10 +22,12 @@ const Navbar = () => {
             <div className="justify-between px-4 mx-auto lg:max-w-[1400px] lg:items-center lg:flex lg:px-4">
                 <div>
                     <div className="flex  items-center justify-between py-3 lg:py-5 lg:block">
+                        {/* logo  */}
                         <div className='flex items-center text-2xl font-bold'>
                             <img className='h-[67px] w-[154px]' src={logo} alt="logo" />
                         </div>
                         <div className="lg:hidden">
+                            {/* hamburger btn  */}
                             <button
                                 className="p-2 text-black rounded-lg"
                                 onClick={() => setNavbar(!navbar)}
@@ -63,6 +65,7 @@ const Navbar = () => {
                         </div>
                     </div>
                 </div>
+                {/* nav menu  */}
                 <div className='flex items-center mr-0 '>
                     <div
                         className={`flex-1 justify-self-center pb-3 mt-8 lg:block lg:pb-0 lg:mt-0 ${navbar ? "block" : "hidden"
@@ -136,14 +139,7 @@ const Navbar = () => {
                     </div>
 
                 </div>
-                {/* <div className="space-x-2 inline-block ">
-                    <div className='flex justify-between items-center text-xl'>
-                        <div className='mr-4'>
-                            <button type="button" class="btn xl:text-[16px] lg:text-[14px] px-[20px] xl:px-10 text-white btn-primary bg-[#3371F2] capitalize border-0 outline-none" data-bs-toggle="button" aria-pressed="false" autocomplete="off">Login
-                            </button>
-                        </div>
-                    </div>
-                </div> */}
+                
             </div>
         </nav>
     );
