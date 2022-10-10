@@ -16,7 +16,8 @@ module.exports = {
           "success": "#1BBB70",
           "warning": "#DF7E07",
           "error": "#FA5C5C",
-          "login":"#6358DC"
+          "login":"#6358DC",
+          "profile":"#858A89"
         },
       },
       "dark",

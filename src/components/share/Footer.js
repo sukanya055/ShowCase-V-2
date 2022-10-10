@@ -1,8 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { MdLocationOn } from 'react-icons/md';
-import { MdEmail } from 'react-icons/md';
-import { BsFillTelephoneFill } from 'react-icons/bs';
 import logo from '../../assets/logo.png'
 
 const Footer = () => {

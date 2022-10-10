@@ -4,19 +4,30 @@ import search from '../../assets/search.png'
 import userIcon from '../../assets/userIcon.png'
 import styles from './Navbar.module.css'
 import { AiOutlineUser } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [inputValue, setInputValue] = useState('')
     const [navbar, setNavbar] = useState(false);
+    const navigate=useNavigate()
+    // const [first, setFirst] = useState('')
+
+    const handleDashboard=()=>{
+        navigate('/joinUs')
+    }
+
+
     return (
         <nav className="w-full bg-base-100 shadow ">
             <div className="justify-between px-4 mx-auto lg:max-w-[1400px] lg:items-center lg:flex lg:px-4">
                 <div>
                     <div className="flex  items-center justify-between py-3 lg:py-5 lg:block">
+                        {/* logo  */}
                         <div className='flex items-center text-2xl font-bold'>
                             <img className='h-[67px] w-[154px]' src={logo} alt="logo" />
                         </div>
                         <div className="lg:hidden">
+                            {/* hamburger btn  */}
                             <button
                                 className="p-2 text-black rounded-lg"
                                 onClick={() => setNavbar(!navbar)}
@@ -54,6 +65,7 @@ const Navbar = () => {
                         </div>
                     </div>
                 </div>
+                {/* nav menu  */}
                 <div className='flex items-center mr-0 '>
                     <div
                         className={`flex-1 justify-self-center pb-3 mt-8 lg:block lg:pb-0 lg:mt-0 ${navbar ? "block" : "hidden"
@@ -91,11 +103,25 @@ const Navbar = () => {
                                 Home And Kitchen
                             </li>
                             <li className=" xl:text-[16px] lg:text-[14px] text-[#858A89] ">
-                                <span>
+                                {/* <span>
                                     <AiOutlineUser
                                         className='text-[42px] bg-[#E5EDFF] p-1 rounded-md'
                                     />
-                                </span>
+                                </span> */}
+
+
+
+                                <div className="dropdown dropdown-end cursor-pointer">
+                                    <label tabIndex={0} /* className="btn btn-ghost rounded-btn" */>
+                                        <AiOutlineUser
+                                            className='text-[42px] bg-[#E5EDFF] p-1 rounded-md cursor-pointer'
+                                        />
+                                    </label>
+                                    <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+                                        <li><p onClick={handleDashboard}>My Account</p></li>
+                                        <li><p>Create Account</p></li>
+                                    </ul>
+                                </div>
                             </li>
                             <li className=" xl:text-[16px] lg:text-[14px] text-[#858A89] ">
                                 <div className="space-x-2 inline-block ">
@@ -113,14 +139,7 @@ const Navbar = () => {
                     </div>
 
                 </div>
-                {/* <div className="space-x-2 inline-block ">
-                    <div className='flex justify-between items-center text-xl'>
-                        <div className='mr-4'>
-                            <button type="button" class="btn xl:text-[16px] lg:text-[14px] px-[20px] xl:px-10 text-white btn-primary bg-[#3371F2] capitalize border-0 outline-none" data-bs-toggle="button" aria-pressed="false" autocomplete="off">Login
-                            </button>
-                        </div>
-                    </div>
-                </div> */}
+                
             </div>
         </nav>
     );
