@@ -3,6 +3,7 @@ import video from '../../../video/30-second-explainer-videos-ytshorts.savetube.m
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
 const Amazing = () => {
+  
     return (
         <>
             <div className="hero min-h-screen overflow-x-hidden mt-28 lg:mt-0">
