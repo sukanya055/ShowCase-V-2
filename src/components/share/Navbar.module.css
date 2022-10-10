@@ -1,0 +1,12 @@
+.inputPlaceholder::placeholder{
+    padding-left: 72px;
+    display: inline-block;
+    color: black;
+    font-size: 14px;
+}
+@media screen and (max-width:1200px){
+    .inputPlaceholder::placeholder{
+        padding-left: 52px;
+        
+    }
+}
