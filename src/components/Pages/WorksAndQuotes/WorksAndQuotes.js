@@ -1,6 +1,6 @@
 import React from 'react';
 import circleGif2 from '../../../assets/circle2.gif'
-import rocket from '../../../assets/rocket.png'
+import rocket from '../../../assets/rocket.gif'
 const WorksAndQuotes = () => {
 
 
@@ -26,8 +26,8 @@ const WorksAndQuotes = () => {
     return (
         <>
             <div className="hero min-h-screen mt-20 w-full">
-                <div className="hero-content flex-col lg:flex-row justify-evenly w-full">
-                    <div className='w-full flex justify-center md:w-[50%]'>
+                <div className="hero-content flex-col lg:flex-row justify-between w-full">
+                    <div className='w-full flex justify-center md:w-[50%] px-5'>
                         <img src={rocket} className="rounded-lg" alt='' />
                     </div>
                     <div className='w-full lg:w-[50%] gap-[44px] mt-20'>

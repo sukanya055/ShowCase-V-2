@@ -1,21 +1,22 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import Hero from '../Pages/Hero/Hero';
+import Testimonial from '../Pages/Testimonial/Testimonial';
 import ErrorFallback from '../share/ErrorFallBack';
 
 const Amazing = lazy(() => import('../Pages/Amazing/Amazing'))
 const Count = lazy(() => import('../Pages/Count/Count'))
 const WorksAndQuotes = lazy(() => import('../Pages/WorksAndQuotes/WorksAndQuotes'))
+const GetStarted = lazy(() => import('../Pages/GetStarted/GetStarted'))
 
 
 
 const Home = () => {
 
-   
+
     return (
         <div>
             <Hero />
-            {/* <PFd/> */}
             <ErrorBoundary
                 FallbackComponent={ErrorFallback}
                 onReset={() => {
@@ -30,6 +31,8 @@ const Home = () => {
                         <Amazing />
                         <Count />
                         <WorksAndQuotes />
+                        <GetStarted />
+                        <Testimonial />
                     </section>
                 </Suspense>
             </ErrorBoundary>
