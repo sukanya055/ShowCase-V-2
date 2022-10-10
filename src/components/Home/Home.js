@@ -1,13 +1,9 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-/* import Amazing from '../Pages/Amazing/Amazing';
-import Count from '../Pages/Count/Count';
-import WorksAndQuotes from '../Pages/WorksAndQuotes/WorksAndQuotes'; */
-
 import Hero from '../Pages/Hero/Hero';
 import ErrorFallback from '../share/ErrorFallBack';
+
 const Amazing = lazy(() => import('../Pages/Amazing/Amazing'))
-// const Hero = lazy(() => import('../Pages/Hero/Hero'))
 const Count = lazy(() => import('../Pages/Count/Count'))
 const WorksAndQuotes = lazy(() => import('../Pages/WorksAndQuotes/WorksAndQuotes'))
 
