@@ -59,7 +59,7 @@ const Login = () => {
   return (
     <Layout>
       <div className="bg-gradient-to-tl h-full flex items-center justify-center from-sky-200 to-sky-100 px-14 py-8">
-        <div className="flex flex-row  h-auto w-2/3 shadow-white shadow ">
+        <div className="flex flex-row my-8 h-auto w-2/3 shadow-white shadow ">
           <div className="basis-1/2 bg-gradient-to-tl px-14 py-5 from-[#5151E5] text-white to-[#72EDF2]">
             <h1 className="text-center text-xl font-bold my-2 font-sans mt-8">
               {isLogin ? "Login" : "Create Account"}
