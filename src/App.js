@@ -6,6 +6,7 @@ import {
   NormalProfile,
   BusinessProfile,
   PasswordChange,
+  BussinessAccountSetup,
 } from "./pages";
 
 import "./App.css";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/normalProfile" element={<NormalProfile />} />
         <Route path="/businessProfile" element={<BusinessProfile />} />
         <Route path="/changePassword" element={<PasswordChange />} />
+        <Route path="/bussinessAccSetup" element={<BussinessAccountSetup />} />
       </Routes>
     </div>
   );
