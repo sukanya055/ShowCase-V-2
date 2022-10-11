@@ -1,0 +1,9 @@
+export { default as Navbar } from "./Navbar";
+export { default as Footer } from "./Footer";
+export { default as Amazing } from "./Amazing";
+export { default as Count } from "./Count";
+export { default as ErrorFallback } from "./ErrorFallBack";
+export { default as GetStarted } from "./GetStarted";
+export { default as WorkesAndQuotes } from "./WorksAndQuotes";
+export { default as Hero } from "./Hero";
+export { default as Layout } from "./Layout";
