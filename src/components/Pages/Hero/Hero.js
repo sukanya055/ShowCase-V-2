@@ -12,7 +12,7 @@ const Hero = () => {
 
     return (
         <div>
-            <div className="hero min-h-screen p-0">
+            <div className="hero min-h-screen p-0 my-20 lg:my-0">
                 <div className="hero-content items-start flex-col lg:flex-row-reverse  max-w-[1600px] p-0">
                     <div className='lg:w-[60%] w-full relative'>
                         <div>
@@ -21,23 +21,23 @@ const Hero = () => {
                                 <img className='w-[31px]' src={circle4} alt="" />
                             </div>
                         </div>
-                        <div className='flex justify-end w-full relative'>
+                        <div className='flex justify-end w-full relative mt-40'>
                             <img
-                                className=' md:w-[300px] lg:w-[354px] xl:w-[500px] 2xl:w-[552px] 2xl:h-[480px] absolute lg:top-[161px] xl:top-[134px] lg:right-[183px] xl:right-[238px]'
+                                className='w-[200px] md:w-[300px] lg:w-[354px] xl:w-[500px] 2xl:w-[552px] 2xl:h-[480px] absolute top-[94px] lg:top-[161px] xl:top-[134px]  right-[100px]  lg:right-[183px] xl:right-[238px]'
                                 src={circle1}
                                 alt=""
                             />
                             <img
-                                className=' md:w-[400px]  lg:w-[400px] xl:w-[480px]  2xl:w-[580px] 2xl:h-[601px]'
+                                className='w-[230px] md:w-[400px]  lg:w-[400px] xl:w-[480px]  2xl:w-[580px] 2xl:h-[601px]'
                                 src={circle2}
                                 alt=""
                             />
-                            <div className='absolute '>
-                                <img className=' lg:w-[80%] lg:mt-[82px] lg:ml-[92px]' src={shoes} alt="shoes" />
+                            <div className='absolute  '>
+                                <img className=' w-[70%] lg:w-[80%] ml-[27%] lg:mt-[82px]  lg:ml-[92px]' src={shoes} alt="shoes" />
                             </div>
                         </div>
                     </div>
-                    <div className='w-full lg:w-[40%] '>
+                    <div className='w-full lg:w-[40%] my-20 lg:my-0'>
                         <div>
                             <img src={elipse1} alt="" />
                             <img src={elipse2} alt="" />
