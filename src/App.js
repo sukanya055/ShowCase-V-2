@@ -7,6 +7,8 @@ import {
   BusinessProfile,
   PasswordChange,
   BussinessAccountSetup,
+  CompleteProfile,
+  OtpVerify,
 } from "./pages";
 
 import "./App.css";
@@ -23,6 +25,8 @@ function App() {
         <Route path="/businessProfile" element={<BusinessProfile />} />
         <Route path="/changePassword" element={<PasswordChange />} />
         <Route path="/bussinessAccSetup" element={<BussinessAccountSetup />} />
+        <Route path="/completeProfile" element={<CompleteProfile />} />
+        <Route path="/otpVerify" element={<OtpVerify />} />
       </Routes>
     </div>
   );

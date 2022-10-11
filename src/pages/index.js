@@ -5,3 +5,5 @@ export { default as BusinessProfile } from "./BusinessProfile";
 export { default as NormalProfile } from "./NormalProfile";
 export { default as PasswordChange } from "./PasswordChange";
 export { default as BussinessAccountSetup } from "./BussinessAccountSetup";
+export { default as CompleteProfile } from "./CompleteProfile";
+export { default as OtpVerify } from "./OtpVerify";
