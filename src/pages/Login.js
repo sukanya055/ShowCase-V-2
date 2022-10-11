@@ -58,16 +58,19 @@ const Login = () => {
 
   return (
     <Layout>
-      <div className="bg-gradient-to-tl h-full flex items-center justify-center from-sky-200 to-sky-100 px-14 py-8">
-        <div className="flex flex-row my-8 h-auto w-2/3 shadow-white shadow ">
-          <div className="basis-1/2 bg-gradient-to-tl px-14 py-5 from-[#5151E5] text-white to-[#72EDF2]">
-            <h1 className="text-center text-xl font-bold my-2 font-sans mt-8">
+      <div className="bg-gradient-to-tl h-full flex items-center justify-center from-sky-200 to-sky-100 md:px-14 px-4 py-8">
+        <div className="md:flex flex-row my-8 h-auto md:w-2/3 w-full shadow-white shadow ">
+          <div className="basis-1/2 bg-gradient-to-tl md:px-14 px-5 py-5 from-[#5151E5] text-white to-[#72EDF2]">
+            <h1 className="text-center md:text-xl text-2xl font-bold my-2 font-sans mt-8">
               {isLogin ? "Login" : "Create Account"}
             </h1>
-            <h3 className="text-center font-roboto text-md">
+            <h3 className="text-center font-roboto text-lg md:text-md">
               Please Login using account details bellow
             </h3>
-            <form onSubmit={handleOnSubmit} className="mt-12 flex-col">
+            <form
+              onSubmit={handleOnSubmit}
+              className="flex gap-2 mt-12 flex-col"
+            >
               <input
                 type="email"
                 placeholder="Enter Email"
@@ -76,7 +79,7 @@ const Login = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                className=" border-b-[1px] placeholder-white outline-none text-white bg-transparent w-full input-md border-white max-w-xs"
+                className=" border-[1px] rounded-lg p-2 placeholder-white outline-none text-white bg-transparent w-full  md:text-lg border-white "
               />
               <input
                 type="password"
@@ -86,7 +89,7 @@ const Login = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
-                className=" border-b-[1px] placeholder-white outline-none text-white bg-transparent w-full input-md border-white max-w-xs"
+                className=" border-[1px] rounded-lg p-2 placeholder-white outline-none text-white bg-transparent w-full  md:text-lg border-white"
               />
               <p className="text-white cursor-pointer text-sm mt-5">
                 Forgot your password ?
@@ -113,7 +116,7 @@ const Login = () => {
               </span>
             </p>
           </div>
-          <div className="basis-1/2   relative bg-white">
+          <div className="basis-1/2 hidden  md:block  relative bg-white">
             <div className="relative h-full">
               <div className="relative  ">
                 <motion.img

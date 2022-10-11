@@ -15,7 +15,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/product/:id" element={<Product />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/auth" element={<Login />} />
 
         <Route path="/" element={<Home />} />
         <Route path="/normalProfile" element={<NormalProfile />} />
