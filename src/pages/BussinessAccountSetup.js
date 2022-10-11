@@ -6,6 +6,7 @@ import phone from "../assets/phone.png";
 import { FaAngleLeft } from "react-icons/fa";
 import { BiShow, BiHide } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
+import { motion } from "framer-motion";
 const initialState = {
   name: "",
   email: "",
@@ -23,13 +24,31 @@ const BussinessAccountSetup = () => {
     console.log(formData);
     setFormData(initialState);
   };
+  const loaderVariants = {
+    animationOne: {
+      y: [0, 20],
+      x: [10, 30],
+      transition: {
+        x: {
+          yoyo: Infinity,
+          duration: 2.95,
+          delay: 1,
+        },
+        y: {
+          yoyo: Infinity,
+          duration: 2.25,
+          ease: "easeOut",
+        },
+      },
+    },
+  };
   return (
     <Layout>
       <div className="px-8 py-11 flex flex-row h-full">
-        <div className="basis-1/4">
+        <div className=" hidden md:block basis-1/4">
           <img src={circle} alt="circle" />
         </div>
-        <div className="basis-2/4 py-6 px-8 ">
+        <div className="md:basis-2/4 basis-4/4 py-6  md:px-8 ">
           <div className="flex justify-between items-center">
             <h1 className="text-gray-400 font-bold flex text-lg items-center cursor-pointer">
               <FaAngleLeft />
@@ -144,14 +163,18 @@ const BussinessAccountSetup = () => {
             </div>
           </div>
         </div>
-        <div className="basis-1/4 relative flex items-center justify-center ">
+        <motion.div
+          className="basis-1/4 relative hidden items-center md:flex justify-center "
+          variants={loaderVariants}
+          animate="animationOne"
+        >
           <img
             src={phone}
             alt="phone"
             className="absolute   w-[205px] h-[456px]"
           />
           <img src={girl} alt="girl" className="absolute  left-24" />
-        </div>
+        </motion.div>
       </div>
     </Layout>
   );
