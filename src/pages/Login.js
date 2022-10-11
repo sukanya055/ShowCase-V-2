@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../components";
 import { FcGoogle } from "react-icons/fc";
 import { motion } from "framer-motion";
@@ -7,11 +7,63 @@ import img2 from "../assets/img2.png";
 import img6 from "../assets/img6.png";
 import img4 from "../assets/img4.png";
 import img5 from "../assets/img5.png";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import auth from "../firebase.init";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import useToken from "../utils/useToken";
+
+
+
 const initialState = {
   email: "",
   password: "",
 };
+
 const Login = () => {
+
+  const [signInWithGoogle, googleUser, loading, error] = useSignInWithGoogle(auth)
+  const navigate = useNavigate()
+  // signOut(auth)
+  const [user] = useAuthState(auth)
+  const { loginError } = useToken(user)
+  const [ErrorMessage, setErrorMessage] = useState("");
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (loginError) {
+      toast.error(loginError, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+    }
+  }, [loginError])
+
+  useEffect(() => {
+    if (ErrorMessage) {
+
+      toast.error(ErrorMessage, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+    }
+  }, [ErrorMessage])
+  console.log(user)
   const loaderVariants = {
     animationOne: {
       y: [0, 20],
@@ -30,6 +82,7 @@ const Login = () => {
       },
     },
   };
+
   const loaderVariantsRev = {
     animationOne: {
       y: [0, -20],
@@ -48,13 +101,96 @@ const Login = () => {
       },
     },
   };
+
   const [formData, setFormData] = useState(initialState);
   const [isLogin, setIsLogin] = useState(true);
-  const handleOnSubmit = (e) => {
+
+  const { email, password } = formData || {}
+
+  const handleOnSubmit = async (e) => {
+
     e.preventDefault();
-    console.log(formData);
-    setFormData(initialState);
+    let response;
+    let regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+    let regxpass = new RegExp(
+      "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})"
+    );
+
+    const userexist = await fetch("https://api.showcaseurbusiness.com/exist", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
+    });
+    const userExistData = await userexist.json();
+
+    if ((userExistData.exist == 1 && regex.test(email) && regxpass.test(password))) {
+      console.log('click')
+      try {
+
+        const data = await axios.post("https://api.showcaseurbusiness.com/user/login", {
+          email: email,
+          password: password,
+
+        });
+        response = data
+        console.log('from response', response);
+
+        localStorage.setItem(
+          "token",
+          JSON.stringify(response.data.accesstoken)
+        );
+        localStorage.setItem("val", JSON.stringify(response.data.val));
+        let token = localStorage.getItem("token");
+
+        token = token.replace(/['"]+/g, "");
+
+        localStorage.setItem('token', JSON.stringify(token))
+        const roles = await fetch("https://api.showcaseurbusiness.com/user/infor", {
+          method: "GET",
+          headers: {
+            Authorization: token,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const roleData = await roles.json();
+        console.log(roleData.role);
+        if (roleData.role == 0) {
+          navigate("/dashboarduser");
+        } else {
+          navigate("/dashboardbusiness");
+        }
+      } catch (error) {
+        if (error?.response) {
+          setErrorMessage(error?.response?.data.msg);
+        }
+      }
+    } else if (!regex.test(email)) {
+      setOpen(true);
+      setErrorMessage("Invalid Email Address is Entered!");
+    }
+    else if (!regxpass.test(password)) {
+      setOpen(true);
+      setErrorMessage("Password entered should have atleast 8 characters, one uppercase, one lowercase, one number and one special character!");
+    }
+    else if (userExistData.exist == 0) {
+      setOpen(true);
+      setErrorMessage("User does not exist");
+    }
   };
+
+
+
+  // console.log(user)
+  const handleGoogleBtn = async () => {
+    await signInWithGoogle()
+  }
+
+
 
   return (
     <Layout>
@@ -94,16 +230,28 @@ const Login = () => {
               <p className="text-white cursor-pointer text-sm mt-5">
                 Forgot your password ?
               </p>
-              <div className="w-full flex justify-end items-center">
-                <button className="font-meduim rounded-full mt-5 py-2 justify-self-end  w-[160px] bg-white text-black">
-                  {isLogin ? "SignIn" : "Signup"}
+              <div className="w-full flex justify-between items-center ">
+                <button
+
+                  className="font-meduim rounded-full mt-5 py-2 justify-self-end  w-[120px]  bg-gradient-to-r from-[#72EDF2] to-[#5151E5 ] text-white">
+                  SignIn
+                </button>
+                <button
+                  onClick={() => navigate('/joinUs')}
+                  className="font-meduim rounded-full mt-5 py-2 justify-self-end  w-[120px] bg-white text-black">
+                  SignUp
                 </button>
               </div>
             </form>
             <div className="divider devide-bg-white divide-white mt-5">OR</div>
-            <button className="btn w-full bg-white mt-4 text-black capitalize">
-              <FcGoogle className="text-xl mr-2 " /> Register with Google
-            </button>
+            <div>
+              <button
+                onClick={() => handleGoogleBtn()}
+                className="btn w-full bg-white mt-4 text-black capitalize">
+                <FcGoogle className="text-xl mr-2 " />  SignIn With Google
+              </button>
+
+            </div>
             <p
               className="text-white cursor-pointer text-md my-5 text-center "
               onClick={() => setIsLogin((prev) => !prev)}
@@ -116,6 +264,7 @@ const Login = () => {
               </span>
             </p>
           </div>
+
           <div className="basis-1/2 hidden  md:block  relative bg-white">
             <div className="relative h-full">
               <div className="relative  ">
@@ -156,6 +305,7 @@ const Login = () => {
                 className="h-[224px] w-[224px] object-contain overflow-hidden absolute top-2/3 left-2/4"
               />
             </div>
+            <ToastContainer />
           </div>
         </div>
       </div>
