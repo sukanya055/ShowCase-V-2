@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../components";
 import circle from "../assets/blue_circle.png";
 import girl from "../assets/girl.png";
@@ -7,6 +7,14 @@ import { FaAngleLeft } from "react-icons/fa";
 import { BiShow, BiHide } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 import { motion } from "framer-motion";
+import { useLocation, useNavigate } from "react-router-dom";
+import RegisterUser from "../utils/registerUser";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
+
 const initialState = {
   name: "",
   email: "",
@@ -14,8 +22,37 @@ const initialState = {
   terms: false,
 };
 const BussinessAccountSetup = () => {
+
+
+  const location = useLocation()
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState(initialState);
+  const [errorMessage, setErrorMessage] = useState('')
+  const [success, setSuccess] = useState('')
+  console.log(errorMessage)
+  const navigate = useNavigate()
+
+
+
+  useEffect(() => {
+    if (errorMessage) {
+      toast.error(errorMessage, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+    }
+    if (success) {
+      navigate(success)
+    }
+  }, [errorMessage, navigate, success])
+
+
   const toggle = () => {
     setShow((prev) => !prev);
   };
@@ -23,6 +60,12 @@ const BussinessAccountSetup = () => {
     e.preventDefault();
     console.log(formData);
     setFormData(initialState);
+
+
+    if (location?.pathname?.includes('/businessAcountSetup')) {
+      RegisterUser(formData, setErrorMessage, setSuccess)
+    }
+
   };
   const loaderVariants = {
     animationOne: {
@@ -85,7 +128,7 @@ const BussinessAccountSetup = () => {
                     onChange={(e) => {
                       setFormData({ ...formData, name: e.target.value });
                     }}
-                    placeholder="Rahul Pradhan."
+                    placeholder="Name"
                     className="input input-bordered w-full max-w-xs"
                   />
                 </div>
@@ -176,6 +219,7 @@ const BussinessAccountSetup = () => {
           <img src={girl} alt="girl" className="absolute  left-24" />
         </motion.div>
       </div>
+      <ToastContainer/>
     </Layout>
   );
 };

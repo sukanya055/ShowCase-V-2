@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { BsChevronLeft } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import profileImg from "../assets/images/profile.png";
 import { Layout } from "../components";
 import styles from "../components/Profile/NormalProfile.module.css";
 
 const BusinessProfile = () => {
+
   const navigate = useNavigate();
   const [image, setImage] = useState("");
   const handleForm = (e) => {

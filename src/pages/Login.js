@@ -13,7 +13,6 @@ import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from "../firebase.init";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
 import useToken from "../utils/useToken";
 
 
