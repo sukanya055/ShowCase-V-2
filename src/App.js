@@ -9,6 +9,7 @@ import {
   BussinessAccountSetup,
   CompleteProfile,
   OtpVerify,
+  JoinUs,
 } from "./pages";
 
 import "./App.css";
@@ -27,6 +28,7 @@ function App() {
         <Route path="/bussinessAccSetup" element={<BussinessAccountSetup />} />
         <Route path="/completeProfile" element={<CompleteProfile />} />
         <Route path="/otpVerify" element={<OtpVerify />} />
+        <Route path="/joinUs" element={<JoinUs />} />
       </Routes>
     </div>
   );
