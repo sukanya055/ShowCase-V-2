@@ -9,9 +9,14 @@ import { FiArrowRight, FiUser } from "react-icons/fi";
 import { IoBagHandleSharp } from "react-icons/io5";
 
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const JoinUs = () => {
+
+  const navigate=useNavigate()
+
+
+
   return (
     <Layout>
       <div className=" py-1 pb-26 mb-14  flex flex-row h-full">
@@ -35,7 +40,9 @@ const JoinUs = () => {
                 <img src={polygon1} alt="polygon" />
                 <FiUser className="text-xl absolute top-4 text-[#3371F2] left-4 " />
               </div>
-              <div>
+              <div
+               onClick={()=>navigate('/normalAcountSetup')}
+              >
                 <h1 className="tex-lg font-bold">Individual</h1>
                 <p className="text-gray-400 text-sm font-semibold">
                   Personal account to manage all you activities
@@ -48,7 +55,9 @@ const JoinUs = () => {
                 <img src={polygon2} alt="polygon" />
                 <IoBagHandleSharp className="text-xl text-white absolute top-4 left-4 " />
               </div>
-              <div>
+              <div 
+              onClick={()=>navigate('/businessAcountSetup')}
+              >
                 <h1 className="tex-lg font-bold">Business</h1>
                 <p className="text-gray-400 text-sm font-semibold">
                   Own or belong company this is for you

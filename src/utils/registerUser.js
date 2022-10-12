@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const RegisterUser = async (formData, setErrorMessage, setSuccess) => {
+const RegisterUser = async (formData, setErrorMessage, setSuccess,role) => {
     const { name, email, password } = formData || {}
     // const navigate = useNavigate()
     console.log(formData)
@@ -33,7 +33,7 @@ const RegisterUser = async (formData, setErrorMessage, setSuccess) => {
             "Password entered should have at least 8 characters, one uppercase, one lowercase, one number and one special character!"
         );
     }
-    else if (userExistData.exist === 0 && regex.test(email) && regxpass.test(password)) {
+    else if (userExistData.exist == 0 && regex.test(email) && regxpass.test(password)) {
 
         console.log('click')
         try {
@@ -43,7 +43,7 @@ const RegisterUser = async (formData, setErrorMessage, setSuccess) => {
                 {
                     name: name,
                     email: email,
-                    role: 1,
+                    role,
                     password: password,
                 }
             );
