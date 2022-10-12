@@ -43,7 +43,7 @@ const CompleteProfile = () => {
         <div className=" hidden md:block basis-1/4">
           <img src={circle} alt="circle" />
         </div>
-        <div className="md:basis-2/4 basis-4/4 py-6  md:px-8 ">
+        <div className="md:basis-2/4 w-full md:py-6  md:px-8 px-3">
           <div className="flex justify-between items-center">
             <h1 className="text-gray-400 font-bold flex text-lg items-center cursor-pointer">
               <FaAngleLeft />
@@ -55,7 +55,7 @@ const CompleteProfile = () => {
             </div>
           </div>
           <div className=" flex flex-col items-center  justify-center">
-            <div className="px-9 py-10 w-2/3">
+            <div className="px-9 py-10 md:w-2/3 w-full flex items-center justify-center flex-col">
               <h1 className="capitalize text-center text-2xl font-semibold text-gray-900">
                 Complete your profile page!
               </h1>
