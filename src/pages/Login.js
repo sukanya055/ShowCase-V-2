@@ -14,6 +14,7 @@ import auth from "../firebase.init";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useToken from "../utils/useToken";
+import { signOut } from "firebase/auth";
 
 
 
@@ -28,7 +29,7 @@ const Login = () => {
   const navigate = useNavigate()
   // signOut(auth)
   const [user] = useAuthState(auth)
-  const { loginError } = useToken(user)
+  const { loginError } = useToken(user,signOut)
   const [ErrorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
 

@@ -27,7 +27,7 @@ const CompleteProfile = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
   const { phone, address, country } = formData || {}
-  
+
   /* useEffect(() => {
     var token = localStorage.getItem("token");
     token = token.replace(/"/g, "");
@@ -88,8 +88,8 @@ const CompleteProfile = () => {
             },
           }
         );
+        console.log(response);
         const responseData = response.data;
-        console.log(responseData);
         const res = await fetch("http://localhost:5000/onetimepassword", {
           method: "POST",
           headers: {
@@ -109,9 +109,9 @@ const CompleteProfile = () => {
             country: country,
           })
         );
-        navigate("/business/otp");
+        navigate("/otpVerify");
       } catch (error) {
-
+        console.log(error)
         if (error.response.data.error == 0) {
           setOpen(true);
           setErrorMessage(

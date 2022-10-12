@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../components";
 import circle from "../assets/profileCircle.png";
 import women from "../assets/women.png";
@@ -7,18 +7,99 @@ import { FaAngleLeft } from "react-icons/fa";
 import { AiOutlineLock } from "react-icons/ai";
 
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
 const initialState = {
   otp: "",
 };
 const CompleteProfile = () => {
   const [formData, setFormData] = useState(initialState);
+  const [errorMessage, setErrorMessage] = useState('')
+  const navigate = useNavigate()
 
-  const handleOnSubmit = (e) => {
+  useEffect(() => {
+
+    if (errorMessage) {
+      toast.success(errorMessage, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+
+    }
+
+  }, [errorMessage])
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      setErrorMessage("OTP expired! Please try again");
+    }, 1000 * 60 * 10);
+
+    setTimeout(() => {
+      if (localStorage.getItem("details") == null) {
+        navigate("/forgotPassword");
+      } else {
+        navigate("/completeProfile");
+      }
+    }, 1000 * 60 * 10 + 5000);
+
+  }, [navigate]);
+
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
     setFormData(initialState);
+
+    let details = localStorage.getItem("details");
+    if (details == null) {
+      details = localStorage.getItem("changePasss");
+    }
+
+    details = JSON.parse(details);
+    let otp = formData?.otp;
+
+    const res = await fetch("https://api.showcaseurbusiness.com/otpcheck", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        otp,
+        country: details.country,
+        phone: details.phone,
+      }),
+    });
+    const msg = await res.json();
+    if (msg.data === "approved") {
+      if (localStorage.getItem("details") == null) {
+
+        navigate("/forgotPassword");
+      }
+      else {
+        localStorage.removeItem("details");
+        navigate("/success");
+      }
+    } else {
+
+      setErrorMessage("OTP is invalid! Try again");
+    }
+
+
+
+
+
   };
+
   const loaderVariants = {
     animationOne: {
       y: [0, 20],
@@ -37,6 +118,9 @@ const CompleteProfile = () => {
       },
     },
   };
+
+
+
   return (
     <Layout>
       <div className=" py-11  flex flex-row h-full">
@@ -105,6 +189,7 @@ const CompleteProfile = () => {
             className="absolute  h-[730px] w-[330px] "
           />
         </div>
+        <ToastContainer />
       </div>
     </Layout>
   );

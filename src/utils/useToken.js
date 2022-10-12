@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import auth from "../firebase.init";
 
 
-const useToken = async (user) => {
+const useToken = async (user,signOut) => {
     const [loginError, setLoginError] = useState('')
     const navigate = useNavigate()
     console.log(user)
@@ -56,11 +57,12 @@ const useToken = async (user) => {
                       } */
                     console.log(error)
                     setLoginError(error?.response?.data?.msg)
+                    signOut(auth)
                 }
             }
         })()
 
-    }, [user, navigate])
+    }, [user, navigate,signOut])
 
 
     return {loginError}
