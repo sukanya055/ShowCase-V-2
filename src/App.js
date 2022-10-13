@@ -25,7 +25,10 @@ function App() {
         <Route path="/normalProfile" element={<NormalProfile />} />
         <Route path="/businessProfile" element={<BusinessProfile />} />
         <Route path="/changePassword" element={<PasswordChange />} />
-        <Route path="/businessAcountSetup" element={<BussinessAccountSetup />} />
+        <Route
+          path="/businessAcountSetup"
+          element={<BussinessAccountSetup />}
+        />
         <Route path="/normalAcountSetup" element={<BussinessAccountSetup />} />
         <Route path="/completeProfile" element={<CompleteProfile />} />
         <Route path="/otpVerify" element={<OtpVerify />} />
