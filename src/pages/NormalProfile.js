@@ -1,22 +1,157 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsChevronLeft } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import profileImg from "../assets/images/profile.png";
 import { Layout } from "../components";
 import styles from "../components/Profile/NormalProfile.module.css";
+import { uploadFile } from 'react-s3';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
+
+
+const S3_BUCKET = 'showcase28';
+const REGION = 'us-east-1';
+const ACCESS_KEY = 'AKIAQFXX4ZU3AHYZQUFH';
+const SECRET_ACCESS_KEY = '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';
+
+const config = {
+  bucketName: S3_BUCKET,
+  region: REGION,
+  accessKeyId: ACCESS_KEY,
+  secretAccessKey: SECRET_ACCESS_KEY,
+}
+
+
+
+
 const NormalProfile = () => {
+
   const navigate = useNavigate();
+  const location = useLocation()
   const [image, setImage] = useState("");
-  const handleForm = (e) => {
+  const [imgFile, setImgFile] = useState('')
+  const [ErrorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false)
+
+  const [name, setName] = useState('')
+  const [about, setAbout] = useState('')
+
+
+  useEffect(() => {
+    if (ErrorMessage) {
+
+      toast.error(ErrorMessage, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+    }
+  }, [ErrorMessage])
+
+  useEffect(() => {
+    (async () => {
+      let token = localStorage.getItem("token");
+      if (token !== undefined && token !== null) {
+        token = token.replace(/['"]+/g, "");
+        try {
+          const response = await axios.get('http://localhost:5000/user/getpic', {
+            headers: {
+              'Authorization': localStorage.getItem('token').replace(/['"]+/g, ""),
+            }
+          });
+          console.log(response)
+          setImage(response.data.profile);
+          setName(response?.data?.name)
+          setAbout(response?.data?.about)
+        }
+        catch (err) {
+          console.log(err)
+        }
+      }
+      else {
+        alert("Login please");
+      }
+    })();
+
+  }, []);
+
+
+
+
+
+  const handleForm = async (e) => {
     e.preventDefault();
+
+    let token = localStorage.getItem("token");
+    if (token !== undefined && token !== null) {
+      token = token.replace(/['"]+/g, "");
+    }
+
+
+    try {
+
+      const response = await axios.patch("http://localhost:5000/user/personal", {
+        about: about,
+        profile: image,
+        name: name
+      },
+        {
+          headers: {
+            'Authorization': localStorage.getItem('token').replace(/['"]+/g, "")
+          }
+        }
+      );
+      if (response?.status === 200) {
+        navigate('/dashboarduser')
+      }
+      console.log(response);
+    }
+    catch (e) {
+      console.log(e);
+      alert(e);
+    }
+
+
   };
 
-  const onImageChange = (event) => {
+
+
+
+
+
+
+
+  const onImageChange = async (event) => {
     console.log("click");
-    if (event.target.files && event.target.files[0]) {
-      setImage(URL.createObjectURL(event.target.files[0]));
-    }
+    setLoading(true)
+    window.Buffer = window.Buffer || require("buffer").Buffer;
+    uploadFile(event.target.files[0], config)
+      .then(data => {
+        setLoading(false)
+        return setImage(data?.location)
+
+      })
+      .catch(error => {
+        setLoading(false)
+        console.log(error)
+      }
+
+      )
+
+    console.log(imgFile)
+
   };
+
+  const handleRoute = (path) => {
+    navigate(`/normalDashboard/${path}`)
+  }
+
   return (
     <Layout>
       <div className="my-20">
@@ -35,10 +170,14 @@ const NormalProfile = () => {
                 type="radio"
                 name="radio-2"
                 className="radio radio-primary"
+                id="profile"
+                onClick={() => handleRoute('updateProfile')}
+              /* checked={() => location.pathname.includes('/normalDashboard/updateProfile') ? false : true} */
               />
               <label
                 className="text-[#1B1C21] text-[14px] md:text-[16px] font-bold"
-                htmlFor=""
+                htmlFor="profile"
+
               >
                 Profile
               </label>
@@ -48,10 +187,13 @@ const NormalProfile = () => {
                 type="radio"
                 name="radio-2"
                 className="radio radio-primary"
+                id="password"
+                onClick={() => handleRoute('updatePasswordNormalProfile')}
               />
               <label
                 className="text-[#1B1C21] text-[14px] md:text-[16px] font-bold"
-                htmlFor=""
+                htmlFor="password"
+
               >
                 Change Password
               </label>
@@ -72,12 +214,13 @@ const NormalProfile = () => {
                   type="file"
                   id="img"
                   className="hidden"
+
                 />
                 <label
                   className="btn bg-[#858A89] px-[26px] md:px-[36px] mt-[14px] text-white font-bold text-[14px] md:text-[16px] rounded-full "
                   htmlFor="img"
                 >
-                  Add pic
+                  {loading ? "Loading..." : "Add pic"}
                 </label>
                 <p className="mt-5 text-[#858A89] text-[14px] md:text-[16px] ">
                   People visiting your profile will see the following info
@@ -88,10 +231,19 @@ const NormalProfile = () => {
           <div>
             <form onSubmit={handleForm} className="w-full lg:w-[80%] mx-auto">
               <div className="w-full">
+                <label
+                  className="block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]"
+                  htmlFor=""
+                >
+                  User Name
+                </label>
                 <input
                   type="text"
                   placeholder="User name"
                   className="input input-bordered w-full"
+                  name="name"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
                 />
               </div>
               <div className="w-full  mt-10">
@@ -104,6 +256,8 @@ const NormalProfile = () => {
                 <textarea
                   className="textarea textarea-bordered w-full min-h-[165px]"
                   placeholder="Bio"
+                  value={about}
+                  onChange={e => setAbout(e.target.value)}
                 ></textarea>
               </div>
               <div className="flex gap-4 justify-center mt-[64px] flex-col md:flex-row">
@@ -125,6 +279,7 @@ const NormalProfile = () => {
             </form>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </Layout>
   );

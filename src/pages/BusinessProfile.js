@@ -38,10 +38,12 @@ const BusinessProfile = () => {
                 type="radio"
                 name="radio-2"
                 className="radio radio-primary"
+                
               />
               <label
                 className="text-[#1B1C21] text-[14px] md:text-[16px] font-bold"
                 htmlFor=""
+                type='check'
               >
                 Profile
               </label>

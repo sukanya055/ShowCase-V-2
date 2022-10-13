@@ -22,7 +22,10 @@ function App() {
         <Route path="/auth" element={<Login />} />
 
         <Route path="/" element={<Home />} />
-        <Route path="/normalProfile" element={<NormalProfile />} />
+        <Route path="/normalDashboard" element={<NormalProfile />} >
+          <Route path='updateProfile' element={<NormalProfile />} />
+          <Route path='updatePasswordNormalProfile' element={<NormalProfile />} />
+        </Route>
         <Route path="/businessProfile" element={<BusinessProfile />} />
         <Route path="/changePassword" element={<PasswordChange />} />
         <Route path="/businessAcountSetup" element={<BussinessAccountSetup />} />
