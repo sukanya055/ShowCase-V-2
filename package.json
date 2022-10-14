@@ -22,10 +22,9 @@
     "react-icons": "^4.4.0",
     "react-leaflet": "^4.1.0",
     "react-router-dom": "^6.4.2",
-<<<<<<< HEAD
+
     "react-s3": "^1.3.1",
-=======
->>>>>>> 606301900deb403c949899cf94cbf7d5f0d3b2c2
+
     "react-scripts": "^5.0.1",
     "react-slick": "^0.29.0",
     "react-toastify": "^9.0.8",
