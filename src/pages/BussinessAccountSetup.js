@@ -22,7 +22,13 @@ const initialState = {
   password: "",
   terms: false,
 };
+
+
+
+
+
 const BussinessAccountSetup = () => {
+  
   const location = useLocation();
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState(initialState);
