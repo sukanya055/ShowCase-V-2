@@ -18,6 +18,7 @@ import "./App.css";
 import ChangePassword from "./pages/ChangePassword";
 import NormalDashboard from "./pages/NormalDashboard";
 import BusinessChangePassword from "./pages/BusinessChangePassword";
+import Gps from "./pages/Gps";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/businessProfile"   >
           <Route path="updateBusinessPassword" element={<BusinessChangePassword />} />
           <Route path="updateBusinessProfile" element={<BusinessProfile />} />
+          <Route path="updateGps" element={<Gps />} />
         </Route>
 
         <Route path="/changePassword" element={<PasswordChange />} />
