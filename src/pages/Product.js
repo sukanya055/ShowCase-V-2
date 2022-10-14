@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Layout } from "../components";
 import { data } from "../utils/productData";
 import whatsApp from "../assets/whatsapp.png";
-import gps from "../assets/gps.png";
+import gps from "../assets/location.png";
 import save from "../assets/save.png";
 import product from "../assets/product_demo.png";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
@@ -12,15 +12,18 @@ import Map from "./Map";
 const Product = () => {
   const params = useParams();
   const [productData, setProductData] = useState({});
-  console.log(params.id);
+
   const fetchData = () => {
-    const product = data.filter((x) => x.id === "2");
+    const product = data.filter((x) => x.id === params.id);
     setProductData(product[0]);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+  if (Object.keys(productData).length === 0) {
+    return <h1>Loading....</h1>;
+  }
   return (
     <div>
       <Layout>
@@ -82,7 +85,7 @@ const Product = () => {
                   <img
                     src={gps}
                     alt="whatsapp"
-                    className="w-[50px] h-[62px]"
+                    className="w-[60px] h-[60px]"
                     onClick={gps}
                   />
 
@@ -108,8 +111,8 @@ const Product = () => {
         </div>
         <input type="checkbox" id="my-modal-4" className="modal-toggle" />
         <label htmlFor="my-modal-4" className="modal cursor-pointer">
-          <label className="modal-box h-full p-0   relative" for="">
-            <Map data={productData} />
+          <label className="modal-box h-full p-0   relative">
+            <Map productData={productData} />
           </label>
         </label>
       </Layout>
