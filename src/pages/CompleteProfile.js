@@ -9,11 +9,8 @@ import { AiOutlineLock } from "react-icons/ai";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const initialState = {
   phone: "",
@@ -21,12 +18,11 @@ const initialState = {
   country: "0",
 };
 const CompleteProfile = () => {
-
   const [formData, setFormData] = useState(initialState);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
-  const { phone, address, country } = formData || {}
+  const { phone, address, country } = formData || {};
 
   /* useEffect(() => {
     var token = localStorage.getItem("token");
@@ -41,7 +37,6 @@ const CompleteProfile = () => {
     }
   }, [navigate]); */
 
-
   useEffect(() => {
     if (errorMessage) {
       toast.error(errorMessage, {
@@ -53,24 +48,19 @@ const CompleteProfile = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-      })
+      });
     }
-  }, [errorMessage])
-
+  }, [errorMessage]);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
     setFormData(initialState);
 
-
-
     if (phone.length !== 10) {
       setOpen(true);
       setErrorMessage("Please enter valid phone number");
-    }
-
-    else if (country == "please" || country == "") {
+    } else if (country == "please" || country == "") {
       setOpen(true);
       setErrorMessage("Please select country");
     } else if (phone.length === 10 && country !== "please" && country != "") {
@@ -111,7 +101,7 @@ const CompleteProfile = () => {
         );
         navigate("/otpVerify");
       } catch (error) {
-        console.log(error)
+        console.log(error);
         if (error.response.data.error == 0) {
           setOpen(true);
           setErrorMessage(
@@ -120,9 +110,6 @@ const CompleteProfile = () => {
         }
       }
     }
-
-
-
   };
   const loaderVariants = {
     animationOne: {
@@ -152,7 +139,7 @@ const CompleteProfile = () => {
           <div className="flex justify-between items-center">
             <h1 className="text-gray-400 font-bold flex text-lg items-center cursor-pointer">
               <FaAngleLeft />
-              <Link to="/bussinessAccSetup">Back</Link>
+              <Link to="/businessAcountSetup">Back</Link>
             </h1>
             <div className="flex justify-end items-end flex-col">
               <p className="text-gray-400 test-md">STEP 02/03</p>
@@ -223,14 +210,8 @@ const CompleteProfile = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, country: e.target.value })
                     }
-
                   >
-                    <option
-                      disabled
-                      selected
-                      value="0"
-
-                    >
+                    <option disabled selected value="0">
                       Please Select
                     </option>
                     <option data-countryCode="DZ" value="213">
@@ -899,7 +880,7 @@ const CompleteProfile = () => {
           />
         </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </Layout>
   );
 };

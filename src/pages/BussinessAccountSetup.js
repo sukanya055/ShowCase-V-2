@@ -9,15 +9,12 @@ import { FcGoogle } from "react-icons/fc";
 import { motion } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
 import RegisterUser from "../utils/registerUser";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import useGoogleRegister from "../utils/googleRegister";
 import { signOut } from "firebase/auth";
-
-
-
 
 const initialState = {
   name: "",
@@ -26,22 +23,21 @@ const initialState = {
   terms: false,
 };
 const BussinessAccountSetup = () => {
-
-
-  const location = useLocation()
+  const location = useLocation();
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState(initialState);
-  const [errorMessage, setErrorMessage] = useState('')
-  const [success, setSuccess] = useState('')
-  const [user] = useAuthState(auth)
-  let role = location.pathname.includes('/businessAcountSetup') && 1
-  role = location.pathname.includes('/normalAcountSetup') && 0
-  useGoogleRegister(user, setErrorMessage, setSuccess, role)
+  const [errorMessage, setErrorMessage] = useState("");
+  const [success, setSuccess] = useState("");
+  const [user] = useAuthState(auth);
+  let role = location.pathname.includes("/businessAcountSetup") && 1;
+  role = location.pathname.includes("/normalAcountSetup") && 0;
+  useGoogleRegister(user, setErrorMessage, setSuccess, role);
 
-  const [signInWithGoogle, googleUser, loading, error] = useSignInWithGoogle(auth)
+  const [signInWithGoogle, googleUser, loading, error] =
+    useSignInWithGoogle(auth);
 
   // console.log(user)
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (errorMessage) {
@@ -54,14 +50,13 @@ const BussinessAccountSetup = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-      })
-      signOut(auth)
+      });
+      signOut(auth);
     }
     if (success) {
-      navigate(success)
+      navigate(success);
     }
-  }, [errorMessage, navigate, success])
-
+  }, [errorMessage, navigate, success]);
 
   const toggle = () => {
     setShow((prev) => !prev);
@@ -71,14 +66,21 @@ const BussinessAccountSetup = () => {
     console.log(formData);
     setFormData(initialState);
 
+<<<<<<< HEAD
 
     if (location?.pathname?.includes('/businessAccountSetup')) {
       RegisterUser(formData, setErrorMessage, setSuccess, 1)
     }
     if (location?.pathname?.includes('/normalAccountSetup')) {
       RegisterUser(formData, setErrorMessage, setSuccess, 0)
+=======
+    if (location?.pathname?.includes("/businessAcountSetup")) {
+      RegisterUser(formData, setErrorMessage, setSuccess, 1);
     }
-
+    if (location?.pathname?.includes("/normalAcountSetup")) {
+      RegisterUser(formData, setErrorMessage, setSuccess, 0);
+>>>>>>> 606301900deb403c949899cf94cbf7d5f0d3b2c2
+    }
   };
 
   const loaderVariants = {
@@ -100,6 +102,7 @@ const BussinessAccountSetup = () => {
     },
   };
 
+<<<<<<< HEAD
 
   // google login 
   const handleGoogleRegister = () => {
@@ -108,10 +111,15 @@ const BussinessAccountSetup = () => {
 
 
 
+=======
+  const handleGoogleRegister = () => {
+    signInWithGoogle();
+  };
+>>>>>>> 606301900deb403c949899cf94cbf7d5f0d3b2c2
 
   return (
     <Layout>
-      <div className="py-11  flex flex-row h-full">
+      <div className="py-11 overflow-hidden  flex flex-row h-full">
         <div className=" hidden md:block basis-1/4">
           <img src={circle} alt="circle" />
         </div>
@@ -225,15 +233,16 @@ const BussinessAccountSetup = () => {
                 </button>
               </form>
               <button
-              onClick={handleGoogleRegister}
-              className="btn w-full bg-white mt-4 text-black capitalize">
+                onClick={handleGoogleRegister}
+                className="btn w-full bg-white mt-4 text-black capitalize"
+              >
                 <FcGoogle className="text-xl mr-2 " /> Register with Google
               </button>
             </div>
           </div>
         </div>
         <motion.div
-          className="basis-1/4 relative hidden items-center md:flex justify-center "
+          className="basis-1/4 relative hidden items-center overflow-hidden md:flex justify-center "
           variants={loaderVariants}
           animate="animationOne"
         >
