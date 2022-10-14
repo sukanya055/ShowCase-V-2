@@ -72,10 +72,10 @@ const BussinessAccountSetup = () => {
     setFormData(initialState);
 
 
-    if (location?.pathname?.includes('/businessAcountSetup')) {
+    if (location?.pathname?.includes('/businessAccountSetup')) {
       RegisterUser(formData, setErrorMessage, setSuccess, 1)
     }
-    if (location?.pathname?.includes('/normalAcountSetup')) {
+    if (location?.pathname?.includes('/normalAccountSetup')) {
       RegisterUser(formData, setErrorMessage, setSuccess, 0)
     }
 

@@ -36,6 +36,7 @@ const NormalProfile = () => {
 
   const [name, setName] = useState('')
   const [about, setAbout] = useState('')
+ 
 
 
   useEffect(() => {
@@ -120,13 +121,6 @@ const NormalProfile = () => {
 
   };
 
-
-
-
-
-
-
-
   const onImageChange = async (event) => {
     console.log("click");
     setLoading(true)
@@ -149,9 +143,11 @@ const NormalProfile = () => {
   };
 
   const handleRoute = (path) => {
-    navigate(`/normalDashboard/${path}`)
+    navigate(`/dashboard/${path}`)
   }
 
+
+  
   return (
     <Layout>
       <div className="my-20">
@@ -220,7 +216,7 @@ const NormalProfile = () => {
                   className="btn bg-[#858A89] px-[26px] md:px-[36px] mt-[14px] text-white font-bold text-[14px] md:text-[16px] rounded-full "
                   htmlFor="img"
                 >
-                  {loading ? "Loading..." : "Add pic"}
+                  {loading ? "Uploading..." : "Add pic"}
                 </label>
                 <p className="mt-5 text-[#858A89] text-[14px] md:text-[16px] ">
                   People visiting your profile will see the following info

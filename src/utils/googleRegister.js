@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import auth from "../firebase.init";
 
 const useGoogleRegister = (user, setErrorMessage, setSuccess, role) => {
-    const { name, email } = user || {}
+    const { displayName, email } = user || {}
 
     useEffect(() => {
         (async () => {
@@ -22,7 +22,7 @@ const useGoogleRegister = (user, setErrorMessage, setSuccess, role) => {
                     })
                 })
                 const userExistData = await userexist.json()
-                console.log(userExistData)
+                
 
                 if (userExistData.message === 'Email already exist') return setErrorMessage('Email already exist')
 
@@ -40,7 +40,7 @@ const useGoogleRegister = (user, setErrorMessage, setSuccess, role) => {
                         const response = await axios.post(
                             "http://localhost:5000/user/register",
                             {
-                                name: name,
+                                name: displayName,
                                 email: email,
                                 role,
                                 google: 'Google',
@@ -65,7 +65,7 @@ const useGoogleRegister = (user, setErrorMessage, setSuccess, role) => {
                 }
             }
         })()
-    }, [user,email,role,setErrorMessage,setSuccess,name])
+    }, [user,email,role,setErrorMessage,setSuccess,displayName])
 }
 
 export default useGoogleRegister

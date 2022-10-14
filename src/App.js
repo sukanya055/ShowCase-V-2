@@ -10,9 +10,15 @@ import {
   CompleteProfile,
   OtpVerify,
   JoinUs,
+  // ChangePassword
 } from "./pages";
 
 import "./App.css";
+
+import ChangePassword from "./pages/ChangePassword";
+import NormalDashboard from "./pages/NormalDashboard";
+import BusinessChangePassword from "./pages/BusinessChangePassword";
+
 
 function App() {
   return (
@@ -22,17 +28,24 @@ function App() {
         <Route path="/auth" element={<Login />} />
 
         <Route path="/" element={<Home />} />
-        <Route path="/normalDashboard" element={<NormalProfile />} >
-          <Route path='updateProfile' element={<NormalProfile />} />
-          <Route path='updatePasswordNormalProfile' element={<NormalProfile />} />
+
+        <Route path="dashboard"  >
+          <Route index path='updateProfile' element={<NormalProfile />} />
+          <Route path='updatePasswordNormalProfile' element={<ChangePassword />} />
         </Route>
-        <Route path="/businessProfile" element={<BusinessProfile />} />
+
+        <Route path="/businessProfile"   >
+          <Route path="updateBusinessPassword" element={<BusinessChangePassword />} />
+          <Route path="updateBusinessProfile" element={<BusinessProfile />} />
+        </Route>
+
         <Route path="/changePassword" element={<PasswordChange />} />
-        <Route path="/businessAcountSetup" element={<BussinessAccountSetup />} />
-        <Route path="/normalAcountSetup" element={<BussinessAccountSetup />} />
+        <Route path="/businessAccountSetup" element={<BussinessAccountSetup />} />
+        <Route path="/normalAccountSetup" element={<BussinessAccountSetup />} />
         <Route path="/completeProfile" element={<CompleteProfile />} />
         <Route path="/otpVerify" element={<OtpVerify />} />
         <Route path="/joinUs" element={<JoinUs />} />
+        
       </Routes>
     </div>
   );
