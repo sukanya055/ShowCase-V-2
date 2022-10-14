@@ -101,11 +101,10 @@ const BussinessAccountSetup = () => {
   };
 
 
+  // google login 
   const handleGoogleRegister = () => {
     signInWithGoogle()
   }
-
-
 
 
 
