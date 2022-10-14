@@ -51,7 +51,7 @@ const Gps = () => {
             }
         }
         catch (error) {
-            console.log(error)
+            setSuccessMessage(error.message)
         }
 
     }
