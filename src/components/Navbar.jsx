@@ -5,6 +5,12 @@ import { FiChevronDown } from "react-icons/fi";
 import { VscThreeBars } from "react-icons/vsc";
 import { CgClose } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import {
+  commonCategory,
+  homeCategories,
+  mensCategories,
+  womenCategories,
+} from "../utils/data";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -37,18 +43,94 @@ const Navbar = () => {
           <h1 className="text-md text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
             All Videos
           </h1>
-          <h1 className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
-            Men <FiChevronDown />
-          </h1>
-          <h1 className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
-            Women <FiChevronDown />
-          </h1>
-          <h1 className="text- flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
-            kids <FiChevronDown />
-          </h1>
-          <h1 className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
-            Home & Kitchen <FiChevronDown />
-          </h1>
+          <div className="dropdown dropdown-hover">
+            <h1
+              tabIndex={0}
+              className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+            >
+              Men <FiChevronDown />
+            </h1>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
+            >
+              {commonCategory.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+              {mensCategories.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="dropdown dropdown-hover">
+            <h1
+              tabIndex={0}
+              className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+            >
+              Women <FiChevronDown />
+            </h1>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
+            >
+              {commonCategory.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+              {womenCategories.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="dropdown dropdown-hover">
+            <h1
+              tabIndex={0}
+              className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+            >
+              kids <FiChevronDown />
+            </h1>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
+            >
+              {commonCategory.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+              {mensCategories.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="dropdown dropdown-hover">
+            <h1
+              tabIndex={0}
+              className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+            >
+              Home & Kitchen <FiChevronDown />
+            </h1>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
+            >
+              {homeCategories.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         {/* users */}
@@ -78,18 +160,93 @@ const Navbar = () => {
               <h1 className="text-lg flex items-center justify-center text-gray-700 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
                 All Videos
               </h1>
-              <h1 className="text-lg flex items-center justify-center text-gray-700 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
-                Men <FiChevronDown />
-              </h1>
-              <h1 className="text-lg flex items-center justify-center text-gray-700 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
-                Women <FiChevronDown />
-              </h1>
-              <h1 className="text-lg flex items-center justify-center text-gray-700 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
-                kids <FiChevronDown />
-              </h1>
-              <h1 className="text-lg flex items-center justify-center text-gray-700 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
-                Home & Kitchen <FiChevronDown />
-              </h1>
+              <div className="dropdown dropdown-end">
+                <h1
+                  tabIndex={0}
+                  className="text-lg flex items-center justify-center text-gray-700 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+                >
+                  Men <FiChevronDown />
+                </h1>
+                <ul
+                  tabIndex={0}
+                  className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
+                >
+                  {commonCategory.map((item) => (
+                    <li key={item.id}>
+                      <a>{item.name}</a>
+                    </li>
+                  ))}
+                  {mensCategories.map((item) => (
+                    <li key={item.id}>
+                      <a>{item.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="dropdown dropdown-end">
+                <h1
+                  tabIndex={0}
+                  className="text-lg flex items-center justify-center text-gray-700 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+                >
+                  Women <FiChevronDown />
+                </h1>
+                <ul
+                  tabIndex={0}
+                  className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
+                >
+                  {commonCategory.map((item) => (
+                    <li key={item.id}>
+                      <a>{item.name}</a>
+                    </li>
+                  ))}
+                  {womenCategories.map((item) => (
+                    <li key={item.id}>
+                      <a>{item.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="dropdown dropdown-end">
+                <h1
+                  tabIndex={0}
+                  className="text-lg flex items-center justify-center text-gray-700 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+                >
+                  Kids <FiChevronDown />
+                </h1>
+                <ul
+                  tabIndex={0}
+                  className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
+                >
+                  {commonCategory.map((item) => (
+                    <li key={item.id}>
+                      <a>{item.name}</a>
+                    </li>
+                  ))}
+                  {mensCategories.map((item) => (
+                    <li key={item.id}>
+                      <a>{item.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="dropdown dropdown-end">
+                <h1
+                  tabIndex={0}
+                  className="text-lg flex items-center justify-center text-gray-700 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+                >
+                  Home & Kitchen <FiChevronDown />
+                </h1>
+                <ul
+                  tabIndex={0}
+                  className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
+                >
+                  {homeCategories.map((item) => (
+                    <li key={item.id}>
+                      <a>{item.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <button className="text-lg text-white bg-blue-500 px-2 py-1 rounded-md  hover:bg-blue-400 transition-colors delay-100 ease-out">
                 <Link to="/auth">Login</Link>
               </button>
