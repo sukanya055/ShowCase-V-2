@@ -1,16 +1,35 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import auth from "../firebase.init";
 
 
-const useToken = async (user) => {
-    const [loginError, setLoginError] = useState('')
+const useToken = async (user, signOut,setLoginError) => {
+   
     const navigate = useNavigate()
     console.log(user)
     useEffect(() => {
         (async () => {
             if (user) {
                 try {
+
+
+
+                    const userexist = await fetch("https://api.showcaseurbusiness.com/exist", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            email: user.email,
+                        }),
+                    });
+                   /*  const userExistData = await userexist.json();
+                    console.log(userExistData)
+                    if(userExistData.message.includes('Email not exist')){
+                        console.log('click')
+                        setLoginError(userExistData.message)
+                    } */
                     let response
                     const data = await axios.post("http://localhost:5000/user/login", {
                         email: user?.email,
@@ -56,14 +75,14 @@ const useToken = async (user) => {
                       } */
                     console.log(error)
                     setLoginError(error?.response?.data?.msg)
+                    signOut(auth)
                 }
             }
         })()
 
-    }, [user, navigate])
+    }, [user, navigate, signOut])
 
-
-    return {loginError}
+    
 }
 
 export default useToken

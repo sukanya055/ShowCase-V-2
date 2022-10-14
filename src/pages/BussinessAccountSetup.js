@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../components";
 import circle from "../assets/blue_circle.png";
 import girl from "../assets/girl.png";
@@ -7,6 +7,18 @@ import { FaAngleLeft } from "react-icons/fa";
 import { BiShow, BiHide } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 import { motion } from "framer-motion";
+import { useLocation, useNavigate } from "react-router-dom";
+import RegisterUser from "../utils/registerUser";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import auth from "../firebase.init";
+import useGoogleRegister from "../utils/googleRegister";
+import { signOut } from "firebase/auth";
+
+
+
+
 const initialState = {
   name: "",
   email: "",
@@ -14,8 +26,43 @@ const initialState = {
   terms: false,
 };
 const BussinessAccountSetup = () => {
+
+
+  const location = useLocation()
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState(initialState);
+  const [errorMessage, setErrorMessage] = useState('')
+  const [success, setSuccess] = useState('')
+  const [user] = useAuthState(auth)
+  let role = location.pathname.includes('/businessAcountSetup') && 1
+  role = location.pathname.includes('/normalAcountSetup') && 0
+  useGoogleRegister(user, setErrorMessage, setSuccess, role)
+
+  const [signInWithGoogle, googleUser, loading, error] = useSignInWithGoogle(auth)
+
+  // console.log(user)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (errorMessage) {
+      toast.error(errorMessage, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+      signOut(auth)
+    }
+    if (success) {
+      navigate(success)
+    }
+  }, [errorMessage, navigate, success])
+
+
   const toggle = () => {
     setShow((prev) => !prev);
   };
@@ -23,7 +70,17 @@ const BussinessAccountSetup = () => {
     e.preventDefault();
     console.log(formData);
     setFormData(initialState);
+
+
+    if (location?.pathname?.includes('/businessAccountSetup')) {
+      RegisterUser(formData, setErrorMessage, setSuccess, 1)
+    }
+    if (location?.pathname?.includes('/normalAccountSetup')) {
+      RegisterUser(formData, setErrorMessage, setSuccess, 0)
+    }
+
   };
+
   const loaderVariants = {
     animationOne: {
       y: [0, 20],
@@ -42,6 +99,17 @@ const BussinessAccountSetup = () => {
       },
     },
   };
+
+
+  const handleGoogleRegister = () => {
+    signInWithGoogle()
+  }
+
+
+
+
+
+
   return (
     <Layout>
       <div className="py-11  flex flex-row h-full">
@@ -85,7 +153,7 @@ const BussinessAccountSetup = () => {
                     onChange={(e) => {
                       setFormData({ ...formData, name: e.target.value });
                     }}
-                    placeholder="Rahul Pradhan."
+                    placeholder="Name"
                     className="input input-bordered w-full max-w-xs"
                   />
                 </div>
@@ -157,7 +225,9 @@ const BussinessAccountSetup = () => {
                   Register account
                 </button>
               </form>
-              <button className="btn w-full bg-white mt-4 text-black capitalize">
+              <button
+              onClick={handleGoogleRegister}
+              className="btn w-full bg-white mt-4 text-black capitalize">
                 <FcGoogle className="text-xl mr-2 " /> Register with Google
               </button>
             </div>
@@ -176,6 +246,7 @@ const BussinessAccountSetup = () => {
           <img src={girl} alt="girl" className="absolute  left-24" />
         </motion.div>
       </div>
+      <ToastContainer />
     </Layout>
   );
 };
