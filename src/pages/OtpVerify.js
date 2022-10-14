@@ -94,10 +94,6 @@ const CompleteProfile = () => {
       setErrorMessage("OTP is invalid! Try again");
     }
 
-
-
-
-
   };
 
   const loaderVariants = {

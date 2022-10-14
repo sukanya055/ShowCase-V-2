@@ -41,7 +41,7 @@ const JoinUs = () => {
                 <FiUser className="text-xl absolute top-4 text-[#3371F2] left-4 " />
               </div>
               <div
-               onClick={()=>navigate('/normalAcountSetup')}
+               onClick={()=>navigate('/normalAccountSetup')}
               >
                 <h1 className="tex-lg font-bold">Individual</h1>
                 <p className="text-gray-400 text-sm font-semibold">
@@ -56,7 +56,7 @@ const JoinUs = () => {
                 <IoBagHandleSharp className="text-xl text-white absolute top-4 left-4 " />
               </div>
               <div 
-              onClick={()=>navigate('/businessAcountSetup')}
+              onClick={()=>navigate('/businessAccountSetup')}
               >
                 <h1 className="tex-lg font-bold">Business</h1>
                 <p className="text-gray-400 text-sm font-semibold">

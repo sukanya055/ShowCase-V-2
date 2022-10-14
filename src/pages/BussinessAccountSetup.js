@@ -22,7 +22,13 @@ const initialState = {
   password: "",
   terms: false,
 };
+
+
+
+
+
 const BussinessAccountSetup = () => {
+  
   const location = useLocation();
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState(initialState);
@@ -66,12 +72,21 @@ const BussinessAccountSetup = () => {
     console.log(formData);
     setFormData(initialState);
 
-    if (location?.pathname?.includes("/businessAcountSetup")) {
-      RegisterUser(formData, setErrorMessage, setSuccess, 1);
+
+
+    if (location?.pathname?.includes('/businessAccountSetup')) {
+      RegisterUser(formData, setErrorMessage, setSuccess, 1)
     }
-    if (location?.pathname?.includes("/normalAcountSetup")) {
-      RegisterUser(formData, setErrorMessage, setSuccess, 0);
-    }
+    if (location?.pathname?.includes('/normalAccountSetup')) {
+      RegisterUser(formData, setErrorMessage, setSuccess, 0)
+// =======
+//     if (location?.pathname?.includes("/businessAcountSetup")) {
+//       RegisterUser(formData, setErrorMessage, setSuccess, 1);
+//     }
+//     if (location?.pathname?.includes("/normalAcountSetup")) {
+//       RegisterUser(formData, setErrorMessage, setSuccess, 0);
+// >>>>>>> 606301900deb403c949899cf94cbf7d5f0d3b2c2
+//     }
   };
 
   const loaderVariants = {
@@ -93,9 +108,20 @@ const BussinessAccountSetup = () => {
     },
   };
 
+
+
+  // google login 
   const handleGoogleRegister = () => {
-    signInWithGoogle();
-  };
+    signInWithGoogle()
+  }
+
+
+
+// =======
+//   const handleGoogleRegister = () => {
+//     signInWithGoogle();
+//   };
+// >>>>>>> 606301900deb403c949899cf94cbf7d5f0d3b2c2
 
   return (
     <Layout>
@@ -239,4 +265,4 @@ const BussinessAccountSetup = () => {
   );
 };
 
-export default BussinessAccountSetup;
+export default BussinessAccountSetup

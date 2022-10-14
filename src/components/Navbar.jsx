@@ -5,12 +5,18 @@ import { FiChevronDown } from "react-icons/fi";
 import { VscThreeBars } from "react-icons/vsc";
 import { CgClose } from "react-icons/cg";
 import { Link } from "react-router-dom";
+
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../firebase.init";
+import { signOut } from "firebase/auth";
+// =======
 import {
   commonCategory,
   homeCategories,
   mensCategories,
   womenCategories,
 } from "../utils/data";
+// >>>>>>> 606301900deb403c949899cf94cbf7d5f0d3b2c2
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -18,6 +24,18 @@ const Navbar = () => {
   const toggle = () => {
     setIsOpen((prev) => !prev);
   };
+
+  const token = localStorage.getItem("token");
+  const [user] = useAuthState(auth);
+
+  const handleSignOut=()=>{
+    console.log('click')
+    signOut(auth)
+    localStorage.removeItem('token')
+  }
+
+
+  console.log(token);
   return (
     <div className="shadow-md md:py-2 px-6 py-0">
       <div className="flex items-center justify-between">
@@ -138,9 +156,18 @@ const Navbar = () => {
           <div className="bg-sky-100 p-2 rounded-lg cursor-pointer">
             <BiUser className="md:text-2xl text-xl" />
           </div>
-          <button className="py-2 hidden md:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out">
-            <Link to="/auth">Login</Link>
-          </button>
+          {token || user ? (
+            <button 
+            onClick={handleSignOut}
+            className="py-2 hidden md:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out">
+              Sign Out
+            </button>
+          ) : (
+            <button className="py-2 hidden md:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out">
+              {<Link to="/auth">Login</Link>}
+            </button>
+          )}
+
           {!isOpen && (
             <VscThreeBars
               onClick={toggle}

@@ -1,25 +1,148 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsChevronLeft } from "react-icons/bs";
-import {  useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { uploadFile } from "react-s3";
 import profileImg from "../assets/images/profile.png";
 import { Layout } from "../components";
 import styles from "../components/Profile/NormalProfile.module.css";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
+
+const S3_BUCKET = 'showcase28';
+const REGION = 'us-east-1';
+const ACCESS_KEY = 'AKIAQFXX4ZU3AHYZQUFH';
+const SECRET_ACCESS_KEY = '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';
+
+const config = {
+  bucketName: S3_BUCKET,
+  region: REGION,
+  accessKeyId: ACCESS_KEY,
+  secretAccessKey: SECRET_ACCESS_KEY,
+}
+
+
+
 const BusinessProfile = () => {
 
   const navigate = useNavigate();
+  const location = useLocation()
   const [image, setImage] = useState("");
-  const handleForm = (e) => {
+  const [imgFile, setImgFile] = useState('')
+  const [ErrorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false)
+
+  const [name, setName] = useState('')
+  const [about, setAbout] = useState('')
+  const [whatsapp, setWhatsApp] = useState('')
+  const [phone, setPhone] = useState('')
+
+  useEffect(() => {
+    if (ErrorMessage) {
+
+      toast.error(ErrorMessage, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+    }
+  }, [ErrorMessage])
+
+  useEffect(() => {
+    (async () => {
+      let token = localStorage.getItem("token");
+      if (token !== undefined && token !== null) {
+        token = token.replace(/['"]+/g, "");
+        try {
+          const response = await axios.get('http://localhost:5000/user/getpic', {
+            headers: {
+              'Authorization': localStorage.getItem('token').replace(/['"]+/g, ""),
+            }
+          });
+          console.log('from', response)
+          setImage(response.data.profile);
+
+        }
+        catch (err) {
+          console.log(err)
+        }
+      }
+      else {
+        alert("Login please");
+      }
+    })();
+
+  }, []);
+
+
+
+
+
+  const handleForm = async (e) => {
     e.preventDefault();
+    setLoading(true)
+    console.log(name, whatsapp, about)
+
+
+
+
+    try {
+
+      const response = await axios.patch('http://localhost:5000/user/editpro', {
+        name: name,
+        phone: phone,
+        about: about,
+        whats: whatsapp,
+        profile: image
+      }, {
+        headers: {
+          'Authorization': localStorage.getItem('token').replace(/['"]+/g, ""),
+        }
+      });
+
+      console.log(response);
+      navigate('/dashboardBusiness')
+    } catch (error) {
+      if (error.response) {
+        setLoading(false)
+        setErrorMessage(error.response.data.msg)
+      }
+    }
+
   };
 
-  const onImageChange = (event) => {
+  const onImageChange = async (event) => {
     console.log("click");
-    if (event.target.files && event.target.files[0]) {
-      setImage(URL.createObjectURL(event.target.files[0]));
-    }
+    setLoading(true)
+    window.Buffer = window.Buffer || require("buffer").Buffer;
+    uploadFile(event.target.files[0], config)
+      .then(data => {
+        setLoading(false)
+        return setImage(data?.location)
+
+      })
+      .catch(error => {
+        setLoading(false)
+        console.log(error)
+      }
+      )
+      
+    console.log(imgFile)
+
   };
-  console.log(image);
+
+  const handleRoute = (path) => {
+    navigate(`/businessProfile/${path}`)
+  }
+
+  console.log(whatsapp, name);
+
   return (
     <Layout>
       <div className="my-20">
@@ -38,10 +161,13 @@ const BusinessProfile = () => {
                 type="radio"
                 name="radio-2"
                 className="radio radio-primary"
+                onClick={() => handleRoute('updateBusinessProfile')}
               />
               <label
                 className="text-[#1B1C21] text-[14px] md:text-[16px] font-bold"
                 htmlFor=""
+                type='check'
+
               >
                 Profile
               </label>
@@ -51,10 +177,12 @@ const BusinessProfile = () => {
                 type="radio"
                 name="radio-2"
                 className="radio radio-primary"
+                onClick={() => handleRoute('updateBusinessPassword')}
               />
               <label
                 className="text-[#1B1C21] text-[14px] md:text-[16px] font-bold"
                 htmlFor=""
+
               >
                 Change Password
               </label>
@@ -64,10 +192,12 @@ const BusinessProfile = () => {
                 type="radio"
                 name="radio-2"
                 className="radio radio-primary"
+                onClick={() => handleRoute('updateGps')}
               />
               <label
                 className="text-[#1B1C21] text-[14px] md:text-[16px] font-bold"
                 htmlFor=""
+
               >
                 GPS
               </label>
@@ -93,7 +223,7 @@ const BusinessProfile = () => {
                   className="btn bg-[#858A89] px-[26px] md:px-[36px] mt-[14px] text-white font-bold text-[14px] md:text-[16px] rounded-full "
                   htmlFor="img"
                 >
-                  Add pic
+                  {loading ? "Uploading..." : "Add pic"}
                 </label>
                 <p className="mt-5 text-[#858A89] text-[14px] md:text-[16px] ">
                   People visiting your profile will see the following info
@@ -107,6 +237,8 @@ const BusinessProfile = () => {
                 <label
                   className="block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]"
                   htmlFor=""
+                  value={name}
+                  onChange={e => console.log(e.target.value)}
                 >
                   User Name
                 </label>
@@ -116,6 +248,8 @@ const BusinessProfile = () => {
                 <label
                   className="block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]"
                   htmlFor=""
+                  value={whatsapp}
+                  onChange={e => setWhatsApp(e.target.value)}
                 >
                   Whatsapp link
                 </label>
@@ -125,6 +259,8 @@ const BusinessProfile = () => {
                 <label
                   className="block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]"
                   htmlFor=""
+                  value={phone}
+                  onChange={e => setPhone(e.target.value)}
                 >
                   Phone Number
                 </label>
@@ -134,6 +270,8 @@ const BusinessProfile = () => {
                 <label
                   className="block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]"
                   htmlFor=""
+                  value={about}
+                  onChange={e => setAbout(e.target.value)}
                 >
                   About Me
                 </label>

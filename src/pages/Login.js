@@ -22,17 +22,19 @@ const initialState = {
 };
 
 const Login = () => {
-  const [signInWithGoogle, googleUser, loading, error] =
-    useSignInWithGoogle(auth);
-  const navigate = useNavigate();
+
+  const [signInWithGoogle, googleUser, loading, error] = useSignInWithGoogle(auth)
+  const navigate = useNavigate()
+  const [loginError, setLoginError] = useState('')
   // signOut(auth)
-  const [user] = useAuthState(auth);
-  const { loginError } = useToken(user, signOut);
+  const [user] = useAuthState(auth)
+  useToken(user, signOut, setLoginError)
   const [ErrorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
-
+  console.log(loginError)
   useEffect(() => {
     if (loginError) {
+      console.log(loginError)
       toast.error(loginError, {
         position: "bottom-center",
         autoClose: 5000,
@@ -217,6 +219,12 @@ const Login = () => {
                 }
                 className=" border-[1px] rounded-lg p-2 placeholder-white outline-none text-white bg-transparent w-full  md:text-lg border-white "
               />
+
+
+
+
+
+
               <input
                 type="password"
                 placeholder="Enter Password"
