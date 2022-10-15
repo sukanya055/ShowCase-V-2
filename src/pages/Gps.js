@@ -15,6 +15,7 @@ const Gps = () => {
         navigate(`/businessProfile/${path}`)
     }
     const [successMessage, setSuccessMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
 
     useEffect(() => {
         if (successMessage) {
@@ -31,6 +32,21 @@ const Gps = () => {
             })
         }
     }, [successMessage])
+    useEffect(() => {
+        if (errorMessage) {
+
+            toast.success(errorMessage, {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
+    }, [errorMessage])
 
 
     const handleForm = async (e) => {
@@ -51,7 +67,7 @@ const Gps = () => {
             }
         }
         catch (error) {
-            setSuccessMessage(error.message)
+            setErrorMessage(error.message)
         }
 
     }

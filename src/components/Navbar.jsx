@@ -4,7 +4,7 @@ import { BiSearchAlt, BiUser } from "react-icons/bi";
 import { FiChevronDown } from "react-icons/fi";
 import { VscThreeBars } from "react-icons/vsc";
 import { CgClose } from "react-icons/cg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
@@ -20,7 +20,7 @@ import {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
-
+  const navigate=useNavigate()
   const toggle = () => {
     setIsOpen((prev) => !prev);
   };
@@ -29,9 +29,9 @@ const Navbar = () => {
   const [user] = useAuthState(auth);
 
   const handleSignOut=()=>{
-    console.log('click')
     signOut(auth)
     localStorage.removeItem('token')
+    navigate('/')
   }
 
 
