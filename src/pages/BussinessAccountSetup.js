@@ -264,5 +264,5 @@ const BussinessAccountSetup = () => {
     </Layout>
   );
 };
-
+}
 export default BussinessAccountSetup
