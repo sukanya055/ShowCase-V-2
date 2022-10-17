@@ -23,12 +23,7 @@ const initialState = {
   terms: false,
 };
 
-
-
-
-
 const BussinessAccountSetup = () => {
-  
   const location = useLocation();
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState(initialState);
@@ -42,7 +37,7 @@ const BussinessAccountSetup = () => {
   const [signInWithGoogle, googleUser, loading, error] =
     useSignInWithGoogle(auth);
 
-  // console.log(user)
+  console.log(user);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -71,23 +66,13 @@ const BussinessAccountSetup = () => {
     e.preventDefault();
     console.log(formData);
     setFormData(initialState);
-
-
-
-    if (location?.pathname?.includes('/businessAccountSetup')) {
-      RegisterUser(formData, setErrorMessage, setSuccess, 1)
-    }
-    if (location?.pathname?.includes('/normalAccountSetup')) {
-      RegisterUser(formData, setErrorMessage, setSuccess, 0)
-// =======
-//     if (location?.pathname?.includes("/businessAcountSetup")) {
-//       RegisterUser(formData, setErrorMessage, setSuccess, 1);
-//     }
-//     if (location?.pathname?.includes("/normalAcountSetup")) {
-//       RegisterUser(formData, setErrorMessage, setSuccess, 0);
-// >>>>>>> 606301900deb403c949899cf94cbf7d5f0d3b2c2
-//     }
   };
+  if (location?.pathname?.includes("/businessAccountSetup")) {
+    RegisterUser(formData, setErrorMessage, setSuccess, 1);
+  }
+  if (location?.pathname?.includes("/normalAccountSetup")) {
+    RegisterUser(formData, setErrorMessage, setSuccess, 0);
+  }
 
   const loaderVariants = {
     animationOne: {
@@ -108,20 +93,16 @@ const BussinessAccountSetup = () => {
     },
   };
 
-
-
-  // google login 
+  // google login
   const handleGoogleRegister = () => {
-    signInWithGoogle()
-  }
+    signInWithGoogle();
+  };
 
-
-
-// =======
-//   const handleGoogleRegister = () => {
-//     signInWithGoogle();
-//   };
-// >>>>>>> 606301900deb403c949899cf94cbf7d5f0d3b2c2
+  // =======
+  //   const handleGoogleRegister = () => {
+  //     signInWithGoogle();
+  //   };
+  // >>>>>>> 606301900deb403c949899cf94cbf7d5f0d3b2c2
 
   return (
     <Layout>
@@ -200,7 +181,10 @@ const BussinessAccountSetup = () => {
                       placeholder="Enter Password"
                       value={formData.password}
                       onChange={(e) => {
-                        setFormData({ ...formData, password: e.target.value });
+                        setFormData({
+                          ...formData,
+                          password: e.target.value,
+                        });
                       }}
                       className=" w-full outline-none max-w-xs"
                     />
@@ -264,5 +248,5 @@ const BussinessAccountSetup = () => {
     </Layout>
   );
 };
-}
-export default BussinessAccountSetup
+
+export default BussinessAccountSetup;
