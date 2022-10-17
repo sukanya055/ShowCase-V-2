@@ -9,6 +9,7 @@ import {
   Layout,
   WorkesAndQuotes,
 } from "../components";
+import Chat from "../components/ChatFile/Chat";
 
 const Home = () => {
   return (
@@ -37,6 +38,7 @@ const Home = () => {
               <h1>Design New store on Show case</h1>
             </div>
           </section>
+          <Chat/>
         </Suspense>
       </ErrorBoundary>
     </Layout>

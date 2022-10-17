@@ -31,7 +31,7 @@ function App() {
         <Route path="/" element={<Home />} />
 
         <Route path="dashboard"  >
-          <Route index path='updateProfile' element={<NormalProfile />} />
+          <Route path='updateProfile' element={<NormalProfile />} />
           <Route path='updatePasswordNormalProfile' element={<ChangePassword />} />
         </Route>
 
@@ -49,7 +49,7 @@ function App() {
         <Route path="/completeProfile" element={<CompleteProfile />} />
         <Route path="/otpVerify" element={<OtpVerify />} />
         <Route path="/joinUs" element={<JoinUs />} />
-        
+
       </Routes>
     </div>
   );

@@ -44,7 +44,7 @@ const BussinessAccountSetup = () => {
 
   // console.log(user)
   const navigate = useNavigate();
-
+  // debugger
   useEffect(() => {
     if (errorMessage) {
       toast.error(errorMessage, {
@@ -125,7 +125,7 @@ const BussinessAccountSetup = () => {
 
   return (
     <Layout>
-      <div className="py-11 overflow-hidden  flex flex-row h-full">
+      <div className="py-11 overflow-hidden flex flex-row h-full">
         <div className=" hidden md:block basis-1/4">
           <img src={circle} alt="circle" />
         </div>
@@ -263,6 +263,6 @@ const BussinessAccountSetup = () => {
       <ToastContainer />
     </Layout>
   );
-};
+}
 }
 export default BussinessAccountSetup

@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BussinessAccountSetup from "./BussinessAccountSetup";
 
 
 
@@ -185,6 +186,7 @@ const CompleteProfile = () => {
             className="absolute  h-[730px] w-[330px] "
           />
         </div>
+        <BussinessAccountSetup />
         <ToastContainer />
       </div>
     </Layout>
