@@ -19,6 +19,7 @@ import ChangePassword from "./pages/ChangePassword";
 import NormalDashboard from "./pages/NormalDashboard";
 import BusinessChangePassword from "./pages/BusinessChangePassword";
 import Gps from "./pages/Gps";
+import ChatAdmin from "./components/ChatFile/ChatAdmin";
 
 
 function App() {
@@ -49,6 +50,10 @@ function App() {
         <Route path="/completeProfile" element={<CompleteProfile />} />
         <Route path="/otpVerify" element={<OtpVerify />} />
         <Route path="/joinUs" element={<JoinUs />} />
+
+        {/* support chat route For admin */}
+        <Route path='/supportChat' element={<ChatAdmin/>}/>
+
 
       </Routes>
     </div>

@@ -12,6 +12,7 @@ import {
 import Chat from "../components/ChatFile/Chat";
 
 const Home = () => {
+  console.log(process.env.REACT_APP_PROJECT_ID)
   return (
     <Layout>
       <Hero />

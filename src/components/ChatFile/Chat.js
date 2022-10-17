@@ -2,8 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import Avatar from './Avatar';
 import Form from './Form';
 import './Chat.css'
+import UserChat from './UserChat';
 const Chat = () => {
     const [formOpen, setFormOpen] = useState(false)
+    const [user, setUser] = useState(null)
+    const [chat, setChat] = useState(null)
+
     const ref = useRef(null)
     useOutsideAlerter(ref)
     function useOutsideAlerter(ref) {
@@ -21,8 +25,6 @@ const Chat = () => {
     }
 
 
-
-
     return (
         <div ref={ref} className='relative'>
             <div>
@@ -32,10 +34,20 @@ const Chat = () => {
                 />
             </div>
             {
-                formOpen && <div className={`fixed bottom-[150px] right-[20px] w-[400px] h-[500px] bg-white rounded-xl form shadow-xl`}>
-                    <Form />
-                </div>
+                formOpen &&
+                <Form
+                    visible={user === null || chat === null}
+                    setUser={user => setUser(user)}
+                    setChat={chat => setChat(chat)}
+                />
+
             }
+            <UserChat
+                formOpen={formOpen}
+                visible={user !== null || chat !== null}
+                user={user}
+                chat={chat}
+            />
         </div>
     );
 };
