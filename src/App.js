@@ -20,7 +20,6 @@ import NormalDashboard from "./pages/NormalDashboard";
 import BusinessChangePassword from "./pages/BusinessChangePassword";
 import Gps from "./pages/Gps";
 
-
 function App() {
   return (
     <div className="App">
@@ -30,26 +29,34 @@ function App() {
 
         <Route path="/" element={<Home />} />
 
-        <Route path="dashboard"  >
-          <Route index path='updateProfile' element={<NormalProfile />} />
-          <Route path='updatePasswordNormalProfile' element={<ChangePassword />} />
+        <Route path="dashboard">
+          <Route index path="updateProfile" element={<NormalProfile />} />
+          <Route
+            path="updatePasswordNormalProfile"
+            element={<ChangePassword />}
+          />
         </Route>
 
-        <Route path="/businessProfile"   >
-          <Route path="updateBusinessPassword" element={<BusinessChangePassword />} />
+        <Route path="/businessProfile">
+          <Route
+            path="updateBusinessPassword"
+            element={<BusinessChangePassword />}
+          />
           <Route path="updateBusinessProfile" element={<BusinessProfile />} />
           <Route path="updateGps" element={<Gps />} />
         </Route>
 
         <Route path="/changePassword" element={<PasswordChange />} />
 
-        <Route path="/businessAccountSetup" element={<BussinessAccountSetup />} />
+        <Route
+          path="/businessAccountSetup"
+          element={<BussinessAccountSetup />}
+        />
         <Route path="/normalAccountSetup" element={<BussinessAccountSetup />} />
 
         <Route path="/completeProfile" element={<CompleteProfile />} />
         <Route path="/otpVerify" element={<OtpVerify />} />
         <Route path="/joinUs" element={<JoinUs />} />
-        
       </Routes>
     </div>
   );
