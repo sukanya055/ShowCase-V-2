@@ -26,6 +26,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
+        {/* support chat route For admin */}
+        <Route path='/supportChat' element={<ChatAdmin />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/auth" element={<Login />} />
 
@@ -42,6 +44,8 @@ function App() {
           <Route path="updateGps" element={<Gps />} />
         </Route>
 
+        {/* conflict solve */}
+
         <Route path="/changePassword" element={<PasswordChange />} />
 
         <Route path="/businessAccountSetup" element={<BussinessAccountSetup />} />
@@ -51,8 +55,9 @@ function App() {
         <Route path="/otpVerify" element={<OtpVerify />} />
         <Route path="/joinUs" element={<JoinUs />} />
 
-        {/* support chat route For admin */}
-        <Route path='/supportChat' element={<ChatAdmin/>}/>
+
+
+
 
 
       </Routes>
