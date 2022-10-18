@@ -56,10 +56,6 @@ function App() {
         <Route path="/joinUs" element={<JoinUs />} />
 
 
-
-
-
-
       </Routes>
     </div>
   );
