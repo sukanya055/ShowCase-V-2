@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Layout, Card } from "../components";
 import { brand, category, productData } from "../utils/products";
 import { FiFilter } from "react-icons/fi";
+import ReactPaginate from "react-paginate";
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState([]);
@@ -13,12 +14,17 @@ const Products = () => {
     new Array(brand.length).fill(false)
   );
 
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemsOffSet, setItemsOffSet] = useState(0);
+
   const handleOnChangeCategory = (position, e) => {
-    const updatedCheckedStateCategory = checkedStateCategory.map(
-      (item, index) => (index === position ? !item : item)
+    checkedStateCategory.forEach(
+      (item, index) =>
+        (checkedStateCategory[index] = index === position ? !item : item)
     );
 
-    setCheckedStateCategory(updatedCheckedStateCategory);
+    setCheckedStateCategory(checkedStateCategory);
     if (e.target.checked) {
       setSelectedCategory([...selectedCategory, e.target.value]);
     } else {
@@ -28,11 +34,12 @@ const Products = () => {
     }
   };
   const handleOnChangeBrand = (position, e) => {
-    const updatedCheckedStateBrand = checkedStateBrand.map((item, index) =>
-      index === position ? !item : item
+    checkedStateBrand.forEach(
+      (item, index) =>
+        (checkedStateBrand[index] = index === position ? !item : item)
     );
 
-    setCheckedStateBrand(updatedCheckedStateBrand);
+    setCheckedStateBrand(checkedStateBrand);
     if (e.target.checked) {
       setSelectedBrand([...selectedBrand, e.target.value]);
     } else {
@@ -71,10 +78,25 @@ const Products = () => {
       }
     }
   };
-  // console.log(filteredData);
+
   useEffect(() => {
     filtered();
-  }, [filteredData]);
+  }, []);
+
+  useEffect(() => {
+    const endOffSet = itemsOffSet + 9;
+    setCurrentItems(filteredData.slice(itemsOffSet, endOffSet));
+    setPageCount(Math.ceil(filteredData.length / 9));
+  }, [itemsOffSet]);
+
+  const handlePageClick = (e) => {
+    const newOffset = (e.selected * 9) % filteredData.length;
+    console.log(
+      `User requested page number ${e.selected}, which is offset ${newOffset}`
+    );
+    setItemsOffSet(newOffset);
+  };
+
   return (
     <Layout>
       <div className="md:px-8 py-5 px-2 mb-14">
@@ -157,10 +179,26 @@ const Products = () => {
         </div>
         {/* Show Products */}
         <div className="flex flex-wrap mt-8 gap-4 items-center justify-center">
-          {filteredData.map((product) => (
-            <Card key={product.id} {...product} />
-          ))}
+          {filteredData.length > 0 ? (
+            filteredData.map((product) => (
+              <Card key={product.id} {...product} />
+            ))
+          ) : (
+            <h1 className="text-xl font-semibold capitalize text-red-500">
+              No Products Data Available
+            </h1>
+          )}
         </div>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
+          className="flex gap-6 items-center justify-center mt-12 text-2xl text-sky-900 font-bold"
+        />
       </div>
     </Layout>
   );
