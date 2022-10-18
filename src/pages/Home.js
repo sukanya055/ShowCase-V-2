@@ -9,8 +9,10 @@ import {
   Layout,
   WorkesAndQuotes,
 } from "../components";
+import Chat from "../components/ChatFile/Chat";
 
 const Home = () => {
+  console.log(process.env.REACT_APP_PROJECT_ID)
   return (
     <Layout>
       <Hero />
@@ -37,6 +39,7 @@ const Home = () => {
               <h1>Design New store on Show case</h1>
             </div>
           </section>
+          <Chat/>
         </Suspense>
       </ErrorBoundary>
     </Layout>
