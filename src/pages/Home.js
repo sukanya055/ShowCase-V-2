@@ -10,6 +10,7 @@ import {
   WorkesAndQuotes,
 } from "../components";
 import Chat from "../components/ChatFile/Chat";
+import Testimonial from "../components/Testimonial/Testimonial";
 
 const Home = () => {
 
@@ -37,10 +38,11 @@ const Home = () => {
             <Count />
             <WorkesAndQuotes />
             <GetStarted />
-            <div>
+           {/*  <div>
               <h1>Design Customer Review</h1>
               <h1>Design New store on Show case</h1>
-            </div>
+            </div> */}
+            {/* <Testimonial/> */}
           </section>
           <Chat/>
         </Suspense>

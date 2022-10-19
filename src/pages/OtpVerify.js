@@ -120,7 +120,7 @@ const CompleteProfile = () => {
 
   return (
     <Layout>
-      <div className=" py-11  flex flex-row h-full">
+      <div className=" py-11 my-20 flex flex-row h-full">
         <div className=" hidden md:block basis-1/4">
           <img src={circle} alt="circle" />
         </div>
@@ -186,7 +186,6 @@ const CompleteProfile = () => {
             className="absolute  h-[730px] w-[330px] "
           />
         </div>
-        <BussinessAccountSetup />
         <ToastContainer />
       </div>
     </Layout>
