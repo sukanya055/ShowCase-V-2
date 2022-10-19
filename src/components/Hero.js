@@ -33,7 +33,7 @@ const Hero = () => {
   ]
   const settings = {
     infinite: true,
-    speed: 500,
+    speed: 800,
     slidesToShow: 1,
     fade: true,
     autoplay: true,
