@@ -9,3 +9,4 @@ export { default as CompleteProfile } from "./CompleteProfile";
 export { default as OtpVerify } from "./OtpVerify";
 export { default as JoinUs } from "./JoinUs";
 export { default as Products } from "./Products";
+export { default as SetUpCompleted } from "./SetUpCompleted";

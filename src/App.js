@@ -11,6 +11,7 @@ import {
   OtpVerify,
   JoinUs,
   Products,
+  SetUpCompleted,
   // ChangePassword
 } from "./pages";
 
@@ -64,6 +65,7 @@ function App() {
         <Route path="/otpVerify" element={<OtpVerify />} />
         <Route path="/joinUs" element={<JoinUs />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/setupCompleted" element={<SetUpCompleted />} />
       </Routes>
     </div>
   );
