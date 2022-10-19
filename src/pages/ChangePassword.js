@@ -10,9 +10,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
-
+import { useCookies } from 'react-cookie';
 
 const ChangePassword = () => {
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+
 
     const [user] = useAuthState(auth)
     const navigate = useNavigate()
@@ -69,13 +71,17 @@ const ChangePassword = () => {
         e.preventDefault()
         const { oldPassword, newPassword, confirmPass } = formData || {}
         console.log(formData)
-        let token = localStorage.getItem("token");
+        let token = cookies?.cookie;
         if (token !== undefined && token !== null) {
             token = token.replace(/['"]+/g, "");
         }
         else {
-            localStorage.removeItem("token");
+       
             navigate("/")
+            removeCookie('token', {
+                path: '/',
+                maxAge: 7 * 24 * 60 * 60 * 1000,// 7d,
+            })
         }
 
         try {
@@ -90,7 +96,7 @@ const ChangePassword = () => {
                         google: user && 'google'
                     }, {
                         headers: {
-                            'Authorization': localStorage.getItem('token').replace(/['"]+/g, "")
+                            'Authorization': cookies?.token
                         }
                     })
                     await response;
@@ -153,7 +159,7 @@ const ChangePassword = () => {
                                 name="radio-2"
                                 className="radio radio-primary"
                                 id="password"
-                                onClick={() => handleRoute(    'updatePasswordNormalProfile')}
+                                onClick={() => handleRoute('updatePasswordNormalProfile')}
                             />
                             <label
                                 className="text-[#1B1C21] text-[14px] md:text-[16px] font-bold"

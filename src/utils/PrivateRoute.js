@@ -2,11 +2,13 @@ import axios from 'axios';
 import { signOut } from 'firebase/auth';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import auth from '../firebase.init';
+import { useCookies } from 'react-cookie';
 
 const PrivateRoute = ({ children }) => {
-
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const navigate=useNavigate()
     const [loading, setLoading] = useState(true)
     let token = localStorage.getItem("token");
     token && token.replace(/['"]+/g, "");
@@ -16,7 +18,7 @@ const PrivateRoute = ({ children }) => {
             try {
                 const { data } = await axios.get('http://localhost:5000/user/validation', {
                     headers: {
-                        'Authorization': localStorage.getItem('token').replace(/['"]+/g, ""),
+                        'Authorization': cookies?.token,
                     }
                 })
                 console.log('from private Route', data)
@@ -26,11 +28,19 @@ const PrivateRoute = ({ children }) => {
                 }
                 setLoading(false)
             } catch (error) {
-                signOut(auth)
-                localStorage.removeItem('token')
+                console.log(error)
+                if (error?.response.status === 400) {
+                    removeCookie('token', {
+                        path: '/',
+                        maxAge: 7 * 24 * 60 * 60 * 1000,// 7d,
+                    })
+                    navigate('/auth')
+                    signOut(auth)
+                }
+
             }
         })()
-    }, [token])
+    }, [token, cookies, removeCookie])
     if (loading) return <div className='text-center my-40'>Loading...</div>
 
     return token ? children : <Navigate to={'/auth'} />

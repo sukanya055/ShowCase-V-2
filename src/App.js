@@ -78,10 +78,7 @@ function App() {
             <OtpVerify />
           </PrivateRoute>
         } />
-        <Route path="/joinUs" element={
-          <PrivateRoute>
-            <JoinUs />
-          </PrivateRoute>
+        <Route path="/joinUs" element={ <JoinUs />
         } />
         <Route path="/products" element={<Products />} />
       </Routes>
