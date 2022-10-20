@@ -6,9 +6,9 @@ const NormalDashboard = () => {
     return (
         <Layout>
             <section>
-                <div className='flex items-start flex-col md:flex-row w-full px-10 justify-center md:w-[90%] lg:w-[70%] mx-auto my-32 gap-[18px]'>
-                    <div className='text-center'>
-                        <img className='w-[305px] mx-auto md:h-[105px] object-cover rounded-[50%] bg-gray-400' src="https://www.jigsawacademy.com/wp-content/themes/jigsaw-new/assets/images/boy-img-removebg-preview.webp" alt="" />
+                <div className='flex  flex-col md:flex-row w-full px-10 justify-center md:w-[90%] lg:w-[70%] mx-auto my-32 gap-[18px]'>
+                    <div className='text-center flex justify-center w-full'>
+                        <img className='w-[205px] sm:w-[305px] mx-auto md:h-[205px] object-cover rounded-[50%] bg-gray-400' src="https://www.jigsawacademy.com/wp-content/themes/jigsaw-new/assets/images/boy-img-removebg-preview.webp" alt="" />
                     </div>
                     <div className='flex mt-10 md:mt-0'>
                         <div className=' '>
