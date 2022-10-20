@@ -6,11 +6,11 @@ const NormalDashboard = () => {
     return (
         <Layout>
             <section>
-                <div className='flex flex-col md:flex-row w-full px-10 justify-center md:w-[90%] lg:w-[70%] mx-auto my-32 gap-[18px]'>
+                <div className='flex items-start flex-col md:flex-row w-full px-10 justify-center md:w-[90%] lg:w-[70%] mx-auto my-32 gap-[18px]'>
                     <div className='text-center'>
                         <img className='w-[305px] mx-auto md:h-[105px] object-cover rounded-[50%] bg-gray-400' src="https://www.jigsawacademy.com/wp-content/themes/jigsaw-new/assets/images/boy-img-removebg-preview.webp" alt="" />
                     </div>
-                    <div className='flex mt-10'>
+                    <div className='flex mt-10 md:mt-0'>
                         <div className=' '>
                             <div className='flex gap-10 sm:gap-16 md:gap-32 w-full items-center'>
                                 <h3 className='text-[17px] sm:text-[20px] md:text-[28px] font-bold '>Candes Perreira</h3>
@@ -33,19 +33,11 @@ const NormalDashboard = () => {
 
 
                             </div>
-                            <div className=' leading-7 mt-6 md:w-[50%]'>
+                            <div className=' leading-7 mt-6 md:w-[50%] pr-3'>
                                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Numquam voluptates quibusdam debitis! Est ipsam nulla, reiciendis amet explicabo illum maxime voluptates. Natus sed doloremque eligendi reiciendis veniam repellendus, optio consequuntur assumenda nulla ad amet ex quisquam repellat, adipisci rerum tempore!</p>
                             </div>
                         </div>
-                        {/*   <div className='ml-10   '>
-                            <p><BsGearWide
-                                className='text-[23px] mt-2 cursor-pointer'
-                            /></p>
-                        </div> */}
-
-
-
-
+                       
                     </div>
                 </div>
             </section>
