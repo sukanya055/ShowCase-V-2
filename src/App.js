@@ -40,6 +40,7 @@ function App() {
         <Route path="/" element={<Home />} />
 
         <Route path="dashboard">
+          <Route path="normalDashboard" element={<NormalDashboard/>}/>
           <Route path="updateProfile" element={<NormalProfile />} />
           <Route
             path="updatePasswordNormalProfile"

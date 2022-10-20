@@ -20,7 +20,7 @@ import {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const toggle = () => {
     setIsOpen((prev) => !prev);
   };
@@ -28,12 +28,11 @@ const Navbar = () => {
   const token = localStorage.getItem("token");
   const [user] = useAuthState(auth);
 
-  const handleSignOut=()=>{
-    signOut(auth)
-    localStorage.removeItem('token')
-    navigate('/')
-  }
-
+  const handleSignOut = () => {
+    signOut(auth);
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   console.log(token);
   return (
@@ -153,13 +152,27 @@ const Navbar = () => {
 
         {/* users */}
         <div className="flex items-center justify-center gap-1 md:gap-5">
-          <div className="bg-sky-100 p-2 rounded-lg cursor-pointer">
-            <BiUser className="md:text-2xl text-xl" />
+          <div className="bg-sky-100 rounded-lg cursor-pointer">
+            {/* <BiUser className="md:text-2xl text-xl" /> */}
+            <div className="dropdown ">
+              <label tabIndex={0} className="btn m-1">
+                <BiUser className="md:text-2xl text-xl" />
+              </label>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-auto"
+              >
+                <li className="w-32">
+                  <Link to="/dashboard/normalDashboard">My Account</Link>
+                </li>
+              </ul>
+            </div>
           </div>
           {token || user ? (
-            <button 
-            onClick={handleSignOut}
-            className="py-2 hidden md:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out">
+            <button
+              onClick={handleSignOut}
+              className="py-2 hidden md:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out"
+            >
               Sign Out
             </button>
           ) : (
