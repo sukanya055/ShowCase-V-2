@@ -22,13 +22,18 @@ import NormalDashboard from "./pages/NormalDashboard";
 import BusinessChangePassword from "./pages/BusinessChangePassword";
 import Gps from "./pages/Gps";
 import ChatAdmin from "./components/ChatFile/ChatAdmin";
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
   return (
     <div className="App">
       <Routes>
         {/* support chat route For admin */}
-        <Route path="/supportChat" element={<ChatAdmin />} />
+        <Route path="/supportChat" element={
+          <PrivateRoute>
+            <ChatAdmin />
+          </PrivateRoute>
+        } />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/auth" element={<Login />} />
 
@@ -53,17 +58,29 @@ function App() {
 
         {/* conflict solve */}
 
-        <Route path="/changePassword" element={<PasswordChange />} />
+        <Route path="/changePassword" element={
+          <PrivateRoute>
+            <PasswordChange />
+          </PrivateRoute>} />
 
         <Route
           path="/businessAccountSetup"
           element={<BussinessAccountSetup />}
         />
-        <Route path="/normalAccountSetup" element={<BussinessAccountSetup />} />
+        <Route path="/normalAccountSetup" element={
+          <PrivateRoute>
+            <BussinessAccountSetup />
+          </PrivateRoute>
+        } />
 
         <Route path="/completeProfile" element={<CompleteProfile />} />
-        <Route path="/otpVerify" element={<OtpVerify />} />
-        <Route path="/joinUs" element={<JoinUs />} />
+        <Route path="/otpVerify" element={
+          <PrivateRoute>
+            <OtpVerify />
+          </PrivateRoute>
+        } />
+        <Route path="/joinUs" element={ <JoinUs />
+        } />
         <Route path="/products" element={<Products />} />
         <Route path="/setupCompleted" element={<SetUpCompleted />} />
       </Routes>

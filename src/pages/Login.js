@@ -15,13 +15,15 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useToken from "../utils/useToken";
 import { signOut } from "firebase/auth";
-
+import { useCookies } from 'react-cookie';
 const initialState = {
   email: "",
   password: "",
 };
 
 const Login = () => {
+
+  const [cookies, setCookie] = useCookies(['token']);
 
   const [signInWithGoogle, googleUser, loading, error] = useSignInWithGoogle(auth)
   const navigate = useNavigate()
@@ -114,7 +116,7 @@ const Login = () => {
       "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})"
     );
 
-    const userexist = await fetch("https://api.showcaseurbusiness.com/exist", {
+    const userexist = await fetch("http://localhost:5000/exist", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -133,7 +135,7 @@ const Login = () => {
       console.log("click");
       try {
         const data = await axios.post(
-          "https://api.showcaseurbusiness.com/user/login",
+          "http://localhost:5000/user/login",
           {
             email: email,
             password: password,
@@ -146,14 +148,18 @@ const Login = () => {
           "token",
           JSON.stringify(response.data.accesstoken)
         );
+
+        setCookie('token', response.data.accesstoken, {
+          path: '/',
+          maxAge: 7 * 24 * 60 * 60 * 1000,// 7d,
+
+        })
         localStorage.setItem("val", JSON.stringify(response.data.val));
         let token = localStorage.getItem("token");
 
         token = token.replace(/['"]+/g, "");
-
-        localStorage.setItem("token", JSON.stringify(token));
         const roles = await fetch(
-          "https://api.showcaseurbusiness.com/user/infor",
+          "http://localhost:5000/user/infor",
           {
             method: "GET",
             headers: {
@@ -164,9 +170,9 @@ const Login = () => {
           }
         );
         const roleData = await roles.json();
-        console.log(roleData.role);
+     
         if (roleData.role == 0) {
-          navigate("/dashboarduser");
+          navigate("/normalUser");
         } else {
           navigate("/dashboardbusiness");
         }

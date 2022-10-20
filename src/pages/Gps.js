@@ -6,9 +6,11 @@ import gpsImg from '../assets/gps.jpg'
 import { Layout } from '../components';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useCookies } from 'react-cookie';
 const Gps = () => {
+    const [cookies, setCookie] = useCookies(['token']);
 
+  
     const navigate = useNavigate()
     const [address, setAddress] = useState('')
     const handleRoute = (path) => {
@@ -57,7 +59,7 @@ const Gps = () => {
                 address: address,
             }, {
                 headers: {
-                    'Authorization': localStorage.getItem('token').replace(/['"]+/g, ""),
+                    'Authorization': cookies?.token,
                 }
             });
 
