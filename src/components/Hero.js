@@ -62,14 +62,14 @@ const Hero = () => {
                 src={circle2}
                 alt=""
               />
-              <div className='absolute w-[70%] lg:w-[80%] px-5'>
+              <div className='absolute  w-[70%] lg:w-[80%] px-5'>
                 {/* <img className=' w-[70%] lg:w-[80%] ml-[27%] lg:mt-[82px]  lg:ml-[92px]' src={shoes1} alt="shoes" /> */}
 
                 <Slider {...settings}>
                   {
                     images?.map((img, index) => <img
                       key={index}
-                      className=' w-[70%] lg:w-[80%] ml-[24%] lg:mt-[82px] lg:ml-[92px]' src={img.img} alt="shoes" />)
+                      className=' w-[70%] lg:w-[80%]  lg:mt-[82px] lg:ml-[92px]' src={img.img} alt="shoes" />)
                   }
                 </Slider>
 
