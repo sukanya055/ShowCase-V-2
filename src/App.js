@@ -23,6 +23,7 @@ import BusinessChangePassword from "./pages/BusinessChangePassword";
 import Gps from "./pages/Gps";
 import ChatAdmin from "./components/ChatFile/ChatAdmin";
 import PrivateRoute from "./utils/PrivateRoute";
+import BusinessDashboard from "./pages/BusinessDashboard";
 
 function App() {
   return (
@@ -39,8 +40,8 @@ function App() {
 
         <Route path="/" element={<Home />} />
 
-        <Route path="dashboard">
-          <Route path="normalDashboard" element={<NormalDashboard/>}/>
+        <Route path="/dashboard">
+          <Route path="normalDashboard" element={<NormalDashboard />} />
           <Route path="updateProfile" element={<NormalProfile />} />
           <Route
             path="updatePasswordNormalProfile"
@@ -49,29 +50,22 @@ function App() {
         </Route>
 
         <Route path="/businessProfile">
-          <Route
-            path="updateBusinessPassword"
-            element={<BusinessChangePassword />}
-          />
+          <Route path="businessDashboard" element={<BusinessDashboard />} />
+          <Route path="updateBusinessPassword" element={<BusinessChangePassword />} />
           <Route path="updateBusinessProfile" element={<BusinessProfile />} />
           <Route path="updateGps" element={<Gps />} />
         </Route>
-
-        {/* conflict solve */}
 
         <Route path="/changePassword" element={
           <PrivateRoute>
             <PasswordChange />
           </PrivateRoute>} />
-
         <Route
           path="/businessAccountSetup"
           element={<BussinessAccountSetup />}
         />
         <Route path="/normalAccountSetup" element={
-          <PrivateRoute>
-            <BussinessAccountSetup />
-          </PrivateRoute>
+          <BussinessAccountSetup />
         } />
 
         <Route path="/completeProfile" element={<CompleteProfile />} />
@@ -80,7 +74,7 @@ function App() {
             <OtpVerify />
           </PrivateRoute>
         } />
-        <Route path="/joinUs" element={ <JoinUs />
+        <Route path="/joinUs" element={<JoinUs />
         } />
         <Route path="/products" element={<Products />} />
         <Route path="/setupCompleted" element={<SetUpCompleted />} />

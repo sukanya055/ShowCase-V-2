@@ -24,18 +24,6 @@ const CompleteProfile = () => {
   const [open, setOpen] = useState(false);
   const { phone, address, country } = formData || {};
 
-  /* useEffect(() => {
-    var token = localStorage.getItem("token");
-    token = token.replace(/"/g, "");
-
-    if (token) {
-      const user = jwt.decode(token);
-      if (!user) {
-        localStorage.removeItem("token");
-        navigate("/");
-      }
-    }
-  }, [navigate]); */
 
   useEffect(() => {
     if (errorMessage) {
