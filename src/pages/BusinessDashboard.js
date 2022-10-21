@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsGearWide, BsPlayCircle } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { Layout } from '../components';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
+import PostVideo from './modal/PostVideo';
 const BusinessDashboard = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const [openModal, setOpenModal] = useState(null)
     console.log(cookies?.token)
     useEffect(() => {
         (async () => {
@@ -29,7 +31,6 @@ const BusinessDashboard = () => {
             }
         })();
     }, [cookies])
-
 
     return (
         <Layout>
@@ -69,16 +70,20 @@ const BusinessDashboard = () => {
                     </div>
                 </div>
 
-                <div className='flex justify-center gap-10 mb-20'> 
-                    <div className=' border-solid border-gray-400 border-2 px-10 py-5 cursor-pointer'>
+                <div className='flex justify-center gap-10 mb-20 '>
+                    <div className='flex justify-center items-center border-solid border-gray-400 border-2 px-10 py-5 cursor-pointer rounded-lg'>
                         <p>WhatsApp</p>
                     </div>
-                    <div className=' border-solid border-gray-400 border-2 px-10 py-5 cursor-pointer'>
+                    <div className=' flex justify-center items-center border-solid border-gray-400 border-2 px-10 py-5 cursor-pointer rounded-lg'>
                         <p>GPS</p>
                     </div>
-                    
-                </div>
 
+                    <div className='flex justify-center items-center border-solid border-gray-400 border-2 px-10 py-5 cursor-pointer rounded-lg'>
+                        {/* <p>Post Video</p> */}
+                        {/* <!-- The button to open modal --> */}
+                        <label onClick={() => setOpenModal(true)} htmlFor="my-modal-6" className="btn modal-button">Post Video</label>
+                    </div>
+                </div>
 
                 <div className='text-center '>
                     <h3 className='font-bold text-xl mb-10'>Your Videos</h3>
@@ -86,7 +91,15 @@ const BusinessDashboard = () => {
 
                     </div>
                 </div>
+
             </section>
+            {
+                openModal && <PostVideo
+                openModal={openModal}
+                setOpenModal={setOpenModal}
+                />
+            }
+            
         </Layout>
     );
 };
