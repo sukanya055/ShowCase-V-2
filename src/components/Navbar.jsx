@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import { BiSearchAlt, BiUser } from "react-icons/bi";
 import { FiChevronDown } from "react-icons/fi";
@@ -16,13 +16,59 @@ import {
   mensCategories,
   womenCategories,
 } from "../utils/data";
+import { useCookies } from "react-cookie";
+import axios from "axios";
 // >>>>>>> 606301900deb403c949899cf94cbf7d5f0d3b2c2
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const toggle = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    (async () => {
+      if (cookies?.token) {
+        try {
+          const { data } = await axios.get("http://localhost:5000/user/infor", {
+            headers: {
+              Authorization: cookies?.token,
+            },
+          });
+          console.log(data);
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        alert("Login please");
+      }
+    })();
+  }, [cookies]);
+
+  const handleDashboard = async () => {
+    if (cookies?.token) {
+      try {
+        const { data } = await axios.get("http://localhost:5000/user/infor", {
+          headers: {
+            Authorization: cookies?.token,
+          },
+        });
+        console.log(data);
+        if(data?.role === 1){
+          navigate('/businessProfile/businessDashboard')
+        }
+        if(data?.role === 0){
+          navigate('/dashboard/normalDashboard')
+        }
+
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      alert("Login please");
+    }
   };
 
   const token = localStorage.getItem("token");
@@ -31,6 +77,7 @@ const Navbar = () => {
   const handleSignOut = () => {
     signOut(auth);
     localStorage.removeItem("token");
+    removeCookie("token");
     navigate("/");
   };
 
@@ -40,7 +87,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between">
         {/* Logo */}
         <div className="flex gap-1 md:gap-8 items-center justify-between ">
-          <img src={logo} alt="logo" className="h-[57px] w-[110px]" />
+          <img onClick={()=>navigate('/')} src={logo} alt="logo" className="h-[57px] w-[110px] cursor-pointer" />
           {/* Search  */}
           <div className="md:w-auto w-[130px]  bg-gray-100 py-2  rounded-2xl">
             <label className="input-group">
@@ -162,7 +209,7 @@ const Navbar = () => {
                 tabIndex={0}
                 className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-auto"
               >
-                <li className="w-32">
+                <li onClick={handleDashboard} className="w-32">
                   <Link to="/dashboard/normalDashboard">My Account</Link>
                 </li>
               </ul>
