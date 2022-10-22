@@ -8,7 +8,7 @@ import { uploadFile } from 'react-s3';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
-
+import { useCookies } from 'react-cookie';
 
 const S3_BUCKET = 'showcase28';
 const REGION = 'us-east-1';
@@ -22,11 +22,8 @@ const config = {
   secretAccessKey: SECRET_ACCESS_KEY,
 }
 
-
-
-
 const NormalProfile = () => {
-
+  const [cookies, setCookie] = useCookies(['token']);
   const navigate = useNavigate();
   const location = useLocation()
   const [image, setImage] = useState("");
@@ -36,7 +33,7 @@ const NormalProfile = () => {
 
   const [name, setName] = useState('')
   const [about, setAbout] = useState('')
- 
+
 
 
   useEffect(() => {
@@ -57,13 +54,13 @@ const NormalProfile = () => {
 
   useEffect(() => {
     (async () => {
-      let token = localStorage.getItem("token");
-      if (token !== undefined && token !== null) {
-        token = token.replace(/['"]+/g, "");
+
+      if (cookies?.token) {
+
         try {
           const response = await axios.get('http://localhost:5000/user/getpic', {
             headers: {
-              'Authorization': localStorage.getItem('token').replace(/['"]+/g, ""),
+              'Authorization': cookies?.token,
             }
           });
           console.log(response)
@@ -80,7 +77,7 @@ const NormalProfile = () => {
       }
     })();
 
-  }, []);
+  }, [cookies]);
 
 
 
@@ -89,35 +86,31 @@ const NormalProfile = () => {
   const handleForm = async (e) => {
     e.preventDefault();
 
-    let token = localStorage.getItem("token");
-    if (token !== undefined && token !== null) {
-      token = token.replace(/['"]+/g, "");
-    }
+    if (cookies?.token) {
 
+      try {
 
-    try {
-
-      const response = await axios.patch("http://localhost:5000/user/personal", {
-        about: about,
-        profile: image,
-        name: name
-      },
-        {
-          headers: {
-            'Authorization': localStorage.getItem('token').replace(/['"]+/g, "")
+        const response = await axios.patch("http://localhost:5000/user/personal", {
+          about: about,
+          profile: image,
+          name: name
+        },
+          {
+            headers: {
+              'Authorization': localStorage.getItem('token').replace(/['"]+/g, "")
+            }
           }
+        );
+        if (response?.status === 200) {
+          navigate('/dashboarduser')
         }
-      );
-      if (response?.status === 200) {
-        navigate('/dashboarduser')
+        console.log(response);
       }
-      console.log(response);
+      catch (e) {
+        console.log(e);
+        alert(e);
+      }
     }
-    catch (e) {
-      console.log(e);
-      alert(e);
-    }
-
 
   };
 
@@ -147,7 +140,7 @@ const NormalProfile = () => {
   }
 
 
-  
+
   return (
     <Layout>
       <div className="my-20">
