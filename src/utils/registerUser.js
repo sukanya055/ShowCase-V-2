@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const RegisterUser = async (formData, setErrorMessage, setSuccess,role) => {
+const RegisterUser = async (formData, setErrorMessage, setSuccess,role,setCookie) => {
+  
     const { name, email, password } = formData || {}
     // const navigate = useNavigate()
     console.log(formData)
@@ -35,7 +36,6 @@ const RegisterUser = async (formData, setErrorMessage, setSuccess,role) => {
     }
     else if (userExistData.exist == 0 && regex.test(email) && regxpass.test(password)) {
 
-        console.log('click')
         try {
 
             const response = await axios.post(
@@ -47,13 +47,13 @@ const RegisterUser = async (formData, setErrorMessage, setSuccess,role) => {
                     password: password,
                 }
             );
-            console.log(response)
+ 
             localStorage.setItem(
                 "token",
                 JSON.stringify(response.data.accesstoken)
             );
-
-            // navigate("/completeProfile");
+                setCookie('token',response?.data?.accesstoken)
+            
             setSuccess("/completeProfile")
         } catch (error) {
             if (error.response) {
@@ -61,10 +61,8 @@ const RegisterUser = async (formData, setErrorMessage, setSuccess,role) => {
             }
         }
     } else if (userExistData.exist === 1) {
-
         setErrorMessage("User already exist")
     }
 }
-
 
 export default RegisterUser

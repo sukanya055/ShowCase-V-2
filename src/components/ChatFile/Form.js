@@ -17,7 +17,7 @@ const Form = (props) => {
 
     const { email, name } = userData || {}
 
-
+    console.log(userData)
 
 
     useEffect(() => {

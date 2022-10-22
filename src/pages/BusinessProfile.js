@@ -5,7 +5,7 @@ import { uploadFile } from "react-s3";
 import profileImg from "../assets/images/profile.png";
 import { Layout } from "../components";
 import styles from "../components/Profile/NormalProfile.module.css";
-
+import { useCookies } from 'react-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
@@ -25,6 +25,8 @@ const config = {
 
 
 const BusinessProfile = () => {
+
+  const [cookies] = useCookies(['token']);
 
   const navigate = useNavigate();
   const location = useLocation()
@@ -56,16 +58,16 @@ const BusinessProfile = () => {
 
   useEffect(() => {
     (async () => {
-      let token = localStorage.getItem("token");
+      let token = cookies?.token;
       if (token !== undefined && token !== null) {
         token = token.replace(/['"]+/g, "");
         try {
           const response = await axios.get('http://localhost:5000/user/getpic', {
             headers: {
-              'Authorization': localStorage.getItem('token').replace(/['"]+/g, ""),
+              'Authorization': cookies?.token,
             }
           });
-          console.log('from', response)
+      
           setImage(response.data.profile);
 
         }
@@ -78,7 +80,7 @@ const BusinessProfile = () => {
       }
     })();
 
-  }, []);
+  }, [cookies]);
 
 
 
@@ -88,9 +90,6 @@ const BusinessProfile = () => {
     e.preventDefault();
     setLoading(true)
     console.log(name, whatsapp, about)
-
-
-
 
     try {
 
@@ -102,11 +101,10 @@ const BusinessProfile = () => {
         profile: image
       }, {
         headers: {
-          'Authorization': localStorage.getItem('token').replace(/['"]+/g, ""),
+          'Authorization': cookies?.token,
         }
       });
 
-      console.log(response);
       navigate('/dashboardBusiness')
     } catch (error) {
       if (error.response) {
@@ -118,7 +116,7 @@ const BusinessProfile = () => {
   };
 
   const onImageChange = async (event) => {
-    console.log("click");
+
     setLoading(true)
     window.Buffer = window.Buffer || require("buffer").Buffer;
     uploadFile(event.target.files[0], config)
@@ -132,8 +130,6 @@ const BusinessProfile = () => {
         console.log(error)
       }
       )
-      
-    console.log(imgFile)
 
   };
 
@@ -141,7 +137,7 @@ const BusinessProfile = () => {
     navigate(`/businessProfile/${path}`)
   }
 
-  console.log(whatsapp, name);
+ 
 
   return (
     <Layout>

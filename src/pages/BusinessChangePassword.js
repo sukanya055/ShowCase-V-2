@@ -10,10 +10,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
-
+import { useCookies } from 'react-cookie';
 
 const BusinessChangePassword = () => {
-
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const [user] = useAuthState(auth)
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
@@ -69,13 +69,15 @@ const BusinessChangePassword = () => {
         e.preventDefault()
         const { oldPassword, newPassword, confirmPass } = formData || {}
         console.log(formData)
-        let token = localStorage.getItem("token");
+        let token = cookies?.token;
         if (token !== undefined && token !== null) {
             token = token.replace(/['"]+/g, "");
         }
         else {
-            localStorage.removeItem("token");
-            navigate("/")
+            removeCookie('token', {
+                path: '/',
+                maxAge: 7 * 24 * 60 * 60 * 1000,// 7d,
+            })
         }
 
         try {
@@ -90,7 +92,7 @@ const BusinessChangePassword = () => {
                         google: user && 'google'
                     }, {
                         headers: {
-                            'Authorization': localStorage.getItem('token').replace(/['"]+/g, "")
+                            'Authorization': cookies?.token
                         }
                     })
                     await response;

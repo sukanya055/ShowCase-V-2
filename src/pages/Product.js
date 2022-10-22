@@ -12,7 +12,7 @@ import Map from "./Map";
 const Product = () => {
   const params = useParams();
   const [productData, setProductData] = useState({});
-
+  console.log(typeof params)
   const fetchData = () => {
     const product = data.filter((x) => x.id === params.id);
     setProductData(product[0]);
@@ -27,7 +27,7 @@ const Product = () => {
   return (
     <div>
       <Layout>
-        <div className="lg:px-28 py-4 sm:px-8">
+        <div className="lg:px-28 py-40 sm:px-8">
           <div className="flex relative items-center justify-center">
             {/* <Player
               autoplay

@@ -15,7 +15,7 @@ import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import useGoogleRegister from "../utils/googleRegister";
 import { signOut } from "firebase/auth";
-
+import { useCookies } from 'react-cookie';
 const initialState = {
   name: "",
   email: "",
@@ -24,6 +24,7 @@ const initialState = {
 };
 
 const BussinessAccountSetup = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const location = useLocation();
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState(initialState);
@@ -37,9 +38,8 @@ const BussinessAccountSetup = () => {
   const [signInWithGoogle, googleUser, loading, error] =
     useSignInWithGoogle(auth);
 
-  console.log(user);
   const navigate = useNavigate();
-  // debugger
+
   useEffect(() => {
     if (errorMessage) {
       toast.error(errorMessage, {
@@ -65,14 +65,15 @@ const BussinessAccountSetup = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    if (location?.pathname?.includes("/businessAccountSetup")) {
+      RegisterUser(formData, setErrorMessage, setSuccess, 1,setCookie);
+    }
+    if (location?.pathname?.includes("/normalAccountSetup")) {
+      RegisterUser(formData, setErrorMessage, setSuccess, 0,setCookie);
+    }
     setFormData(initialState);
   };
-  if (location?.pathname?.includes("/businessAccountSetup")) {
-    RegisterUser(formData, setErrorMessage, setSuccess, 1);
-  }
-  if (location?.pathname?.includes("/normalAccountSetup")) {
-    RegisterUser(formData, setErrorMessage, setSuccess, 0);
-  }
+
 
   const loaderVariants = {
     animationOne: {
@@ -97,12 +98,6 @@ const BussinessAccountSetup = () => {
   const handleGoogleRegister = () => {
     signInWithGoogle();
   };
-
-  // =======
-  //   const handleGoogleRegister = () => {
-  //     signInWithGoogle();
-  //   };
-  // >>>>>>> 606301900deb403c949899cf94cbf7d5f0d3b2c2
 
   return (
     <Layout>

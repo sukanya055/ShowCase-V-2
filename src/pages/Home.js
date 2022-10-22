@@ -10,9 +10,13 @@ import {
   WorkesAndQuotes,
 } from "../components";
 import Chat from "../components/ChatFile/Chat";
-
+import Testimonial from "../components/Testimonial/Testimonial";
+import { useCookies } from 'react-cookie';
 const Home = () => {
-  console.log(process.env.REACT_APP_PROJECT_ID)
+  const [cookies, setCookie] = useCookies(['token']);
+
+  console.log(cookies)
+
   return (
     <Layout>
       <Hero />
@@ -34,12 +38,13 @@ const Home = () => {
             <Count />
             <WorkesAndQuotes />
             <GetStarted />
-            <div>
+            {/*  <div>
               <h1>Design Customer Review</h1>
               <h1>Design New store on Show case</h1>
-            </div>
+            </div> */}
+            {/* <Testimonial/> */}
           </section>
-          <Chat/>
+          <Chat />
         </Suspense>
       </ErrorBoundary>
     </Layout>

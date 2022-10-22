@@ -3,12 +3,43 @@ import circle1 from "../assets/circle1.png";
 import circle2 from "../assets/circle2.png";
 import circle3 from "../assets/circle3.png";
 import circle4 from "../assets/circle4.png";
-import shoes from "../assets/shoes1.png";
-// import person from '../assets/person.png'
+import shoes1 from "../assets/shoes1.png";
+import shoes2 from "../assets/shoes2.png";
+import shoes3 from "../assets/shoes3.png";
+import person from '../assets/person.png'
 import elipse1 from "../assets/Ellipse1.png";
 import elipse2 from "../assets/Ellipse 2.png";
+import Slider from "react-slick";
+
+// Import css files
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Hero = () => {
+
+  const images = [
+    {
+      img: shoes1
+    },
+    {
+      img: shoes2
+    },
+    {
+      img: person
+    },
+    {
+      img: shoes3
+    },
+  ]
+  const settings = {
+    infinite: true,
+    speed: 800,
+    slidesToShow: 1,
+    fade: true,
+    autoplay: true,
+    arrows: false,
+  };
+
   return (
     <div>
       <div className="hero min-h-screen p-0 my-20 lg:my-0">
@@ -31,9 +62,40 @@ const Hero = () => {
                 src={circle2}
                 alt=""
               />
-              <div className='absolute  '>
-                <img className=' w-[70%] lg:w-[80%] ml-[27%] lg:mt-[82px]  lg:ml-[92px]' src={shoes} alt="shoes" />
+              <div className='absolute  w-[70%] lg:w-[80%] px-5'>
+                {/* <img className=' w-[70%] lg:w-[80%] ml-[27%] lg:mt-[82px]  lg:ml-[92px]' src={shoes1} alt="shoes" /> */}
+
+                <Slider {...settings}>
+                  {
+                    images?.map((img, index) => <img
+                      key={index}
+                      className=' w-[70%] lg:w-[80%]  lg:mt-[82px] lg:ml-[92px]' src={img.img} alt="shoes" />)
+                  }
+                </Slider>
+
+
+
               </div>
+
+
+           {/*    <div>
+
+                <Slider {...settings}>
+                  {
+                    images?.map((img, index) => <div className="absolute">
+                      <img
+                        key={index}
+                        className=' w-[70%] lg:w-[80%] ml-[27%] lg:mt-[82px] z-40 lg:ml-[92px] bg-red-500' src={img} alt="shoes" />
+                    </div>)
+                  }
+                </Slider>
+
+
+              </div> */}
+
+
+
+
             </div>
           </div>
           <div className='w-full lg:w-[40%] my-20 lg:my-0'>

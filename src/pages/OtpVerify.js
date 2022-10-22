@@ -69,7 +69,7 @@ const CompleteProfile = () => {
     details = JSON.parse(details);
     let otp = formData?.otp;
 
-    const res = await fetch("https://api.showcaseurbusiness.com/otpcheck", {
+    const res = await fetch("http://localhost:5000/otpcheck", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const CompleteProfile = () => {
 
   return (
     <Layout>
-      <div className=" py-11  flex flex-row h-full">
+      <div className=" py-11 my-20 flex flex-row h-full">
         <div className=" hidden md:block basis-1/4">
           <img src={circle} alt="circle" />
         </div>
@@ -186,7 +186,6 @@ const CompleteProfile = () => {
             className="absolute  h-[730px] w-[330px] "
           />
         </div>
-        <BussinessAccountSetup />
         <ToastContainer />
       </div>
     </Layout>
