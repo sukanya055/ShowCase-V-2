@@ -4,7 +4,13 @@ import { mensCategories } from "../utils/data";
 import productVideo from "../assets/video/product.mp4";
 import blackFilter from "../assets/blackFilter.png";
 import yellowFilter from "../assets/YellowFilter.png";
-const SideBarProduct = () => {
+const SideBarProduct = ({
+  selectedCollections,
+  sizeNumber,
+  SetSize,
+  setSizeNumber,
+  handleOnChangeCollections,
+}) => {
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -30,7 +36,7 @@ const SideBarProduct = () => {
                 id={index}
                 name={item.name}
                 value={item.name}
-                onChange={(e) => console.log(index, e)}
+                onChange={(e) => handleOnChangeCollections(e)}
                 className="checkbox checkbox-xs "
               />
               <label htmlFor={item.name}>{item.name}</label>
@@ -48,7 +54,11 @@ const SideBarProduct = () => {
           type="range"
           min="0"
           max="100"
-          // value="25"
+          value={sizeNumber}
+          onChange={(e) => {
+            setSizeNumber(+e.target.value);
+            SetSize();
+          }}
           className="range range-secondary range-xs"
           step="25"
         />

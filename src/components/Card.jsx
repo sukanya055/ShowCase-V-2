@@ -15,7 +15,9 @@ const Card = ({ video, price, name, discount, brand }) => {
           <h1 className="text-gray-600 text-lg font-semibold line-through ">
             ₹{price}
           </h1>
-          <h1 className="text-gray-700 text-lg font-normal">{discount}% off</h1>
+          <h1 className="text-green-700 text-lg font-normal">
+            {discount}% off
+          </h1>
         </div>
         <button className=" mt-3 px-3 py-1 rounded-full bg-gray-200 capitalize text-gray-700">
           more details

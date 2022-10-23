@@ -6,11 +6,44 @@ import { productData } from "../utils/products";
 import { FiFilter } from "react-icons/fi";
 import SideBarProduct from "../components/SideBarProduct";
 const Products = () => {
-  const [isOpenSideBar, setIsOpenSideBar] = useState(false);
+  const [selectedCollections, setSelectedCollections] = useState([]);
+  const [sizeNumber, setSizeNumber] = useState(25);
+  const [sizes, setSizes] = useState("s");
+  const [sortedBy, setSortedBy] = useState("recomended");
 
-  const onClickFilter = () => {
-    setIsOpenSideBar((prev) => !prev);
+  const SetSize = () => {
+    switch (sizeNumber) {
+      case 0:
+        setSizes("xs");
+        break;
+      case 25:
+        setSizes("s");
+        break;
+      case 50:
+        setSizes("m");
+        break;
+      case 75:
+        setSizes("l");
+        break;
+      case 100:
+        setSizes("xl");
+        break;
+
+      default:
+        break;
+    }
   };
+  console.log(sortedBy);
+  const handleOnChangeCollections = (e) => {
+    if (e.target.checked) {
+      setSelectedCollections([...selectedCollections, e.target.value]);
+    } else {
+      setSelectedCollections(
+        selectedCollections.filter((item) => item !== e.target.value)
+      );
+    }
+  };
+
   return (
     <Layout>
       <div className="px-8 py-5">
@@ -27,20 +60,29 @@ const Products = () => {
             <FiFilter className="text-2xl   cursor-pointer text-gray-900" />
           </label>
 
-          <select className="select  w-auto select-primary bg-gray-100  max-w-xs capitalize ">
-            <option disabled selected>
+          <select
+            className="select  w-auto select-primary bg-gray-100  max-w-xs capitalize "
+            onChange={(e) => setSortedBy(e.target.value)}
+          >
+            <option value="" disabled selected>
               Sort By
             </option>
-            <option>Recomended</option>
-            <option>Price high to low</option>
-            <option>Price Low to High</option>
-            <option>Ratigs</option>
+            <option value="recomended">Recomended</option>
+            <option value="highTlow">Price high to low</option>
+            <option value="lowTHigh">Price Low to High</option>
+            <option value="ratings">Ratigs</option>
           </select>
         </div>
 
         <div className="flex flex-row h-full ">
           <div className="basis-1/4 h-full px-4 py-3 hidden md:block items-center">
-            <SideBarProduct />
+            <SideBarProduct
+              selectedCollections={selectedCollections}
+              handleOnChangeCollections={handleOnChangeCollections}
+              sizeNumber={sizeNumber}
+              SetSize={SetSize}
+              setSizeNumber={setSizeNumber}
+            />
           </div>
           <div className="md:basis-3/4 basis-4/4 h-full">
             <MainProducts filteredData={productData} />
@@ -57,7 +99,13 @@ const Products = () => {
                 ✕
               </label>
               <div className="mt-8">
-                <SideBarProduct />
+                <SideBarProduct
+                  selectedCollections={selectedCollections}
+                  handleOnChangeCollections={handleOnChangeCollections}
+                  sizeNumber={sizeNumber}
+                  SetSize={SetSize}
+                  setSizeNumber={setSizeNumber}
+                />
               </div>
             </div>
           </div>
