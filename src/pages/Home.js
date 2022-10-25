@@ -11,11 +11,8 @@ import {
 } from "../components";
 import Chat from "../components/ChatFile/Chat";
 import Testimonial from "../components/Testimonial/Testimonial";
-import { useCookies } from 'react-cookie';
-const Home = () => {
-  const [cookies, setCookie] = useCookies(['token']);
 
-  console.log(cookies)
+const Home = () => {
 
   return (
     <Layout>

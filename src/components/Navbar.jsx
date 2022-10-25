@@ -41,9 +41,7 @@ const Navbar = () => {
         } catch (err) {
           console.log(err);
         }
-      } else {
-        alert("Login please");
-      }
+      } 
     })();
   }, [cookies]);
 
@@ -81,7 +79,7 @@ const Navbar = () => {
     navigate("/");
   };
 
-  console.log(token);
+
   return (
     <div className="shadow-md md:py-2 px-6 py-0">
       <div className="flex items-center justify-between">
