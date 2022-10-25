@@ -39,10 +39,10 @@ const Payment = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-    
+
     }
 
-    
+
     return (
         <>
             <Layout>
@@ -99,7 +99,12 @@ const Payment = () => {
                                 <form
                                     onSubmit={handleSubmit}
                                     className='relative'>
-                                    <div className="card-body flex flex-col gap-12 px-4">
+                                  
+                                    <div className="card-body flex flex-col gap-12 px-4 lg:px-6">
+                                    <div>
+                                        <h4 className='text-[#0d2366] text-[20px] font-[600]'>Payment Details</h4>
+                                        <div className='w-[40px] h-[4px] bg-[#ffa500] mt-4'></div>
+                                    </div>
                                         <div className='flex items-center justify-between '>
                                             <label htmlFor="">Email</label>
                                             <input type="text" className="input input-bordered w-[70%]" />
