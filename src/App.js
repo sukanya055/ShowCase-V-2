@@ -25,6 +25,7 @@ import Gps from "./pages/Gps";
 import ChatAdmin from "./components/ChatFile/ChatAdmin";
 import PrivateRoute from "./utils/PrivateRoute";
 import BusinessDashboard from "./pages/BusinessDashboard";
+import Payment from "./components/payment/Payment";
 
 function App() {
   return (
@@ -89,7 +90,10 @@ function App() {
         <Route path="/joinUs" element={<JoinUs />} />
         <Route path="/products" element={<Products />} />
         <Route path="/setupCompleted" element={<SetUpCompleted />} />
+
         <Route path="/admin" element={<Dashboard />} />
+
+        <Route path="/payment" element={<Payment />} />
       </Routes>
     </div>
   );

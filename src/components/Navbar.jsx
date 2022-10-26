@@ -41,9 +41,13 @@ const Navbar = ({ adminNav }) => {
         } catch (err) {
           console.log(err);
         }
+<<<<<<< HEAD
       } else {
         // alert("Login please");
       }
+=======
+      } 
+>>>>>>> f776b35c04dd43d293aa8c903c7b61295ccfa379
     })();
   }, [cookies]);
 
@@ -80,7 +84,7 @@ const Navbar = ({ adminNav }) => {
     navigate("/");
   };
 
-  console.log(token);
+
   return (
     <div className="shadow-md md:py-2 px-6 py-0">
       <div className="flex items-center justify-between">
