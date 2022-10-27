@@ -19,7 +19,7 @@ import {
 import { useCookies } from "react-cookie";
 import axios from "axios";
 // >>>>>>> 606301900deb403c949899cf94cbf7d5f0d3b2c2
-const Navbar = ({ adminNav }) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Navbar = ({ adminNav }) => {
   const toggle = () => {
     setIsOpen((prev) => !prev);
   };
-  console.log(adminNav);
+
   useEffect(() => {
     (async () => {
       if (cookies?.token) {
@@ -41,13 +41,7 @@ const Navbar = ({ adminNav }) => {
         } catch (err) {
           console.log(err);
         }
-<<<<<<< HEAD
-      } else {
-        // alert("Login please");
-      }
-=======
       } 
->>>>>>> f776b35c04dd43d293aa8c903c7b61295ccfa379
     })();
   }, [cookies]);
 
@@ -60,17 +54,18 @@ const Navbar = ({ adminNav }) => {
           },
         });
         console.log(data);
-        if (data?.role === 1) {
-          navigate("/businessProfile/businessDashboard");
+        if(data?.role === 1){
+          navigate('/businessProfile/businessDashboard')
         }
-        if (data?.role === 0) {
-          navigate("/dashboard/normalDashboard");
+        if(data?.role === 0){
+          navigate('/dashboard/normalDashboard')
         }
+
       } catch (err) {
         console.log(err);
       }
     } else {
-      // alert("Login please");
+      alert("Login please");
     }
   };
 
@@ -90,12 +85,7 @@ const Navbar = ({ adminNav }) => {
       <div className="flex items-center justify-between">
         {/* Logo */}
         <div className="flex gap-1 md:gap-8 items-center justify-between ">
-          <img
-            onClick={() => navigate("/")}
-            src={logo}
-            alt="logo"
-            className="h-[57px] w-[110px] cursor-pointer"
-          />
+          <img onClick={()=>navigate('/')} src={logo} alt="logo" className="h-[57px] w-[110px] cursor-pointer" />
           {/* Search  */}
           <div className="md:w-auto w-[130px]  bg-gray-100 py-2  rounded-2xl">
             <label className="input-group">
@@ -111,101 +101,99 @@ const Navbar = ({ adminNav }) => {
           </div>
         </div>
         {/* Actions link */}
-        {!adminNav && (
-          <div className="lg:flex hidden  items-center justify-center gap-4">
-            <h1 className="text-md text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
-              All Videos
+        <div className="lg:flex hidden  items-center justify-center gap-4">
+          <h1 className="text-md text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
+            All Videos
+          </h1>
+          <div className="dropdown dropdown-hover">
+            <h1
+              tabIndex={0}
+              className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+            >
+              Men <FiChevronDown />
             </h1>
-            <div className="dropdown dropdown-hover">
-              <h1
-                tabIndex={0}
-                className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
-              >
-                Men <FiChevronDown />
-              </h1>
-              <ul
-                tabIndex={0}
-                className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
-              >
-                {commonCategory.map((item) => (
-                  <li key={item.id}>
-                    <a>{item.name}</a>
-                  </li>
-                ))}
-                {mensCategories.map((item) => (
-                  <li key={item.id}>
-                    <a>{item.name}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="dropdown dropdown-hover">
-              <h1
-                tabIndex={0}
-                className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
-              >
-                Women <FiChevronDown />
-              </h1>
-              <ul
-                tabIndex={0}
-                className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
-              >
-                {commonCategory.map((item) => (
-                  <li key={item.id}>
-                    <a>{item.name}</a>
-                  </li>
-                ))}
-                {womenCategories.map((item) => (
-                  <li key={item.id}>
-                    <a>{item.name}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="dropdown dropdown-hover">
-              <h1
-                tabIndex={0}
-                className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
-              >
-                kids <FiChevronDown />
-              </h1>
-              <ul
-                tabIndex={0}
-                className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
-              >
-                {commonCategory.map((item) => (
-                  <li key={item.id}>
-                    <a>{item.name}</a>
-                  </li>
-                ))}
-                {mensCategories.map((item) => (
-                  <li key={item.id}>
-                    <a>{item.name}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="dropdown dropdown-hover">
-              <h1
-                tabIndex={0}
-                className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
-              >
-                Home & Kitchen <FiChevronDown />
-              </h1>
-              <ul
-                tabIndex={0}
-                className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
-              >
-                {homeCategories.map((item) => (
-                  <li key={item.id}>
-                    <a>{item.name}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
+            >
+              {commonCategory.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+              {mensCategories.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+            </ul>
           </div>
-        )}
+
+          <div className="dropdown dropdown-hover">
+            <h1
+              tabIndex={0}
+              className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+            >
+              Women <FiChevronDown />
+            </h1>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
+            >
+              {commonCategory.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+              {womenCategories.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="dropdown dropdown-hover">
+            <h1
+              tabIndex={0}
+              className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+            >
+              kids <FiChevronDown />
+            </h1>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
+            >
+              {commonCategory.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+              {mensCategories.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="dropdown dropdown-hover">
+            <h1
+              tabIndex={0}
+              className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+            >
+              Home & Kitchen <FiChevronDown />
+            </h1>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
+            >
+              {homeCategories.map((item) => (
+                <li key={item.id}>
+                  <a>{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
 
         {/* users */}
         <div className="flex items-center justify-center gap-1 md:gap-5">
