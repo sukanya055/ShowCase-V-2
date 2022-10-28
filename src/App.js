@@ -12,7 +12,6 @@ import {
   JoinUs,
   Products,
   SetUpCompleted,
-  Dashboard,
   // ChangePassword
 } from "./pages";
 
@@ -32,14 +31,11 @@ function App() {
     <div className="App">
       <Routes>
         {/* support chat route For admin */}
-        <Route
-          path="/supportChat"
-          element={
-            <PrivateRoute>
-              <ChatAdmin />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/supportChat" element={
+          <PrivateRoute>
+            <ChatAdmin />
+          </PrivateRoute>
+        } />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/auth" element={<Login />} />
 
@@ -56,43 +52,37 @@ function App() {
 
         <Route path="/businessProfile">
           <Route path="businessDashboard" element={<BusinessDashboard />} />
-          <Route
-            path="updateBusinessPassword"
-            element={<BusinessChangePassword />}
-          />
+          <Route path="updateBusinessPassword" element={<BusinessChangePassword />} />
           <Route path="updateBusinessProfile" element={<BusinessProfile />} />
           <Route path="updateGps" element={<Gps />} />
         </Route>
 
-        <Route
-          path="/changePassword"
-          element={
-            <PrivateRoute>
-              <PasswordChange />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/changePassword" element={
+          <PrivateRoute>
+            <PasswordChange />
+          </PrivateRoute>} />
         <Route
           path="/businessAccountSetup"
           element={<BussinessAccountSetup />}
         />
+
         <Route path="/normalAccountSetup" element={<BussinessAccountSetup />} />
 
+
+        <Route path="/normalAccountSetup" element={
+          <BussinessAccountSetup />
+        } />
+
         <Route path="/completeProfile" element={<CompleteProfile />} />
-        <Route
-          path="/otpVerify"
-          element={
-            <PrivateRoute>
-              <OtpVerify />
-            </PrivateRoute>
-          }
-        />
-        <Route path="/joinUs" element={<JoinUs />} />
+        <Route path="/otpVerify" element={
+          <PrivateRoute>
+            <OtpVerify />
+          </PrivateRoute>
+        } />
+        <Route path="/joinUs" element={<JoinUs />
+        } />
         <Route path="/products" element={<Products />} />
         <Route path="/setupCompleted" element={<SetUpCompleted />} />
-
-        <Route path="/admin" element={<Dashboard />} />
-
         <Route path="/payment" element={<Payment />} />
       </Routes>
     </div>
