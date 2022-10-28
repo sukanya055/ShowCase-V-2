@@ -18,7 +18,7 @@ const BusinessDashboard = () => {
         (async () => {
 
             if (cookies?.token) {
-
+                // information 
                 try {
                     const { data } = await axios.get('http://localhost:5000/user/infor', {
                         headers: {
