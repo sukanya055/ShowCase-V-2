@@ -5,10 +5,15 @@ import { Layout } from '../components';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import PostVideo from './modal/PostVideo';
+import userImg from '../assets/user.png'
+
 const BusinessDashboard = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const [openModal, setOpenModal] = useState(null)
-    console.log(cookies?.token)
+    const [userDetails, setUserDetails] = useState({})
+
+    const { about, address, country, name, phone, whats, profile } = userDetails || {}
+
     useEffect(() => {
         (async () => {
 
@@ -20,6 +25,7 @@ const BusinessDashboard = () => {
                             'Authorization': cookies?.token,
                         }
                     });
+                    setUserDetails(data)
                     console.log(data)
                 }
                 catch (err) {
@@ -30,6 +36,7 @@ const BusinessDashboard = () => {
                 alert("Login please");
             }
         })();
+
     }, [cookies])
 
     return (
@@ -37,16 +44,20 @@ const BusinessDashboard = () => {
             <section>
                 <div className='flex  flex-col md:flex-row w-full px-10 justify-center md:w-[90%] lg:w-[70%] mx-auto my-32 gap-[18px]'>
                     <div className='text-center flex justify-center w-full'>
-                        <img className='w-[205px] sm:w-[305px] mx-auto lg:w-[205px] md:h-[205px] object-cover rounded-[50%] bg-gray-400' src="https://www.jigsawacademy.com/wp-content/themes/jigsaw-new/assets/images/boy-img-removebg-preview.webp" alt="" />
+                        <img className='w-[205px] sm:w-[305px] mx-auto lg:w-[205px] md:h-[205px] object-cover rounded-[50%] ' src={profile ? profile : userImg} alt="" />
                     </div>
-                    <div className='flex mt-10 md:mt-0'>
+                    <div className='flex mt-10 md:mt-0 w-full'>
                         <div className=' '>
-                            <div className='flex gap-10 sm:gap-16 md:gap-32 w-full items-center'>
-                                <h3 className='text-[17px] sm:text-[20px] md:text-[28px] font-bold '>Candes Perreira</h3>
+                            <div className='flex gap-10 sm:gap-16 md:gap-10 w-full items-center'>
+                                <h3 className='text-[17px] sm:text-[20px] md:text-[28px] font-bold '>{name}</h3>
                                 <div className="dropdown dropdown-end md:dropdown-start ml-10">
-                                    <label tabIndex={0} className="btn btn-ghost rounded-btn"><p><BsGearWide
-                                        className='text-[23px] cursor-pointer'
-                                    /></p></label>
+                                    <label tabIndex={0} className="btn btn-ghost rounded-btn">
+                                        <p>
+                                            <BsGearWide
+                                                className='text-[23px] cursor-pointer'
+                                            />
+                                        </p>
+                                    </label>
                                     <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
                                         <li><Link to='/businessProfile/updateBusinessProfile'>Update Profile</Link></li>
                                     </ul>
@@ -62,16 +73,24 @@ const BusinessDashboard = () => {
 
 
                             </div>
-                            <div className=' leading-7 mt-6 md:w-[50%] pr-3'>
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Numquam voluptates quibusdam debitis! Est ipsam nulla, reiciendis amet explicabo illum maxime voluptates. Natus sed doloremque eligendi reiciendis veniam repellendus</p>
+                            <div className=' leading-7 mt-6 pr-7'>
+                                <p>{about} .</p>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
                 <div className='flex justify-center gap-10 mb-20 '>
-                    <div className='flex justify-center items-center border-solid border-gray-400 border-2 px-10 py-5 cursor-pointer rounded-lg'>
+                    <div
+                        onClick={() => {
+                            if (whats !== undefined) {
+                                window.open(`https://wa.me/${country}${phone}`)
+                            }
+                            else {
+                                alert("Please login to see your profile");
+                            }
+                        }}
+                        className='flex justify-center items-center border-solid border-gray-400 border-2 px-10 py-5 cursor-pointer rounded-lg'>
                         <p>WhatsApp</p>
                     </div>
                     <div className=' flex justify-center items-center border-solid border-gray-400 border-2 px-10 py-5 cursor-pointer rounded-lg'>
@@ -95,11 +114,11 @@ const BusinessDashboard = () => {
             </section>
             {
                 openModal && <PostVideo
-                openModal={openModal}
-                setOpenModal={setOpenModal}
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
                 />
             }
-            
+
         </Layout>
     );
 };

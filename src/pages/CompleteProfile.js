@@ -24,6 +24,7 @@ const CompleteProfile = () => {
   const [open, setOpen] = useState(false);
   const { phone, address, country } = formData || {};
 
+  console.log(formData)
 
   useEffect(() => {
     if (errorMessage) {

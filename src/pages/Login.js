@@ -172,9 +172,9 @@ const Login = () => {
         const roleData = await roles.json();
      
         if (roleData.role == 0) {
-          navigate("/normalUser");
+          navigate("/dashboard/normalDashboard");
         } else {
-          navigate("/dashboardbusiness");
+          navigate("/businessProfile/businessDashboard");
         }
       } catch (error) {
         if (error?.response) {

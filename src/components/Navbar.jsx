@@ -64,8 +64,6 @@ const Navbar = () => {
       } catch (err) {
         console.log(err);
       }
-    } else {
-      alert("Login please");
     }
   };
 

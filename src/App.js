@@ -68,11 +68,6 @@ function App() {
 
         <Route path="/normalAccountSetup" element={<BussinessAccountSetup />} />
 
-
-        <Route path="/normalAccountSetup" element={
-          <BussinessAccountSetup />
-        } />
-
         <Route path="/completeProfile" element={<CompleteProfile />} />
         <Route path="/otpVerify" element={
           <PrivateRoute>

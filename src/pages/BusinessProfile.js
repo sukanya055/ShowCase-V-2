@@ -67,7 +67,7 @@ const BusinessProfile = () => {
               'Authorization': cookies?.token,
             }
           });
-      
+          console.log(response)
           setImage(response.data.profile);
 
         }
@@ -89,27 +89,28 @@ const BusinessProfile = () => {
   const handleForm = async (e) => {
     e.preventDefault();
     setLoading(true)
-    console.log(name, whatsapp, about)
+    console.log('from handle form', name, whatsapp, about, phone, image)
 
-    try {
+    if (cookies?.token) {
+      try {
 
-      const response = await axios.patch('http://localhost:5000/user/editpro', {
-        name: name,
-        phone: phone,
-        about: about,
-        whats: whatsapp,
-        profile: image
-      }, {
-        headers: {
-          'Authorization': cookies?.token,
+        const { data } = await axios.patch('http://localhost:5000/user/editpro', {
+          name: name,
+          phone: phone,
+          about: about,
+          whats: whatsapp,
+          profile: image
+        }, {
+          headers: {
+            'Authorization': cookies?.token,
+          }
+        });
+        navigate('/businessProfile/businessDashboard')
+      } catch (error) {
+        if (error.response) {
+          setLoading(false)
+          setErrorMessage(error.response.data.msg)
         }
-      });
-
-      navigate('/dashboardBusiness')
-    } catch (error) {
-      if (error.response) {
-        setLoading(false)
-        setErrorMessage(error.response.data.msg)
       }
     }
 
@@ -122,6 +123,7 @@ const BusinessProfile = () => {
     uploadFile(event.target.files[0], config)
       .then(data => {
         setLoading(false)
+        console.log(data)
         return setImage(data?.location)
 
       })
@@ -137,7 +139,6 @@ const BusinessProfile = () => {
     navigate(`/businessProfile/${path}`)
   }
 
- 
 
   return (
     <Layout>
@@ -233,45 +234,54 @@ const BusinessProfile = () => {
                 <label
                   className="block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]"
                   htmlFor=""
-                  value={name}
-                  onChange={e => console.log(e.target.value)}
+
                 >
                   User Name
                 </label>
-                <input type="text" className="input input-bordered w-full" />
+                <input
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  type="text"
+                  className="input input-bordered w-full" />
               </div>
               <div className="w-full mb-9">
                 <label
                   className="block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]"
                   htmlFor=""
-                  value={whatsapp}
-                  onChange={e => setWhatsApp(e.target.value)}
+
                 >
                   Whatsapp link
                 </label>
-                <input type="text" className="input input-bordered w-full" />
+                <input
+                  value={whatsapp}
+                  onChange={e => setWhatsApp(e.target.value)}
+                  type="text" className="input input-bordered w-full" />
               </div>
               <div className="w-full mb-9">
                 <label
                   className="block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]"
                   htmlFor=""
-                  value={phone}
-                  onChange={e => setPhone(e.target.value)}
+
                 >
                   Phone Number
                 </label>
-                <input type="text" className="input input-bordered w-full" />
+                <input
+                  value={phone}
+                  onChange={e => setPhone(e.target.value)}
+                  type="text" className="input input-bordered w-full" />
               </div>
               <div className="w-full  mt-10">
                 <label
                   className="block text-[#858A89] font-bold mb-4 text-[14px] md:text-[16px]"
                   htmlFor=""
-                  value={about}
-                  onChange={e => setAbout(e.target.value)}
+
                 >
                   About Me
                 </label>
-                <textarea className="textarea textarea-bordered w-full min-h-[165px]"></textarea>
+                <textarea
+                  value={about}
+                  onChange={e => setAbout(e.target.value)}
+                  className="textarea textarea-bordered w-full min-h-[165px]"></textarea>
               </div>
               <div className="flex gap-4 justify-center mt-[64px] flex-col md:flex-row">
                 <p className="border-2 border-[#CED0D0] px-4 py-2 text-[#858A89] border-solid cursor-pointer text-center  rounded-md text-[14px] md:text-[16px]">

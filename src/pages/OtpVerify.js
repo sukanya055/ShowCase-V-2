@@ -17,6 +17,7 @@ import BussinessAccountSetup from "./BussinessAccountSetup";
 const initialState = {
   otp: "",
 };
+
 const CompleteProfile = () => {
   const [formData, setFormData] = useState(initialState);
   const [errorMessage, setErrorMessage] = useState('')
