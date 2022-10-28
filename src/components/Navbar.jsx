@@ -41,13 +41,7 @@ const Navbar = ({ adminNav }) => {
         } catch (err) {
           console.log(err);
         }
-<<<<<<< HEAD
-      } else {
-        // alert("Login please");
-      }
-=======
       } 
->>>>>>> f776b35c04dd43d293aa8c903c7b61295ccfa379
     })();
   }, [cookies]);
 
