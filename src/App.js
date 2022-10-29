@@ -74,6 +74,14 @@ function App() {
             <OtpVerify />
           </PrivateRoute>
         } />
+        {/* <Route path="/normalAccountSetup" element={<BussinessAccountSetup />} />
+
+        <Route path="/completeProfile" element={<CompleteProfile />} />
+        <Route path="/otpVerify" element={
+          <PrivateRoute>
+            <OtpVerify />
+          </PrivateRoute>
+        } /> */}
         <Route path="/joinUs" element={<JoinUs />
         } />
         <Route path="/products" element={<Products />} />
