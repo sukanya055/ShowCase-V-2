@@ -7,12 +7,12 @@ import axios from 'axios';
 import PostVideo from './modal/PostVideo';
 import userImg from '../assets/user.png'
 
-const BusinessDashboard = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+const BusinessDashboard = React.memo(() => {
+    const [cookies] = useCookies(['token']);
     const [openModal, setOpenModal] = useState(null)
     const [userDetails, setUserDetails] = useState({})
 
-    const { about, address, country, name, phone, whats, profile } = userDetails || {}
+    const { about, country, name, phone, whats, profile } = userDetails || {}
 
     useEffect(() => {
         (async () => {
@@ -121,7 +121,8 @@ const BusinessDashboard = () => {
 
         </Layout>
     );
-};
+}
+)
 
 export default BusinessDashboard;
 

@@ -67,8 +67,7 @@ const CompleteProfile = () => {
             },
           }
         );
-        console.log(response);
-        const responseData = response.data;
+       
         const res = await fetch("http://localhost:5000/onetimepassword", {
           method: "POST",
           headers: {

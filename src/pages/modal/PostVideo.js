@@ -1,14 +1,46 @@
 import React, { useState } from 'react';
+import { uploadFile } from 'react-s3';
+
+const S3_BUCKET = 'showcase28';
+const REGION = 'us-east-1';
+const ACCESS_KEY = 'AKIAQFXX4ZU3AHYZQUFH';
+const SECRET_ACCESS_KEY = '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';
+
+
+const config = {
+    bucketName: S3_BUCKET,
+    region: REGION,
+    accessKeyId: ACCESS_KEY,
+    secretAccessKey: SECRET_ACCESS_KEY,
+}
 
 const PostVideo = ({ openModal, setOpenModal }) => {
 
     const [video, setVideo] = useState('')
     const [formData, setFormData] = useState({})
+    const [loading, setLoading] = useState(false)
+
 
     const videoHandler = (event) => {
-        if (event.target.files && event.target.files[0]) {
+        setLoading(true)
+        /* if (event.target.files && event.target.files[0]) {
             setVideo(URL.createObjectURL(event.target.files[0]));
         }
+ */
+        window.Buffer = window.Buffer || require("buffer").Buffer;
+        uploadFile(event.target.files[0], config)
+            .then(data => {
+                setLoading(false)
+                return setVideo(data?.location)
+
+            })
+            .catch(error => {
+                setLoading(false)
+                console.log(error)
+            }
+
+            )
+
     }
 
     const handleSubmit = (e) => {
@@ -16,6 +48,7 @@ const PostVideo = ({ openModal, setOpenModal }) => {
         console.log(formData)
     }
 
+    console.log(video)
 
     return (
         <div>
@@ -28,7 +61,7 @@ const PostVideo = ({ openModal, setOpenModal }) => {
                         <form onSubmit={handleSubmit}>
                             <div className='text-center mb-8 '>
                                 <input onChange={videoHandler} className='hidden' type="file" id="video" />
-                                <label className='btn bg-[#858A89] rounded-full px-9 py-2 capitalize text-white' htmlFor="video">Choose Video</label>
+                                <label className='btn bg-[#858A89] rounded-full px-9 py-2 capitalize text-white' htmlFor="video">{loading ? 'Uploading Video' : 'Choose Video'}</label>
                             </div >
                             {
                                 video && <div className='flex justify-center mb-7'>
