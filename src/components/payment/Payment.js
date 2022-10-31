@@ -4,36 +4,49 @@ import logo from '../../assets/logo1.jpg'
 import payment from '../../assets/payment.png'
 import { IoMdMail } from 'react-icons/io';
 import { FaPhoneAlt } from 'react-icons/fa';
+import { GiBoulderDash } from 'react-icons/gi';
 const Payment = () => {
 
-    const silverRef = useRef(null)
-    const goldRef = useRef(null)
-    const platinumRef = useRef(null)
+    let silverRef = useRef(null)
+    let goldRef = useRef(null)
+    let platinumRef = useRef(null)
     const [pay, setPay] = useState(0)
-
+    const [check1, setCheck1] = useState(false)
+    const [check2, setCheck2] = useState(false)
+    const [check3, setCheck3] = useState(false)
 
     const handleSilver = (status) => {
 
         if (status) {
-            setPay(prev => prev + Number(silverRef?.current?.innerText.replace(/[^A-Za-z0-9]/g, "")))
+            setCheck1(true)
+            setCheck2(false)
+            setCheck3(false)
+            setPay(prev => (Number(silverRef?.current?.innerText.replace(/[^A-Za-z0-9]/g, ""))))
+
         } else {
-            setPay(prev => prev - Number(silverRef?.current?.innerText.replace(/[^A-Za-z0-9]/g, "")))
+            setPay(0)
         }
     }
     const handleGold = (status) => {
 
         if (status) {
-            setPay(prev => prev + Number(goldRef?.current?.innerText.replace(/[^A-Za-z0-9]/g, "")))
+            setCheck1(false)
+            setCheck2(true)
+            setCheck3(false)
+            setPay(prev =>Number(goldRef?.current?.innerText.replace(/[^A-Za-z0-9]/g, "")))
         } else {
-            setPay(prev => prev - Number(goldRef?.current?.innerText.replace(/[^A-Za-z0-9]/g, "")))
+            setPay(0)
         }
     }
     const handlePlatinum = (status) => {
 
         if (status) {
-            setPay(prev => prev + Number(platinumRef?.current?.innerText.replace(/[^A-Za-z0-9]/g, "")))
+            setCheck1(false)
+            setCheck2(false)
+            setCheck3(true)
+            setPay(prev => Number(platinumRef?.current?.innerText.replace(/[^A-Za-z0-9]/g, "")))
         } else {
-            setPay(prev => prev - Number(platinumRef?.current?.innerText.replace(/[^A-Za-z0-9]/g, "")))
+            setPay(0)
         }
     }
 
@@ -41,7 +54,8 @@ const Payment = () => {
         e.preventDefault()
 
     }
-
+    console.log(pay)
+    console.log((goldRef?.current || platinumRef?.current)? false :true )
 
     return (
         <>
@@ -125,6 +139,7 @@ const Payment = () => {
                                                 <input
                                                     onChange={e => handleSilver(e.target.checked)}
                                                     type="checkbox"
+                                                   checked={check1}
                                                     className="checkbox border-2 border-[#ffa500] checkbox-accent"
                                                 />
                                             </div>
@@ -137,10 +152,12 @@ const Payment = () => {
                                             <div className='flex items-center w-[70%] justify-between input-bordered input'>
                                                 <p><span
                                                     ref={goldRef}
+                                                
                                                     className='font-bold'>₹700</span>.00</p>
                                                 <input
                                                     onChange={e => handleGold(e.target.checked)}
                                                     type="checkbox"
+                                                    checked={check2}
                                                     className="checkbox border-2 border-[#ffa500] checkbox-accent"
                                                 />
                                             </div>
@@ -157,6 +174,7 @@ const Payment = () => {
                                                 <input
                                                     onChange={e => handlePlatinum(e.target.checked)}
                                                     type="checkbox"
+                                                    checked={check3}
                                                     className="checkbox border-2 border-[#ffa500] checkbox-accent font-bold"
                                                 />
                                             </div>

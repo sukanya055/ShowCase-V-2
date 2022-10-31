@@ -27,14 +27,10 @@ const config = {
 const BusinessProfile = () => {
 
   const [cookies] = useCookies(['token']);
-
   const navigate = useNavigate();
-  const location = useLocation()
   const [image, setImage] = useState("");
-  const [imgFile, setImgFile] = useState('')
   const [ErrorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false)
-
   const [name, setName] = useState('')
   const [about, setAbout] = useState('')
   const [whatsapp, setWhatsApp] = useState('')
