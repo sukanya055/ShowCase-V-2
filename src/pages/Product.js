@@ -21,9 +21,9 @@ const Product = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  if (Object.keys(productData).length === 0) {
+  /* if (Object.keys(productData).length === 0) {
     return <h1>Loading....</h1>;
-  }
+  } */
   return (
     <div>
       <Layout>
@@ -52,17 +52,17 @@ const Product = () => {
             <div className="flex flex-row items-center justify-between">
               <div className="basis-1/2">
                 <h3 className="font-light font-roboto text-md">
-                  {productData.type}
+                  {productData?.type}
                 </h3>
                 <h1 className="font-semibold text-2xl font-roboto my-2">
-                  {productData.title}
+                  {productData?.title}
                 </h1>
                 <p className=" text-md font-poppins font-normal w-8/12">
-                  {productData.desc}
+                  {productData?.desc}
                 </p>
               </div>
               <button className="basiz-1/2 shadow-xl hover:shadow-lg p-2 rounded-md ">
-                Rs. {productData.price}
+                Rs. {productData?.price}
               </button>
             </div>
             <div className="flex flex-row place-items-stretch  justify-between gap-8 mt-12">
@@ -112,7 +112,7 @@ const Product = () => {
         <input type="checkbox" id="my-modal-4" className="modal-toggle" />
         <label htmlFor="my-modal-4" className="modal cursor-pointer">
           <label className="modal-box h-full p-0   relative">
-            <Map productData={productData} />
+            {/* <Map productData={productData} /> */}
           </label>
         </label>
       </Layout>

@@ -12,7 +12,22 @@ const BusinessDashboard = React.memo(() => {
     const [openModal, setOpenModal] = useState(null)
     const [userDetails, setUserDetails] = useState({})
 
-    const { about, country, name, phone, whats, profile } = userDetails || {}
+    const { about, country, name, phone, whats, profile, _id } = userDetails || {}
+    const [videos, setVideos] = useState()
+
+    const getAdminProductVideo = async () => {
+        try {
+            const { data } = await axios.get(`http://localhost:5000/admin/adminProductVideo`, {
+                headers: {
+                    'Authorization': cookies?.token,
+                }
+            })
+            setVideos(data?.data)
+            console.log(data?.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
         (async () => {
@@ -35,13 +50,14 @@ const BusinessDashboard = React.memo(() => {
             else {
                 alert("Login please");
             }
+
         })();
-
+        getAdminProductVideo()
     }, [cookies])
-
+    console.log(videos)
     return (
         <Layout>
-            <section>
+            <section className='overflow-x-hidden'>
                 <div className='flex  flex-col md:flex-row w-full px-10 justify-center md:w-[90%] lg:w-[70%] mx-auto my-32 gap-[18px]'>
                     <div className='text-center flex justify-center w-full'>
                         <img className='w-[205px] sm:w-[305px] mx-auto lg:w-[205px] md:h-[205px] object-cover rounded-[50%] ' src={profile ? profile : userImg} alt="" />
@@ -68,6 +84,7 @@ const BusinessDashboard = React.memo(() => {
                                 <div className='flex gap-2 items-center'>
                                     <p><BsPlayCircle /></p>
                                     <p>Videos</p>
+
                                 </div>
                                 <p>30</p>
 
@@ -80,7 +97,7 @@ const BusinessDashboard = React.memo(() => {
                     </div>
                 </div>
 
-                <div className='flex justify-center gap-10 mb-20 '>
+                <div className='flex justify-center gap-10 mb-20 flex-col md:flex-row px-4'>
                     <div
                         onClick={() => {
                             if (whats !== undefined) {
@@ -104,22 +121,52 @@ const BusinessDashboard = React.memo(() => {
                     </div>
                 </div>
 
-                <div className='text-center '>
+                <div className='text-center overflow-x-hidden'>
                     <h3 className='font-bold text-xl mb-10'>Your Videos</h3>
-                    <div>
+                    <section class="text-gray-600 body-font">
+                        <div class="container px-5 py-24 mx-auto overflow-x-hidden">
+                            <div class="flex flex-wrap w-full justify-center items-center">
 
-                    </div>
+                                {
+                                    videos?.map((video, index) => <div
+                                        key={index}
+                                        class="p-4 w-[310px] md:w-1/3">
+                                        <div class="border-2 border-gray-200 border-opacity-60 rounded-lg ">
+
+                                            <video
+                                                // className='w-full h-full' 
+                                                src={video?.link}
+                                                width={"100%"}
+                                                height='400'
+                                                autoPlay={true}
+                                                loop={true}
+                                                muted={true}
+
+                                            ></video>
+                                            <div className='py-7 text-left px-4'>
+                                                <h4>Category: {video?.category}</h4>
+                                                <p>Brand: {video?.brand}</p>
+                                                <p>Type: {video?.type}</p>
+                                            </div>
+                                        </div>
+                                    </div>)
+                                }
+
+                            </div>
+                        </div>
+                    </section>
                 </div>
 
-            </section>
+            </section >
             {
                 openModal && <PostVideo
                     openModal={openModal}
                     setOpenModal={setOpenModal}
+                    userId={_id}
                 />
             }
 
-        </Layout>
+        </Layout >
     );
 }
 )

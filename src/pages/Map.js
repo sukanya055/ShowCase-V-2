@@ -6,10 +6,10 @@ import L from "leaflet";
 import location from "../assets/location.png";
 const Map = ({ productData }) => {
   const position = [51.505, -0.09];
-  console.log(productData?.coordinates?.lng);
+  // console.log(productData?.coordinates?.lng);
   const [center, setCenter] = useState({
-    lat: productData.coordinates.lat,
-    lng: productData.coordinates.lng,
+    lat: productData?.coordinates?.lat,
+    lng: productData?.coordinates?.lng,
   });
   const MarkerIcon = new L.Icon({
     iconUrl: location,
@@ -26,10 +26,10 @@ const Map = ({ productData }) => {
       className="w-full h-full"
     >
       <TileLayer
-        url={osm.maptiler.url}
-        attribution={osm.maptiler.attribution}
+        url={osm?.maptiler?.url}
+        attribution={osm?.maptiler?.attribution}
       />
-      <Marker position={[center.lat, center.lng]} icon={MarkerIcon}>
+      <Marker position={[center?.lat, center.lng]} icon={MarkerIcon}>
         <Popup>
           <b>Cake shop</b>
         </Popup>

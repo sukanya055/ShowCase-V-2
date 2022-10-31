@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { uploadFile } from 'react-s3';
+import { useCookies } from 'react-cookie';
 
 const S3_BUCKET = 'showcase28';
 const REGION = 'us-east-1';
@@ -14,12 +16,25 @@ const config = {
     secretAccessKey: SECRET_ACCESS_KEY,
 }
 
-const PostVideo = ({ openModal, setOpenModal }) => {
-
+const PostVideo = ({ openModal, setOpenModal,userId }) => {
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const [video, setVideo] = useState('')
-    const [formData, setFormData] = useState({})
-    const [loading, setLoading] = useState(false)
+    const [formData, setFormData] = useState({
+        email:'',
+        description:'',
+        price:'',
+        category:'',
+        productType:'',
+        productBrand:'',
+        companyName:'',
+        link:'',
+        userId
 
+    })
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState({
+        videError:''
+    })
 
     const videoHandler = (event) => {
         setLoading(true)
@@ -31,6 +46,7 @@ const PostVideo = ({ openModal, setOpenModal }) => {
         uploadFile(event.target.files[0], config)
             .then(data => {
                 setLoading(false)
+                // setFormData({...formData,link:data?.location,userId})
                 return setVideo(data?.location)
 
             })
@@ -38,21 +54,41 @@ const PostVideo = ({ openModal, setOpenModal }) => {
                 setLoading(false)
                 console.log(error)
             }
-
             )
 
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(formData)
+
+        if (cookies?.token) {
+
+        if(!video){
+            return setError({...error,videError:'Please select a video'})
+        }
+        
+        setError({...formData,videError:''})
+            fetch(`http://localhost:5000/admin/products`, {
+                method: "POST",
+                headers: {
+                    'Authorization': cookies?.token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data: formData,
+                    video,
+                    userId
+                })
+            })
+                .then(res => res.json())
+                .then(data => console.log(data))
+
+        }
     }
-
-    console.log(video)
-
+    console.log(formData)
     return (
         <div>
-
             <input type="checkbox" id="my-modal-6" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box w-[800px]">
@@ -60,8 +96,18 @@ const PostVideo = ({ openModal, setOpenModal }) => {
                     <div className="card-body">
                         <form onSubmit={handleSubmit}>
                             <div className='text-center mb-8 '>
-                                <input onChange={videoHandler} className='hidden' type="file" id="video" />
-                                <label className='btn bg-[#858A89] rounded-full px-9 py-2 capitalize text-white' htmlFor="video">{loading ? 'Uploading Video' : 'Choose Video'}</label>
+                                <input
+                                    onChange={videoHandler}
+                                    className='hidden'
+                                    type="file"
+                                    id="video"
+                                    disabled={loading ? true : false}
+                                    
+                                />
+                                <label
+                                    className='btn bg-[#858A89] rounded-full px-9 py-2 capitalize text-white' htmlFor="video">
+                                    {loading ? 'Uploading Video' : 'Choose Video'}
+                                </label>
                             </div >
                             {
                                 video && <div className='flex justify-center mb-7'>
@@ -86,6 +132,7 @@ const PostVideo = ({ openModal, setOpenModal }) => {
                                     type="text"
                                     className="input input-bordered"
                                     required
+                                    autoComplete='off'
                                 />
                             </div>
                             <div className="form-control">
@@ -95,7 +142,11 @@ const PostVideo = ({ openModal, setOpenModal }) => {
                                 <input
                                     value={formData.email}
                                     onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                    type="email" className="input input-bordered" required />
+                                    type="email"
+                                    className="input input-bordered"
+                                    required
+                                    autoComplete='off'
+                                />
 
                             </div>
                             <div className="form-control">
@@ -105,30 +156,53 @@ const PostVideo = ({ openModal, setOpenModal }) => {
                                 <input
                                     value={formData.productBrand}
                                     onChange={e => setFormData({ ...formData, productBrand: e.target.value })}
-                                    type="text" className="input input-bordered" required />
+                                    type="text"
+                                    className="input input-bordered"
+                                    autoComplete='off'
+                                    required />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Product Type</span>
                                 </label>
-                                <input
+                                <select
+                                    required
                                     value={formData.productType}
                                     onChange={e => setFormData({ ...formData, productType: e.target.value })}
-                                    type="text" className="input input-bordered" required />
-
+                                    className="select select-bordered w-full " >
+                                    <option value="">Select a product type</option>
+                                    <option value="Men">Men</option>
+                                    <option value="Women">Women</option>
+                                    <option value="Kids">Kids</option>
+                                    <option value="Home&Kitchen">Home&Kitchen</option>
+                                </select>
+                               
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Category</span>
                                 </label>
                                 <select
+                                    required
                                     value={formData.category}
-                                    onChange={e => setFormData({ ...formData, category: e.target.value })}
+                                    onChange={e => setFormData({ ...formData, category: e.target.value || null })}
                                     className="select select-bordered w-full " >
-                                    <option value="shirt">shirt</option>
-                                    <option value="shoes">shoes</option>
-                                    <option value="pants">pants</option>
+                                    <option value="">Select a category</option>
+                                    <option value="Jeans">Jeans</option>
+                                    <option value="Whoose">Whoose</option>
+                                    <option value="Watch">Watch</option>
+                                    <option value="Casual Shirt">Casual Shirt</option>
+                                    <option value="Cutton Pants">Cutton Pants</option>
+                                    <option value="Jeans Shirt">Jeans Shirt</option>
+                                    <option value="Kurtas">Kurtas</option>
+                                    <option value="Jeans Top">Jeans Top</option>
+                                    <option value="Kurti">Kurti</option>
+                                    <option value="Knife">Knife</option>
+                                    <option value="Faurniture">Faurniture</option>
+                                    <option value="Bed Sheet">Bed Sheet</option>
+                                    <option value="Blancket">Blancket</option>
                                 </select>
+                               
                             </div>
 
                             <div className="form-control">
@@ -138,8 +212,10 @@ const PostVideo = ({ openModal, setOpenModal }) => {
                                 <input
                                     value={formData.price}
                                     onChange={e => setFormData({ ...formData, price: e.target.value })}
-                                    type="number" className="input input-bordered" required />
-
+                                    type="number"
+                                    className="input input-bordered"
+                                    required
+                                />
                             </div>
 
                             <div className="form-control">
@@ -149,12 +225,18 @@ const PostVideo = ({ openModal, setOpenModal }) => {
                                 <textarea
                                     value={formData.description}
                                     onChange={e => setFormData({ ...formData, description: e.target.value })}
-                                    className="textarea textarea-bordered" required></textarea>
+                                    className="textarea textarea-bordered"
+                                    required
+                                >
+                                </textarea>
                             </div>
 
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Post</button>
                             </div>
+                            {
+                                error?.videError && <p className='text-red-500 py-3 text-[14px]'>{error?.videError}</p>
+                            }
                         </form>
                     </div>
 

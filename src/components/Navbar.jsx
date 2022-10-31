@@ -37,7 +37,6 @@ const Navbar = ({ adminNav }) => {
               Authorization: cookies?.token,
             },
           });
-          console.log(data);
         } catch (err) {
           console.log(err);
         }
