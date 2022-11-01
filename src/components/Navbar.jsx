@@ -77,8 +77,8 @@ const Navbar = ({ adminNav }) => {
   };
 
   // for filtering data
-  const handleOption = (content) => {
-    navigate(`/products/${content}`);
+  const handleOption = (content, user) => {
+    navigate(`/products/${content}-${user}`);
   };
 
   return (
@@ -108,9 +108,10 @@ const Navbar = ({ adminNav }) => {
         </div>
         {!adminNav && (
           <div className="lg:flex hidden  items-center justify-center gap-4">
-            <h1 
-            onClick={()=>navigate(`/products/${'allVideo'}`)}
-            className="text-md text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
+            <h1
+              onClick={() => navigate(`/products/${"allVideo"}`)}
+              className="text-md text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+            >
               All Videos
             </h1>
             <div className="dropdown dropdown-hover">
@@ -126,12 +127,16 @@ const Navbar = ({ adminNav }) => {
               >
                 {commonCategory.map((item) => (
                   <li key={item.id}>
-                    <p onClick={()=>handleOption(item?.name)}>{item.name}</p>
+                    <p onClick={() => handleOption(item?.name, "Men")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
                 {mensCategories.map((item) => (
                   <li key={item.id}>
-                    <p onClick={()=>handleOption(item?.name)}>{item.name}</p>
+                    <p onClick={() => handleOption(item?.name, "Men")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -150,12 +155,16 @@ const Navbar = ({ adminNav }) => {
               >
                 {commonCategory.map((item) => (
                   <li key={item.id}>
-                    <p onClick={()=>handleOption(item?.name)}>{item.name}</p>
+                    <p onClick={() => handleOption(item?.name, "Women")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
                 {womenCategories.map((item) => (
                   <li key={item.id}>
-                    <p onClick={()=>handleOption(item?.name)}>{item.name}</p>
+                    <p onClick={() => handleOption(item?.name, "Women")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -165,7 +174,7 @@ const Navbar = ({ adminNav }) => {
                 tabIndex={0}
                 className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
               >
-                kids <FiChevronDown />
+                Kids <FiChevronDown />
               </h1>
               <ul
                 tabIndex={0}
@@ -173,12 +182,16 @@ const Navbar = ({ adminNav }) => {
               >
                 {commonCategory.map((item) => (
                   <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name)}>{item.name}</p>
+                    <p onClick={() => handleOption(item?.name, "Kids")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
                 {mensCategories.map((item) => (
                   <li key={item.id}>
-                    <p onClick={()=>handleOption(item?.name)}>{item.name}</p>
+                    <p onClick={() => handleOption(item?.name, "Kids")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -196,7 +209,9 @@ const Navbar = ({ adminNav }) => {
               >
                 {homeCategories.map((item) => (
                   <li key={item.id}>
-                    <p onClick={()=>handleOption(item?.name)}>{item.name}</p>
+                    <p onClick={() => handleOption(item?.name, "Home&Kitchen")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -268,12 +283,16 @@ const Navbar = ({ adminNav }) => {
                 >
                   {commonCategory.map((item) => (
                     <li key={item.id}>
-                      <p onClick={()=>handleOption(item?.name)}>{item.name}</p>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                   {mensCategories.map((item) => (
                     <li key={item.id}>
-                      <p onClick={()=>handleOption(item?.name)}>{item.name}</p>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -291,12 +310,16 @@ const Navbar = ({ adminNav }) => {
                 >
                   {commonCategory.map((item) => (
                     <li key={item.id}>
-                      <p onClick={()=>handleOption(item?.name)}>{item.name}</p>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                   {womenCategories.map((item) => (
                     <li key={item.id}>
-                      <p onClick={()=>handleOption(item?.name)}>{item.name}</p>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -314,12 +337,16 @@ const Navbar = ({ adminNav }) => {
                 >
                   {commonCategory.map((item) => (
                     <li key={item.id}>
-                      <p onClick={()=>handleOption(item?.name)}>{item.name}</p>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                   {mensCategories.map((item) => (
                     <li key={item.id}>
-                      <p onClick={()=>handleOption(item?.name)}>{item.name}</p>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -337,7 +364,9 @@ const Navbar = ({ adminNav }) => {
                 >
                   {homeCategories.map((item) => (
                     <li key={item.id}>
-                      <p onClick={()=>handleOption(item?.name)}>{item.name}</p>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                 </ul>

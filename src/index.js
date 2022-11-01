@@ -4,15 +4,29 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
-
+import {
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query'
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient()
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <CookiesProvider>
-        <App />
-      </CookiesProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <CookiesProvider>
+          <App />
+        </CookiesProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );
+
+
+
+
+
+
+
+
 

@@ -5,11 +5,27 @@ import { productData } from "../utils/products";
 
 import { FiFilter } from "react-icons/fi";
 import SideBarProduct from "../components/SideBarProduct";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import axios from "axios";
+import Loader from "../utils/Loader";
 const Products = () => {
   const [selectedCollections, setSelectedCollections] = useState([]);
   const [sizeNumber, setSizeNumber] = useState(25);
   const [sizes, setSizes] = useState("s");
   const [sortedBy, setSortedBy] = useState("recomended");
+  const { content } = useParams();
+  console.log(content.split("-"));
+  const { isLoading, data, refetch } = useQuery(["get-all-video",content.split("-")[0],content.split("-")[1]], () =>
+    axios.get(
+      `http://localhost:5000/admin/get-product?content=${
+        content.split("-")[0]
+      }&user=${content.split("-")[1]}`
+    )
+  );
+  console.log(isLoading);
+  console.log(data);
+  if (isLoading) return <Loader />;
 
   const SetSize = () => {
     switch (sizeNumber) {

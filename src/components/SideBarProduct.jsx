@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { data } from "../utils/productData";
 import { mensCategories } from "../utils/data";
 import productVideo from "../assets/video/product.mp4";
 import blackFilter from "../assets/blackFilter.png";
 import yellowFilter from "../assets/YellowFilter.png";
+import axios from "axios";
 const SideBarProduct = ({
   selectedCollections,
   sizeNumber,
@@ -11,6 +12,17 @@ const SideBarProduct = ({
   setSizeNumber,
   handleOnChangeCollections,
 }) => {
+  const [priceValue, setPriceValue] = useState(0);
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get(
+        "http://localhost:5000/admin/min-max-price"
+      );
+    
+      setPriceValue(data?.data);
+    })();
+  }, []);
+
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -46,28 +58,27 @@ const SideBarProduct = ({
         ))}
       </div>
       <div className="mt-3">
-        <h1 className="text-lg font-bold  ">FILTER BY SIZE</h1>
+        <h1 className="text-lg font-bold  ">FILTER BY PRICE</h1>
         <div className="w-[100px] h-[2px] bg-yellow-500" />
       </div>
       <div className="mt-3">
         <input
           type="range"
-          min="0"
-          max="100"
+          min={priceValue?.min}
+          max={priceValue?.max}
           value={sizeNumber}
           onChange={(e) => {
+           
             setSizeNumber(+e.target.value);
             SetSize();
           }}
           className="range range-secondary range-xs"
-          step="25"
+          step="0"
         />
         <div className="w-full flex justify-between text-md font-semibold text-gray-400 px-2">
-          <span>xs</span>
-          <span>s</span>
-          <span>m</span>
-          <span>l</span>
-          <span>xl</span>
+          <span>{priceValue?.min}</span>
+
+          <span>{priceValue?.max}</span>
         </div>
         <div className="flex justify-end w-full  ">
           <buton className="btn btn-sm  bg-transparent text-red-600 mt-3">
