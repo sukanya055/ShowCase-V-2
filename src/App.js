@@ -88,7 +88,7 @@ function App() {
           }
         />
         <Route path="/joinUs" element={<JoinUs />} />
-        <Route path="/products" element={<Products />} />
+        <Route path="/products/:content" element={<Products />} />
         <Route path="/setupCompleted" element={<SetUpCompleted />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/admindashboard" element={<Dashboard />} />

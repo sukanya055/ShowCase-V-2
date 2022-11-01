@@ -54,8 +54,7 @@ const Payment = () => {
         e.preventDefault()
 
     }
-    console.log(pay)
-    console.log((goldRef?.current || platinumRef?.current)? false :true )
+  
 
     return (
         <>
