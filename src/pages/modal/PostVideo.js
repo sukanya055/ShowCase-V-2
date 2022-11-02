@@ -16,24 +16,24 @@ const config = {
     secretAccessKey: SECRET_ACCESS_KEY,
 }
 
-const PostVideo = ({ openModal, setOpenModal,userId }) => {
+const PostVideo = ({ openModal, setOpenModal, userId }) => {
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const [video, setVideo] = useState('')
     const [formData, setFormData] = useState({
-        email:'',
-        description:'',
-        price:'',
-        category:'',
-        productType:'',
-        productBrand:'',
-        companyName:'',
-        link:'',
-        userId
-
+        email: '',
+        description: '',
+        price: '',
+        category: '',
+        productType: '',
+        productBrand: '',
+        companyName: '',
+        link: '',
+        userId,
+        discount: ''
     })
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState({
-        videError:''
+        videError: ''
     })
 
     const videoHandler = (event) => {
@@ -55,7 +55,6 @@ const PostVideo = ({ openModal, setOpenModal,userId }) => {
                 console.log(error)
             }
             )
-
     }
 
     const handleSubmit = async (e) => {
@@ -64,11 +63,11 @@ const PostVideo = ({ openModal, setOpenModal,userId }) => {
 
         if (cookies?.token) {
 
-        if(!video){
-            return setError({...error,videError:'Please select a video'})
-        }
-        
-        setError({...formData,videError:''})
+            if (!video) {
+                return setError({ ...error, videError: 'Please select a video' })
+            }
+
+            setError({ ...formData, videError: '' })
             fetch(`http://localhost:5000/admin/products`, {
                 method: "POST",
                 headers: {
@@ -83,7 +82,6 @@ const PostVideo = ({ openModal, setOpenModal,userId }) => {
             })
                 .then(res => res.json())
                 .then(data => console.log(data))
-
         }
     }
     console.log(formData)
@@ -102,7 +100,7 @@ const PostVideo = ({ openModal, setOpenModal,userId }) => {
                                     type="file"
                                     id="video"
                                     disabled={loading ? true : false}
-                                    
+
                                 />
                                 <label
                                     className='btn bg-[#858A89] rounded-full px-9 py-2 capitalize text-white' htmlFor="video">
@@ -176,7 +174,7 @@ const PostVideo = ({ openModal, setOpenModal,userId }) => {
                                     <option value="Kids">Kids</option>
                                     <option value="Home&Kitchen">Home&Kitchen</option>
                                 </select>
-                               
+
                             </div>
                             <div className="form-control">
                                 <label className="label">
@@ -202,7 +200,7 @@ const PostVideo = ({ openModal, setOpenModal,userId }) => {
                                     <option value="Bed Sheet">Bed Sheet</option>
                                     <option value="Blancket">Blancket</option>
                                 </select>
-                               
+
                             </div>
 
                             <div className="form-control">
@@ -212,6 +210,18 @@ const PostVideo = ({ openModal, setOpenModal,userId }) => {
                                 <input
                                     value={formData.price}
                                     onChange={e => setFormData({ ...formData, price: e.target.value })}
+                                    type="number"
+                                    className="input input-bordered"
+                                    required
+                                />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Product discount percentage</span>
+                                </label>
+                                <input
+                                    value={formData.discount}
+                                    onChange={e => setFormData({ ...formData, discount: e.target.value })}
                                     type="number"
                                     className="input input-bordered"
                                     required

@@ -11,17 +11,17 @@ const SideBarProduct = ({
   SetSize,
   setSizeNumber,
   handleOnChangeCollections,
+  content
 }) => {
   const [priceValue, setPriceValue] = useState(0);
   useEffect(() => {
     (async () => {
       const { data } = await axios.get(
-        "http://localhost:5000/admin/min-max-price"
+        `http://localhost:5000/admin/min-max-price?content=${content.split('-')[1]}`
       );
-    
       setPriceValue(data?.data);
     })();
-  }, []);
+  }, [content]);
 
   return (
     <div>

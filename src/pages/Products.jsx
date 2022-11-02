@@ -13,18 +13,17 @@ const Products = () => {
   const [selectedCollections, setSelectedCollections] = useState([]);
   const [sizeNumber, setSizeNumber] = useState(25);
   const [sizes, setSizes] = useState("s");
-  const [sortedBy, setSortedBy] = useState("recomended");
+  const [sortedBy, setSortedBy] = useState("recommended");
   const { content } = useParams();
-  console.log(content.split("-"));
-  const { isLoading, data, refetch } = useQuery(["get-all-video",content.split("-")[0],content.split("-")[1]], () =>
+
+  const { isLoading, data, refetch } = useQuery(["get-all-video",content?.split("-")[0],content?.split("-")[1],sortedBy], () =>
     axios.get(
       `http://localhost:5000/admin/get-product?content=${
         content.split("-")[0]
-      }&user=${content.split("-")[1]}`
+      }&user=${content?.split("-")[1]}&sortedBy=${sortedBy}`
     )
   );
-  console.log(isLoading);
-  console.log(data);
+  console.log(sortedBy)
   if (isLoading) return <Loader />;
 
   const SetSize = () => {
@@ -49,7 +48,7 @@ const Products = () => {
         break;
     }
   };
-  console.log(sortedBy);
+
   const handleOnChangeCollections = (e) => {
     if (e.target.checked) {
       setSelectedCollections([...selectedCollections, e.target.value]);
@@ -83,10 +82,10 @@ const Products = () => {
             <option value="" disabled selected>
               Sort By
             </option>
-            <option value="recomended">Recomended</option>
-            <option value="highTlow">Price high to low</option>
-            <option value="lowTHigh">Price Low to High</option>
-            <option value="ratings">Ratigs</option>
+            <option value="">Recomended</option>
+            <option value="1">Price high to low</option>
+            <option value="-1">Price Low to High</option>
+          
           </select>
         </div>
 
@@ -98,10 +97,11 @@ const Products = () => {
               sizeNumber={sizeNumber}
               SetSize={SetSize}
               setSizeNumber={setSizeNumber}
+              content={content}
             />
           </div>
           <div className="md:basis-3/4 basis-4/4 h-full">
-            <MainProducts filteredData={productData} />
+            <MainProducts filteredData={data?.data?.result} />
           </div>
         </div>
         <div className="md:hidden block absolute top-0">
