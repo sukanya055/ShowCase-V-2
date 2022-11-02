@@ -11,18 +11,24 @@ const SideBarProduct = ({
   SetSize,
   setSizeNumber,
   handleOnChangeCollections,
-  content
+  content,
+  setPrice,
+  refetch
 }) => {
   const [priceValue, setPriceValue] = useState(0);
   useEffect(() => {
     (async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/admin/min-max-price?content=${content.split('-')[1]}`
+        `http://localhost:5000/admin/min-max-price?content=${
+          content.split("-")[1]
+        }`
       );
       setPriceValue(data?.data);
+      setPrice(data?.data);
+      setSizeNumber(data?.data?.max)
     })();
-  }, [content]);
-
+  }, [content, setPrice,setSizeNumber]);
+  console.log(sizeNumber);
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -68,8 +74,8 @@ const SideBarProduct = ({
           max={priceValue?.max}
           value={sizeNumber}
           onChange={(e) => {
-           
-            setSizeNumber(+e.target.value);
+              setSizeNumber(+e.target.value);
+              refetch()
             SetSize();
           }}
           className="range range-secondary range-xs"
@@ -77,7 +83,6 @@ const SideBarProduct = ({
         />
         <div className="w-full flex justify-between text-md font-semibold text-gray-400 px-2">
           <span>{priceValue?.min}</span>
-
           <span>{priceValue?.max}</span>
         </div>
         <div className="flex justify-end w-full  ">

@@ -10,20 +10,24 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import Loader from "../utils/Loader";
 const Products = () => {
+  const [price, setPrice] = useState()
   const [selectedCollections, setSelectedCollections] = useState([]);
-  const [sizeNumber, setSizeNumber] = useState(25);
+  const [sizeNumber, setSizeNumber] = useState(price?.max);
   const [sizes, setSizes] = useState("s");
-  const [sortedBy, setSortedBy] = useState("recommended");
+  const [sortedBy, setSortedBy] = useState("1");
   const { content } = useParams();
-
-  const { isLoading, data, refetch } = useQuery(["get-all-video",content?.split("-")[0],content?.split("-")[1],sortedBy], () =>
+  console.log(sizes)
+  const { isLoading, data, refetch } = useQuery(["get-all-video",content?.split("-")[0],content?.split("-")[1],sortedBy,price?.min,], () =>
     axios.get(
       `http://localhost:5000/admin/get-product?content=${
         content.split("-")[0]
-      }&user=${content?.split("-")[1]}&sortedBy=${sortedBy}`
+      }&user=${content?.split("-")[1]}&sortedBy=${sortedBy}&minPrice=${price?.min || 0}&maxPrice=${sizeNumber}`
     )
   );
+
   console.log(sortedBy)
+  console.log(data?.data)
+
   if (isLoading) return <Loader />;
 
   const SetSize = () => {
@@ -63,8 +67,8 @@ const Products = () => {
     <Layout>
       <div className="px-8 py-5">
         <div className="">
-          <p className="font-normal text-gray-700 text-md">Mens Sections</p>
-          <h1 className="font-semibold text-lg">Men T-shirt -7988 items</h1>
+          <p className="font-normal text-gray-700 text-md">{content?.split("-")[1]}s Sections</p>
+          <h1 className="font-semibold capitalize text-lg">{content?.split("-")[1]} {content?.split("-")[0]} - {data?.data?.result?.length} items</h1>
         </div>
 
         <div className="flex justify-between mt-5 md:justify-end items-center">
@@ -82,9 +86,9 @@ const Products = () => {
             <option value="" disabled selected>
               Sort By
             </option>
-            <option value="">Recomended</option>
-            <option value="1">Price high to low</option>
-            <option value="-1">Price Low to High</option>
+
+            <option value="-1">Price high to low</option>
+            <option value="1">Price Low to High</option>
           
           </select>
         </div>
@@ -98,6 +102,8 @@ const Products = () => {
               SetSize={SetSize}
               setSizeNumber={setSizeNumber}
               content={content}
+              setPrice={setPrice}
+              refetch={refetch}
             />
           </div>
           <div className="md:basis-3/4 basis-4/4 h-full">
