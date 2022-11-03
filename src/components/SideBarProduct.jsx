@@ -25,6 +25,7 @@ const SideBarProduct = ({
       );
       setPriceValue(data?.data);
       setPrice(data?.data);
+      console.log(data)
       setSizeNumber(data?.data?.max)
     })();
   }, [content, setPrice,setSizeNumber]);
@@ -38,31 +39,7 @@ const SideBarProduct = ({
           <img src={blackFilter} alt="black" className="h-8" />
         </div>
       </div>
-      <div className="mt-3">
-        <h1 className="text-lg font-bold  ">COLLECTIONS</h1>
-        <div className="w-[100px] h-[2px] bg-yellow-500" />
-      </div>
-      <div className="flex items-start mt-2 flex-col">
-        {mensCategories.map((item, index) => (
-          <div className="flex justify-between w-full items-center">
-            <div
-              className="text-md font-semibold text-gray-400  mt-[1px] capitalize"
-              key={index}
-            >
-              <input
-                type="checkbox"
-                id={index}
-                name={item.name}
-                value={item.name}
-                onChange={(e) => handleOnChangeCollections(e)}
-                className="checkbox checkbox-xs "
-              />
-              <label htmlFor={item.name}>{item.name}</label>
-            </div>
-            <p className="text-md font-semibold text-gray-400 ">(1234)</p>
-          </div>
-        ))}
-      </div>
+      
       <div className="mt-3">
         <h1 className="text-lg font-bold  ">FILTER BY PRICE</h1>
         <div className="w-[100px] h-[2px] bg-yellow-500" />
