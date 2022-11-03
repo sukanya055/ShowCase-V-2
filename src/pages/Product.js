@@ -9,21 +9,28 @@ import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
 import { useParams } from "react-router-dom";
 import "./Map";
 import Map from "./Map";
-const Product = () => {
-  const params = useParams();
-  const [productData, setProductData] = useState({});
-  console.log(typeof params)
-  const fetchData = () => {
-    const product = data.filter((x) => x.id === params.id);
-    setProductData(product[0]);
-  };
+import axios from "axios";
+import { useQuery } from "react-query";
+import { useCookies } from 'react-cookie';
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-  /* if (Object.keys(productData).length === 0) {
-    return <h1>Loading....</h1>;
-  } */
+
+const Product = () => {
+  const [cookies,] = useCookies(['token']);
+  const {id} = useParams();
+  const [productData, setProductData] = useState({});
+  const { isLoading, data, refetch } = useQuery(
+    [
+      "get-single-product",
+      id
+    ],
+    () =>
+      axios.get(`http://localhost:5000/admin/get-single-product/${id}`,{
+        headers: {
+          'Authorization': cookies?.token,
+      }
+      })
+  );
+      console.log(data)
   return (
     <div>
       <Layout>

@@ -36,7 +36,7 @@ const Products = () => {
         }&maxPrice=${sizeNumber}&size=${size}&page=${page}`
       )
   );
-  
+
   useEffect(() => {
     const length = Math.ceil(data?.data?.count / 10);
     setCount(length);
@@ -159,29 +159,35 @@ const Products = () => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center mb-5">
-          <div className="w-[100%]  flex items-center justify-center">
-            <ReactPaginate
-              previousLabel={<HiChevronLeft className="text-2xl text-white flex justify-center items-center" />}
-              nextLabel={<HiChevronRight className="text-2xl text-white flex justify-center items-center" />}
-              breakLabel={"..."}
-              pageCount={count}
-              marginPagesDisplayed={1}
-              pageRangeDisplayed={2}
-              onPageChange={handlePageClick}
-              containerClassName={"paginateContainer"}
-              pageClassName={"page-btn"}
-              previousClassName={"previous"}
-              previousLinkClassName={"link-btn"}
-              pageLinkClassName={"link-btn"}
-              nextClassName={"previous"}
-              breakClassName={"page-btn"}
-              breakLinkClassName={"link-btn"}
-              nextLinkClassName={"link-btn"}
-              activeClassName={"active-btn"}
-            />
+        {data?.data?.result && (
+          <div className="flex justify-center items-center mb-5">
+            <div className="w-[100%]  flex items-center justify-center">
+              <ReactPaginate
+                previousLabel={
+                  <HiChevronLeft className="text-2xl text-white flex justify-center items-center" />
+                }
+                nextLabel={
+                  <HiChevronRight className="text-2xl text-white flex justify-center items-center" />
+                }
+                breakLabel={"..."}
+                pageCount={count}
+                marginPagesDisplayed={1}
+                pageRangeDisplayed={2}
+                onPageChange={handlePageClick}
+                containerClassName={"paginateContainer"}
+                pageClassName={"page-btn"}
+                previousClassName={"previous"}
+                previousLinkClassName={"link-btn"}
+                pageLinkClassName={"link-btn"}
+                nextClassName={"previous"}
+                breakClassName={"page-btn"}
+                breakLinkClassName={"link-btn"}
+                nextLinkClassName={"link-btn"}
+                activeClassName={"active-btn"}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </Layout>
   );

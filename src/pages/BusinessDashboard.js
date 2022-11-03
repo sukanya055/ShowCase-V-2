@@ -86,7 +86,7 @@ const BusinessDashboard = React.memo(() => {
                                     <p>Videos</p>
 
                                 </div>
-                                <p>30</p>
+                                <p>{videos?.length}</p>
 
 
                             </div>
