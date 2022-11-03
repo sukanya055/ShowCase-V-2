@@ -24,6 +24,7 @@ const initialState = {
 };
 
 const BussinessAccountSetup = () => {
+
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const location = useLocation();
   const [show, setShow] = useState(false);
@@ -34,6 +35,11 @@ const BussinessAccountSetup = () => {
   let role = location.pathname.includes("/businessAcountSetup") && 1;
   role = location.pathname.includes("/normalAcountSetup") && 0;
   useGoogleRegister(user, setErrorMessage, setSuccess, role);
+
+ 
+  const [status, setStatus] = useState(null);
+
+
 
   const [signInWithGoogle, googleUser, loading, error] =
     useSignInWithGoogle(auth);
@@ -62,14 +68,37 @@ const BussinessAccountSetup = () => {
   const toggle = () => {
     setShow((prev) => !prev);
   };
+
+
+
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      setErrorMessage('Geolocation is not supported by your browser');
+    } else {
+      setStatus('Locating...');
+      navigator.geolocation.getCurrentPosition((position) => {
+        setStatus(null);
+        setCookie('lat',position?.coords?.latitude)
+        setCookie('lng',position?.coords?.longitude)
+      }, () => {
+        setErrorMessage('Unable to retrieve your location');
+      });
+    }
+  }
+
+  
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
     if (location?.pathname?.includes("/businessAccountSetup")) {
+      getLocation()
       RegisterUser(formData, setErrorMessage, setSuccess, 1,setCookie);
+     
     }
     if (location?.pathname?.includes("/normalAccountSetup")) {
+      getLocation()
       RegisterUser(formData, setErrorMessage, setSuccess, 0,setCookie);
+    
     }
     setFormData(initialState);
   };
@@ -93,6 +122,8 @@ const BussinessAccountSetup = () => {
       },
     },
   };
+
+
 
   // google login
   const handleGoogleRegister = () => {

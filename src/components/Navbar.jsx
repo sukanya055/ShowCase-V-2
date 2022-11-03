@@ -4,7 +4,7 @@ import { BiSearchAlt, BiUser } from "react-icons/bi";
 import { FiChevronDown } from "react-icons/fi";
 import { VscThreeBars } from "react-icons/vsc";
 import { CgClose } from "react-icons/cg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
@@ -24,6 +24,7 @@ const Navbar = ({ adminNav }) => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+
   const toggle = () => {
     setIsOpen((prev) => !prev);
   };
@@ -75,6 +76,11 @@ const Navbar = ({ adminNav }) => {
     navigate("/");
   };
 
+  // for filtering data
+  const handleOption = (content, user) => {
+    navigate(`/products/${content}-${user}`);
+  };
+
   return (
     <div className="shadow-md md:py-2 px-6 py-0">
       <div className="flex items-center justify-between">
@@ -102,7 +108,10 @@ const Navbar = ({ adminNav }) => {
         </div>
         {!adminNav && (
           <div className="lg:flex hidden  items-center justify-center gap-4">
-            <h1 className="text-md text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
+            <h1
+              onClick={() => navigate(`/products/${"allVideo"}`)}
+              className="text-md text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+            >
               All Videos
             </h1>
             <div className="dropdown dropdown-hover">
@@ -118,12 +127,16 @@ const Navbar = ({ adminNav }) => {
               >
                 {commonCategory.map((item) => (
                   <li key={item.id}>
-                    <a>{item.name}</a>
+                    <p onClick={() => handleOption(item?.name, "Men")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
                 {mensCategories.map((item) => (
                   <li key={item.id}>
-                    <a>{item.name}</a>
+                    <p onClick={() => handleOption(item?.name, "Men")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -142,12 +155,16 @@ const Navbar = ({ adminNav }) => {
               >
                 {commonCategory.map((item) => (
                   <li key={item.id}>
-                    <a>{item.name}</a>
+                    <p onClick={() => handleOption(item?.name, "Women")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
                 {womenCategories.map((item) => (
                   <li key={item.id}>
-                    <a>{item.name}</a>
+                    <p onClick={() => handleOption(item?.name, "Women")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -157,7 +174,7 @@ const Navbar = ({ adminNav }) => {
                 tabIndex={0}
                 className="text-md flex items-center gap-1 text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
               >
-                kids <FiChevronDown />
+                Kids <FiChevronDown />
               </h1>
               <ul
                 tabIndex={0}
@@ -165,12 +182,16 @@ const Navbar = ({ adminNav }) => {
               >
                 {commonCategory.map((item) => (
                   <li key={item.id}>
-                    <a>{item.name}</a>
+                    <p onClick={() => handleOption(item?.name, "Kids")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
                 {mensCategories.map((item) => (
                   <li key={item.id}>
-                    <a>{item.name}</a>
+                    <p onClick={() => handleOption(item?.name, "Kids")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -188,7 +209,9 @@ const Navbar = ({ adminNav }) => {
               >
                 {homeCategories.map((item) => (
                   <li key={item.id}>
-                    <a>{item.name}</a>
+                    <p onClick={() => handleOption(item?.name, "Home&Kitchen")}>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -260,12 +283,16 @@ const Navbar = ({ adminNav }) => {
                 >
                   {commonCategory.map((item) => (
                     <li key={item.id}>
-                      <a>{item.name}</a>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                   {mensCategories.map((item) => (
                     <li key={item.id}>
-                      <a>{item.name}</a>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -283,12 +310,16 @@ const Navbar = ({ adminNav }) => {
                 >
                   {commonCategory.map((item) => (
                     <li key={item.id}>
-                      <a>{item.name}</a>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                   {womenCategories.map((item) => (
                     <li key={item.id}>
-                      <a>{item.name}</a>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -306,12 +337,16 @@ const Navbar = ({ adminNav }) => {
                 >
                   {commonCategory.map((item) => (
                     <li key={item.id}>
-                      <a>{item.name}</a>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                   {mensCategories.map((item) => (
                     <li key={item.id}>
-                      <a>{item.name}</a>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -329,7 +364,9 @@ const Navbar = ({ adminNav }) => {
                 >
                   {homeCategories.map((item) => (
                     <li key={item.id}>
-                      <a>{item.name}</a>
+                      <p onClick={() => handleOption(item?.name)}>
+                        {item.name}
+                      </p>
                     </li>
                   ))}
                 </ul>
