@@ -20,10 +20,10 @@ const BusinessDashboard = React.memo(() => {
             const { data } = await axios.get(`http://localhost:5000/admin/adminProductVideo`, {
                 headers: {
                     'Authorization': cookies?.token,
-                }
+                },
+            _id
             })
-            setVideos(data?.data)
-            console.log(data?.data)
+           console.log(data)
         } catch (error) {
             console.log(error)
         }
@@ -54,7 +54,7 @@ const BusinessDashboard = React.memo(() => {
         })();
         getAdminProductVideo()
     }, [cookies])
-    console.log(videos)
+    console.log(_id)
     return (
         <Layout>
             <section className='overflow-x-hidden'>

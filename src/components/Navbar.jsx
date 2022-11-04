@@ -109,7 +109,7 @@ const Navbar = ({ adminNav }) => {
         {!adminNav && (
           <div className="lg:flex hidden  items-center justify-center gap-4">
             <h1
-              onClick={() => navigate(`/products/${"allVideo"}`)}
+              onClick={() => navigate(`/products/${"product-allVideo"}`)}
               className="text-md text-gray-400 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
             >
               All Videos

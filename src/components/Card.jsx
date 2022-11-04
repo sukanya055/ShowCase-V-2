@@ -2,9 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import productVideo from "../assets/video/product.mp4";
 const Card = ({ product }) => {
-  const { link, price, category, discount, brand, _id,userId } = product || {};
+  const { link, price, category, discount, brand, _id, userId, productId } =
+    product || {};
   const navigate = useNavigate();
-  console.log(_id)
+  console.log(product);
   return (
     <div className=" pb-6 rounded-lg border-[1px] border-b-4  shadow-sm  border-gray-300">
       <video className="rounded-t-lg h-full w-full md:w-[322px]" controls>
@@ -35,7 +36,7 @@ const Card = ({ product }) => {
           )}
         </div>
         <button
-          onClick={() => navigate(`/product/${userId}`)}
+          onClick={() => navigate(`/product/${productId}`)}
           className=" mt-3 px-3 py-1 rounded-full bg-gray-200 capitalize text-gray-700"
         >
           more details
