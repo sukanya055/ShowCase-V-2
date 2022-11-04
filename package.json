@@ -39,6 +39,7 @@
     "react-table": "^7.8.0",
     "react-toastify": "^9.0.8",
     "slick-carousel": "^1.8.1",
+    "swiper": "^8.4.4",
     "video.js": "^7.20.3",
     "web-vitals": "^2.1.4"
   },

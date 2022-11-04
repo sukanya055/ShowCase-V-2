@@ -225,8 +225,8 @@ const Navbar = ({ adminNav }) => {
           <div className="bg-sky-100 rounded-lg cursor-pointer">
             {/* <BiUser className="md:text-2xl text-xl" /> */}
             <div className="dropdown ">
-              <label tabIndex={0} className="btn m-1">
-                <BiUser className="md:text-2xl text-xl" />
+              <label tabIndex={0} className="btn p-3  m-1">
+                <BiUser className="md:text-2xl text-xl " />
               </label>
               <ul
                 tabIndex={0}
@@ -241,12 +241,12 @@ const Navbar = ({ adminNav }) => {
           {token || user ? (
             <button
               onClick={handleSignOut}
-              className="py-2 hidden md:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out"
+              className="py-2 hidden lg:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out"
             >
               Sign Out
             </button>
           ) : (
-            <button className="py-2 hidden md:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out">
+            <button className="py-2 hidden lg:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out">
               {<Link to="/auth">Login</Link>}
             </button>
           )}
@@ -254,7 +254,7 @@ const Navbar = ({ adminNav }) => {
           {!isOpen && (
             <VscThreeBars
               onClick={toggle}
-              className="md:hidden block text-3xl   cursor-pointer text-gray-900"
+              className="lg:hidden block text-3xl   cursor-pointer text-gray-900"
             />
           )}
         </div>

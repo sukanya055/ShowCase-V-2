@@ -7,7 +7,7 @@
 body{
   overflow-x: hidden;
 }
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 /* paginate style  */
 .paginateContainer {
   display: flex;
