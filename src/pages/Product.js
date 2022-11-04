@@ -18,6 +18,7 @@ const Product = () => {
   const [cookies,] = useCookies(['token']);
   const {id} = useParams();
   const [productData, setProductData] = useState({});
+  console.log(id)
   const { isLoading, data, refetch } = useQuery(
     [
       "get-single-product",

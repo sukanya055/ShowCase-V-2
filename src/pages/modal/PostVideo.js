@@ -29,13 +29,14 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
         companyName: '',
         link: '',
         userId,
-        discount: ''
+        discount: '',
+        videoOwner:userId
     })
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState({
         videError: ''
     })
-
+    console.log(userId)
     const videoHandler = (event) => {
         setLoading(true)
         /* if (event.target.files && event.target.files[0]) {
@@ -77,7 +78,8 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                 body: JSON.stringify({
                     data: formData,
                     video,
-                    userId
+                    userId,
+                    videoOwner:userId
                 })
             })
                 .then(res => res.json())
@@ -227,7 +229,6 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                                     required
                                 />
                             </div>
-
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Product Description</span>
