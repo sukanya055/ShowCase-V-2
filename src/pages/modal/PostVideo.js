@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { uploadFile } from 'react-s3';
 import { useCookies } from 'react-cookie';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const S3_BUCKET = 'showcase28';
 const REGION = 'us-east-1';
 const ACCESS_KEY = 'AKIAQFXX4ZU3AHYZQUFH';
@@ -19,6 +20,10 @@ const config = {
 const PostVideo = ({ openModal, setOpenModal, userId }) => {
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const [video, setVideo] = useState('')
+    const [load, setLoad] = useState(false)
+    const [successMessage, setSuccessMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
+
     const [formData, setFormData] = useState({
         email: '',
         description: '',
@@ -30,13 +35,48 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
         link: '',
         userId,
         discount: '',
-        videoOwner:userId
+        videoOwner: userId
     })
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState({
         videError: ''
     })
     console.log(userId)
+
+
+    useEffect(() => {
+        if (successMessage) {
+
+            toast.success(successMessage, {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
+    }, [successMessage])
+    useEffect(() => {
+        if (errorMessage) {
+
+            toast.success(errorMessage, {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
+    }, [errorMessage])
+
+
+
     const videoHandler = (event) => {
         setLoading(true)
         /* if (event.target.files && event.target.files[0]) {
@@ -61,29 +101,43 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(formData)
+        setErrorMessage('')
+        setSuccessMessage('')
+        try {
+            if (cookies?.token) {
 
-        if (cookies?.token) {
+                if (!video) {
+                    return setError({ ...error, videError: 'Please select a video' })
+                }
 
-            if (!video) {
-                return setError({ ...error, videError: 'Please select a video' })
-            }
-
-            setError({ ...formData, videError: '' })
-            fetch(`http://localhost:5000/admin/products`, {
-                method: "POST",
-                headers: {
-                    'Authorization': cookies?.token,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    data: formData,
-                    video,
-                    userId,
-                    videoOwner:userId
+                setError({ ...formData, videError: '' })
+                setLoad(true)
+                fetch(`http://localhost:5000/admin/products`, {
+                    method: "POST",
+                    headers: {
+                        'Authorization': cookies?.token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        data: formData,
+                        video,
+                        userId,
+                        videoOwner: userId
+                    })
                 })
-            })
-                .then(res => res.json())
-                .then(data => console.log(data))
+                    .then(res => {
+
+                        return res.json()
+                    })
+                    .then(data => {
+                        setLoad(false)
+                        setSuccessMessage('Product upload success')
+                        console.log(data)
+                    }
+                    )
+            }
+        } catch (error) {
+            setErrorMessage('There was an server error!')
         }
     }
     console.log(formData)
@@ -243,7 +297,9 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                             </div>
 
                             <div className="form-control mt-6">
-                                <button className="btn btn-primary">Post</button>
+                                <button 
+                                disabled={load}
+                                className="btn btn-primary">{load?'Uploading':"Post"}</button>
                             </div>
                             {
                                 error?.videError && <p className='text-red-500 py-3 text-[14px]'>{error?.videError}</p>
@@ -254,6 +310,7 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                     <div className="modal-action ">
                         <label onClick={() => setOpenModal(null)} htmlFor="my-modal-6 " className="btn bg-red-500 text-white">Cancel</label>
                     </div>
+                    <ToastContainer />
                 </div>
             </div>
         </div >

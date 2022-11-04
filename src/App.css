@@ -1,13 +1,14 @@
-
 /* 
 *{
   outline: 1px solid red;
 } */
 
-body{
+body {
   overflow-x: hidden;
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
 /* paginate style  */
 .paginateContainer {
   display: flex;
@@ -18,22 +19,25 @@ body{
 }
 
 .page-btn {
-  padding: 1rem;
-  margin: 0 1rem;
+  padding: .4rem;
+  margin: 0 .5rem;
+  display: flex ;
+  justify-content: center;
+  align-items: center;
 }
 
 .previous {
-  color: #fff;
-  background-color: rgb(9, 177, 244);
+  color: #000;
+  /* background-color: rgb(9, 177, 244); */
   padding: 1rem 1.6rem;
   border-radius: .5rem;
 }
 
 .active-btn {
-  background: rgb(9, 177, 244);
-  color: #fff;
-  border-radius: .3rem;
-  /* padding: 1rem; */
+
+  color: rgb(45, 4, 65);
+  border-radius: 50%;
+  font-weight: bold;
 }
 
 .link-btn {
@@ -59,8 +63,8 @@ body{
   }
 
   .previous {
-    color: #fff;
-    background-color: rgb(9, 177, 244);
+    color: #000;
+    /* background-color: rgb(9, 177, 244); */
     padding: .7rem 1.2rem;
     border-radius: .5rem;
   }
@@ -68,7 +72,7 @@ body{
   .active-btn {
     background: rgb(9, 177, 244);
     color: #fff;
-    border-radius: .3rem;
+    border-radius: 50%;
     /* padding: 1rem; */
   }
 

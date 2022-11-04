@@ -19,6 +19,7 @@ const Products = () => {
   const [size, setSize] = useState(10);
   const [count, setCount] = useState();
   console.log(sizes);
+  console.log(content);
   const { isLoading, data, refetch } = useQuery(
     [
       "get-all-video",
@@ -27,6 +28,7 @@ const Products = () => {
       sortedBy,
       price?.min,
     ],
+
     () =>
       axios.get(
         `http://localhost:5000/admin/get-product?content=${
@@ -48,33 +50,12 @@ const Products = () => {
 
   if (isLoading) return <Loader />;
 
-  const SetSize = () => {
-    switch (sizeNumber) {
-      case 0:
-        setSizes("xs");
-        break;
-      case 25:
-        setSizes("s");
-        break;
-      case 50:
-        setSizes("m");
-        break;
-      case 75:
-        setSizes("l");
-        break;
-      case 100:
-        setSizes("xl");
-        break;
-
-      default:
-        break;
-    }
-  };
-
+ 
   const handlePageClick = (data) => {
+    
     setPage(data.selected);
   };
-
+  console.log(page)
   const handleOnChangeCollections = (e) => {
     if (e.target.checked) {
       setSelectedCollections([...selectedCollections, e.target.value]);
@@ -125,7 +106,7 @@ const Products = () => {
               selectedCollections={selectedCollections}
               handleOnChangeCollections={handleOnChangeCollections}
               sizeNumber={sizeNumber}
-              SetSize={SetSize}
+          
               setSizeNumber={setSizeNumber}
               content={content}
               setPrice={setPrice}
@@ -151,7 +132,7 @@ const Products = () => {
                   selectedCollections={selectedCollections}
                   handleOnChangeCollections={handleOnChangeCollections}
                   sizeNumber={sizeNumber}
-                  SetSize={SetSize}
+                  
                   setSizeNumber={setSizeNumber}
                 />
               </div>
@@ -164,10 +145,10 @@ const Products = () => {
             <div className="w-[100%]  flex items-center justify-center">
               <ReactPaginate
                 previousLabel={
-                  <HiChevronLeft className="text-2xl text-white flex justify-center items-center" />
+                  <HiChevronLeft className="text-3xl  flex justify-center items-center" />
                 }
                 nextLabel={
-                  <HiChevronRight className="text-2xl text-white flex justify-center items-center" />
+                  <HiChevronRight className="text-3xl flex justify-center items-center" />
                 }
                 breakLabel={"..."}
                 pageCount={count}
@@ -184,6 +165,7 @@ const Products = () => {
                 breakLinkClassName={"link-btn"}
                 nextLinkClassName={"link-btn"}
                 activeClassName={"active-btn"}
+                activeLinkClassName={"active-btn"}
               />
             </div>
           </div>

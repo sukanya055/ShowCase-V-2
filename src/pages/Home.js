@@ -35,8 +35,8 @@ const Home = () => {
             <Count />
             <WorkesAndQuotes />
             <GetStarted />
-            <CustomerReview />
-            <Stores />
+            {/* <CustomerReview />
+            <Stores /> */}
           </section>
           <Chat />
         </Suspense>
