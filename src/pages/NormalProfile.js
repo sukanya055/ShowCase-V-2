@@ -80,9 +80,6 @@ const NormalProfile = () => {
   }, [cookies]);
 
 
-
-
-
   const handleForm = async (e) => {
     e.preventDefault();
 
@@ -102,7 +99,7 @@ const NormalProfile = () => {
           }
         );
         if (response?.status === 200) {
-          navigate('/dashboarduser')
+          navigate('/dashboard/normalDashboard')
         }
         console.log(response);
       }

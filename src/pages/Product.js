@@ -20,6 +20,7 @@ const Product = () => {
   const [cookies,] = useCookies(['token']);
   const { id } = useParams();
   const [productData, setProductData] = useState({});
+  const [userDetails, setUserDetails] = useState(null)
   console.log(id)
   const { isLoading, data, refetch } = useQuery(
     [
@@ -34,13 +35,49 @@ const Product = () => {
       })
   );
 
+  useEffect(() => {
+    (async () => {
+
+      if (cookies?.token) {
+
+        try {
+          const { data } = await axios.get('http://localhost:5000/user/infor', {
+            headers: {
+              'Authorization': cookies?.token,
+            }
+          });
+          console.log(data)
+          setUserDetails(data)
+        }
+        catch (err) {
+          console.log(err)
+        }
+      }
+      else {
+        alert("Login please");
+      }
+    })();
+  }, [cookies])
 
 
+
+
+
+  const savedVideo = async () => {
+    try {
+      const { data } = await axios.post(`http://localhost:5000/admin/save?userId=${userDetails?._id}&productId=${id}`)
+
+      console.log(data)
+
+    } catch (error) {
+
+    }
+  }
 
   if (isLoading) return <Loader />
   console.log(data)
-  const { link, price, discount, category, brand, type,companyName,email } = data?.data?.result[0] || {}
-  const { latitude,longitude,phone,country} = data?.data?.result[0].videoOwner || {}
+  const { link, price, discount, category, brand, type, companyName, email,saved } = data?.data?.result[0] || {}
+  const { latitude, longitude, phone, country } = data?.data?.result[0].videoOwner || {}
   return (
     <div>
       <Layout>
@@ -124,7 +161,9 @@ const Product = () => {
                 </div>
               </label>
               <div className="basis-1/3 px-8 py-3 shadow-md rounded-xl cursor-pointer  hover:scale-105 transition-transform ease-out delay-100">
-                <div className="flex items-center justify-center gap-1 flex-col">
+                <div
+                  onClick={()=>savedVideo()}
+                  className="flex items-center justify-center gap-1 flex-col">
                   <img
                     src={save}
                     alt="whatsapp"
@@ -132,7 +171,9 @@ const Product = () => {
                   />
                   <h1 className="text-lg font-semibold">SAVE</h1>
                   <p className="text-md font-light">
-                    Save the video for later use
+                   {
+                    saved?.includes(userDetails?._id) ? 'You have already save ':' Save the video for later use'
+                   }
                   </p>
                 </div>
               </div>
@@ -151,7 +192,7 @@ const Product = () => {
                 <h4 className="text-md font-normal capitalize">
                   Email: <span className="capitalize">{email}</span>
                 </h4>
-                
+
               </div>
             </div>
           </div>
