@@ -10,7 +10,7 @@ const NormalDashboard = () => {
     console.log(cookies?.token)
     const [details, setDetails] = useState()
     const { email, about, address, name, profile } = details || {}
-
+    console.log(cookies?.token)
     useEffect(() => {
         (async () => {
 

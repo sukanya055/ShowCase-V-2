@@ -19,12 +19,13 @@ const initialState = {
 };
 
 const CompleteProfile = () => {
+
   const [formData, setFormData] = useState(initialState);
   const [errorMessage, setErrorMessage] = useState('')
   const navigate = useNavigate()
+  const [success, setSuccess] = useState(true)
 
   useEffect(() => {
-
     if (errorMessage) {
       toast.success(errorMessage, {
         position: "bottom-center",
@@ -36,10 +37,26 @@ const CompleteProfile = () => {
         progress: undefined,
         theme: "light",
       })
-
     }
 
   }, [errorMessage])
+
+  useEffect(() => {
+    if (success) {
+      toast.success("OTP will be expired within 10min", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        toastId: 'jkdjfk*4884'
+      })
+    }
+    setSuccess(false)
+  }, [success])
 
 
   useEffect(() => {
@@ -48,11 +65,9 @@ const CompleteProfile = () => {
     }, 1000 * 60 * 10);
 
     setTimeout(() => {
-      if (localStorage.getItem("details") == null) {
-        navigate("/forgotPassword");
-      } else {
+     
         navigate("/completeProfile");
-      }
+       
     }, 1000 * 60 * 10 + 5000);
 
   }, [navigate]);
@@ -83,16 +98,8 @@ const CompleteProfile = () => {
     });
     const msg = await res.json();
     if (msg.data === "approved") {
-      if (localStorage.getItem("details") == null) {
-
-        navigate("/forgotPassword");
-      }
-      else {
-        localStorage.removeItem("details");
-        navigate("/success");
-      }
+        navigate("/setupCompleted");
     } else {
-
       setErrorMessage("OTP is invalid! Try again");
     }
 
@@ -133,7 +140,7 @@ const CompleteProfile = () => {
             </h1>
             <div className="flex justify-end items-end flex-col">
               <p className="text-gray-400 test-md">STEP 03/03</p>
-              <h1 className="text-gray-400 text-lg font-bold">phonenumber</h1>
+              <h1 className="text-gray-400 text-lg font-bold">Phone Number</h1>
             </div>
           </div>
           <div className=" flex flex-col items-center  justify-center">
