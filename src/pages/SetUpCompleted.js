@@ -3,7 +3,11 @@ import { Layout } from "../components";
 import { MdVerifiedUser } from "react-icons/md";
 import bikeBoy from "../assets/bikeBoy.png";
 import { motion } from "framer-motion";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const loaderVariants = {
+
   animationOne: {
     y: [0, 50],
     scale: [0.2, 0.8],
@@ -21,7 +25,36 @@ const loaderVariants = {
     },
   },
 };
+
+
+
+
+
 const SetUpCompleted = () => {
+
+  const [cookies] = useCookies(["token"]);
+  const navigate = useNavigate()
+  const handleProfile = async () => {
+    if (cookies?.token) {
+      try {
+        const { data } = await axios.get("http://localhost:5000/user/infor", {
+          headers: {
+            Authorization: cookies?.token,
+          },
+        });
+        console.log(data);
+        if (data?.role === 1) {
+          navigate("/businessProfile/businessDashboard");
+        }
+        if (data?.role === 0) {
+          navigate("/dashboard/normalDashboard");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+
   return (
     <Layout>
       <div className=" py-11  flex flex-row h-full">
@@ -40,7 +73,9 @@ const SetUpCompleted = () => {
                 Bussiness account to normal account,normal account to bussiness{" "}
               </p>
             </div>
-            <button className="btn capitalize bg-sky-600 text-white mt-5">
+            <button
+              onClick={handleProfile}
+              className="btn capitalize bg-sky-600 text-white mt-5">
               Take me to profile
             </button>
           </div>
