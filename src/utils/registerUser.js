@@ -9,6 +9,7 @@ const RegisterUser = async (
   setCookie
 ) => {
   const { name, email, password } = formData || {};
+  let expiryDate = new Date();
   // const navigate = useNavigate()
   console.log(formData);
   let regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
@@ -52,7 +53,11 @@ const RegisterUser = async (
       });
 
       localStorage.setItem("token", JSON.stringify(response.data.accesstoken));
-      setCookie("token", response?.data?.accesstoken);
+      setCookie("token", response?.data?.accesstoken,{
+        path: '/',
+        maxAge: expiryDate.setMonth(expiryDate.getMonth() + 1),
+
+      });
 
       setSuccess("/completeProfile");
     } catch (error) {

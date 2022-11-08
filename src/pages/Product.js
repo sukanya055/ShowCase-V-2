@@ -75,7 +75,7 @@ const Product = () => {
   }
 
   if (isLoading) return <Loader />
-  console.log(data)
+  console.log(userDetails)
   const { link, price, discount, category, brand, type, companyName, email,saved } = data?.data?.result[0] || {}
   const { latitude, longitude, phone, country } = data?.data?.result[0].videoOwner || {}
   return (

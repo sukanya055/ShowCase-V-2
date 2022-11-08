@@ -3,10 +3,11 @@ import axios from "axios";
 import { signOut } from "firebase/auth";
 import { useEffect } from "react";
 import auth from "../firebase.init";
-
+import { useCookies } from 'react-cookie';
 const useGoogleRegister = (user, setErrorMessage, setSuccess, role) => {
     const { displayName, email } = user || {}
-
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    let expiryDate = new Date();
     useEffect(() => {
         (async () => {
             if (user) {
@@ -23,7 +24,6 @@ const useGoogleRegister = (user, setErrorMessage, setSuccess, role) => {
                 })
                 const userExistData = await userexist.json()
                 
-
                 if (userExistData.message === 'Email already exist') return setErrorMessage('Email already exist')
 
 
@@ -51,7 +51,12 @@ const useGoogleRegister = (user, setErrorMessage, setSuccess, role) => {
                             "token",
                             JSON.stringify(response.data.accesstoken)
                         );
-
+                        setCookie("token", response?.data?.accesstoken,{
+                            path: '/',
+                            maxAge: expiryDate.setMonth(expiryDate.getMonth() + 1),
+                    
+                          });
+                    
                         // navigate("/completeProfile");
                         setSuccess("/completeProfile")
                     } catch (error) {
@@ -65,7 +70,7 @@ const useGoogleRegister = (user, setErrorMessage, setSuccess, role) => {
                 }
             }
         })()
-    }, [user,email,role,setErrorMessage,setSuccess,displayName])
+    }, [user,email,role,setErrorMessage,setSuccess,displayName,expiryDate,setCookie])
 }
 
 export default useGoogleRegister

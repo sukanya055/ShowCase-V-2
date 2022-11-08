@@ -32,14 +32,13 @@ const BussinessAccountSetup = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState("");
   const [user] = useAuthState(auth);
-  let role = location.pathname.includes("/businessAcountSetup") && 1;
-  role = location.pathname.includes("/normalAcountSetup") && 0;
+  let role = location.pathname.includes("/businessAcountSetup") ? 1:0;
+  role = location.pathname.includes("/normalAcountSetup") ? 0:1;
+  console.log(role)
+  // for google register 
   useGoogleRegister(user, setErrorMessage, setSuccess, role);
-
  
   const [status, setStatus] = useState(null);
-
-
 
   const [signInWithGoogle, googleUser, loading, error] =
     useSignInWithGoogle(auth);
