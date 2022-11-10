@@ -28,7 +28,7 @@ const PrivateRoute = ({ children }) => {
                 }
                 setLoading(false)
             } catch (error) {
-                console.log(error)
+                console.log('private route',error)
                 if (error?.response.status === 400) {
                     removeCookie('token', {
                         path: '/',
@@ -40,7 +40,7 @@ const PrivateRoute = ({ children }) => {
 
             }
         })()
-    }, [token, cookies, removeCookie])
+    }, [token, cookies, removeCookie,navigate])
     if (loading) return <div className='text-center my-40'>Loading...</div>
 
     return token ? children : <Navigate to={'/auth'} />

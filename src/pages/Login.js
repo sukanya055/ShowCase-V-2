@@ -102,6 +102,7 @@ const Login = () => {
       },
     },
   };
+  let expiryDate = new Date();
 
   const [formData, setFormData] = useState(initialState);
   const [isLogin, setIsLogin] = useState(true);
@@ -151,26 +152,27 @@ const Login = () => {
 
         setCookie('token', response.data.accesstoken, {
           path: '/',
-          maxAge: 7 * 24 * 60 * 60 * 1000,// 7d,
+          maxAge: expiryDate.setMonth(expiryDate.getMonth() + 1),
 
         })
         localStorage.setItem("val", JSON.stringify(response.data.val));
         let token = localStorage.getItem("token");
 
         token = token.replace(/['"]+/g, "");
+
         const roles = await fetch(
           "http://localhost:5000/user/infor",
           {
             method: "GET",
             headers: {
-              Authorization: token,
+              Authorization:response.data.accesstoken,
               Accept: "application/json",
               "Content-Type": "application/json",
             },
           }
         );
         const roleData = await roles.json();
-     
+        console.log(roleData)
         if (roleData.role == 0) {
           navigate("/dashboard/normalDashboard");
         } else {

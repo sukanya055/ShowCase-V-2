@@ -14,8 +14,11 @@ import Slider from "react-slick";
 // Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+
+  const navigate=useNavigate()
 
   const images = [
     {
@@ -63,8 +66,7 @@ const Hero = () => {
                 alt=""
               />
               <div className='absolute  w-[70%] lg:w-[80%] px-5'>
-                {/* <img className=' w-[70%] lg:w-[80%] ml-[27%] lg:mt-[82px]  lg:ml-[92px]' src={shoes1} alt="shoes" /> */}
-
+               
                 <Slider {...settings}>
                   {
                     images?.map((img, index) => <img
@@ -110,8 +112,12 @@ const Hero = () => {
 
             </div>
             <div className='pl:5  md:pl-14 flex justify-center lg:justify-start gap-9'>
-              <button className="btn btn-primary bg-[#FF109F] rounded-full border-0 outline-none text-white px-5 sm:px-7">Shop more</button>
-              <button className="btn btn-primary bg-[#719efd] opacity-[0.3] rounded-full border-0 outline-none text-white px-5 sm:px-7">Read more</button>
+              <button 
+              onClick={() => navigate(`/products/${"product-allVideo"}`)}
+              className="btn btn-primary bg-[#FF109F] rounded-full border-0 outline-none text-white px-5 sm:px-7">Shop more</button>
+              <button 
+              
+              className="btn btn-primary bg-[#719efd] opacity-[0.3] rounded-full border-0 outline-none text-white px-5 sm:px-7">Read more</button>
             </div>
           </div>
         </div>

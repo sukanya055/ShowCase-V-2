@@ -60,9 +60,6 @@ const Product = () => {
   }, [cookies])
 
 
-
-
-
   const savedVideo = async () => {
     try {
       const { data } = await axios.post(`http://localhost:5000/admin/save?userId=${userDetails?._id}&productId=${id}`)
@@ -75,9 +72,9 @@ const Product = () => {
   }
 
   if (isLoading) return <Loader />
-  console.log(data)
   const { link, price, discount, category, brand, type, companyName, email,saved } = data?.data?.result[0] || {}
-  const { latitude, longitude, phone, country } = data?.data?.result[0].videoOwner || {}
+
+  const { latitude, longitude, phone, country } = data?.data?.result[0]?.videoOwner || {}
   return (
     <div>
       <Layout>

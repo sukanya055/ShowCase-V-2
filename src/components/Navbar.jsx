@@ -267,7 +267,10 @@ const Navbar = ({ adminNav }) => {
               />
             </div>
             <div className="flex flex-col gap-4">
-              <h1 className="text-lg flex items-center justify-center text-gray-700 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out">
+              <h1
+                onClick={() => navigate(`/products/${"product-allVideo"}`)}
+                className="text-lg flex items-center justify-center text-gray-700 cursor-pointer hover:text-black transition-colors delay-75 ease-in-out"
+              >
                 All Videos
               </h1>
               <div className="dropdown dropdown-end">
