@@ -7,22 +7,22 @@ import userImg from '../assets/user.png'
 import axios from 'axios';
 const NormalDashboard = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
-    console.log(cookies?.token)
+
     const [details, setDetails] = useState()
     const { email, about, address, name, profile } = details || {}
-    console.log(cookies?.token)
+
     useEffect(() => {
         (async () => {
 
             if (cookies?.token) {
-                
+
                 try {
                     const { data } = await axios.get('http://localhost:5000/user/infor', {
                         headers: {
                             'Authorization': cookies?.token,
                         }
                     });
-                    console.log(data)
+
                     setDetails(data)
                 }
                 catch (err) {
@@ -36,12 +36,17 @@ const NormalDashboard = () => {
     }, [cookies])
 
 
+    console.log(details)
+
+
+
+
     return (
         <Layout>
             <section>
                 <div className='flex  flex-col md:flex-row w-full px-10 justify-center md:w-[90%] lg:w-[70%] mx-auto my-32 gap-[18px]'>
                     <div className='text-center flex justify-center w-full'>
-                        <img className='w-[205px] sm:w-[305px] mx-auto lg:w-[245px] md:h-[245px] object-cover rounded-[50%] bg-gray-400 ' src={profile ? profile:userImg} alt="" />
+                        <img className='w-[205px] sm:w-[305px] mx-auto lg:w-[245px] md:h-[245px] object-cover rounded-[50%] bg-gray-400 ' src={profile ? profile : userImg} alt="" />
                     </div>
                     <div className='flex mt-10 md:mt-0'>
                         <div className=' '>
@@ -72,12 +77,61 @@ const NormalDashboard = () => {
 
                     </div>
                 </div>
-                <div className='text-center '>
+                {
+                    details?.saveVideo.length > 0 && <div className='text-center '>
                     <h3 className='font-bold text-xl mb-10'>Your Saved Videos</h3>
                     <div>
+                        <div class="container px-5 py-24 mx-auto overflow-x-hidden">
+                            <div class="flex flex-wrap w-full justify-center items-center">
 
+                                {
+                                    details?.saveVideo?.map((video, index) => <div
+                                        key={index}
+                                        class="p-4 w-[310px] md:w-1/3">
+                                        <div class="border-2 border-gray-200 border-opacity-60 rounded-lg ">
+
+                                            <video
+                                                // className='w-full h-full' 
+                                                src={video?.link}
+                                                width={"100%"}
+                                                height='400'
+                                                autoPlay={true}
+                                                loop={true}
+                                                muted={true}
+                                                controls
+                                            ></video>
+                                            <div className='py-7 text-left px-4'>
+                                                <h4>Category: {video?.category}</h4>
+                                                <p>Brand: {video?.brand}</p>
+                                                <p>Type: {video?.type}</p>
+                                                <div className="flex gap-3 items-center">
+                                                    {video?.discount && (
+                                                        <h1 className="text-gray-700 text-lg font-semibold">
+                                                            ₹{(video?.price - (video?.price * video?.discount) / 100).toFixed(0)}
+                                                        </h1>
+                                                    )}
+                                                    <h1
+                                                        className={`text-gray-600 text-lg font-semibold ${video?.discount ? "line-through" : ""
+                                                            }`}
+                                                    >
+                                                        ₹{video?.price}
+                                                    </h1>
+                                                    {video?.discount && (
+                                                        <h1 className="text-green-700 text-lg font-normal">
+                                                            {video?.discount}% off
+                                                        </h1>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>)
+                                }
+
+                            </div>
+                        </div>
                     </div>
                 </div>
+                }
             </section>
         </Layout>
     );

@@ -36,7 +36,7 @@ const Card = ({ product }) => {
           )}
         </div>
         <button
-          onClick={() => navigate(`/product/${productId}`)}
+          onClick={() => navigate(`/product/${_id}`)}
           className=" mt-3 px-3 py-1 rounded-full bg-gray-200 capitalize text-gray-700"
         >
           more details
