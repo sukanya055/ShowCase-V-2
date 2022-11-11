@@ -45,7 +45,7 @@ const Hero = () => {
 
   return (
     <div>
-      <div className="hero min-h-screen p-0 my-20 lg:my-0">
+      <div className="hero min-h-screen p-0 my-20 lg:my-20">
         <div className="hero-content items-start flex-col lg:flex-row-reverse  max-w-[1600px] p-0">
           <div className='lg:w-[60%] w-full relative'>
             <div>

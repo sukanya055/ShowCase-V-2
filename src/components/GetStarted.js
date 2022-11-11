@@ -16,12 +16,12 @@ const GetStarted = () => {
         </div>
         <div className="text-center">
           <p className="text-[20px] md:text-[35px] lg:text-[45px] text-[#112D57] font-bold text-center px-5 md:px-24 lg:px-32 xl:px-52 ">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Sign up today to get going!
           </p>
           <button
             onClick={() => navigate(`/joinUs`)}
-            className="bg-gradient-to-r from-[#F0FF00] px-10 md:px-16 py-3 text-[20px] md:text-[28px] lg:text-[30px] text-white rounded-lg border-0 outline-none to-[#58CFFB] inline-block mt-20">
-            Get Started
+            className="bg-gradient-to-r from-[#43CBFF] px-10 md:px-16 py-3 text-[20px] md:text-[28px] lg:text-[30px] text-white rounded-lg border-0 outline-none to-[#9708CC] inline-block mt-20">
+            Sign Up
           </button>
         </div>
         <div>

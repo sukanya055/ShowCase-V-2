@@ -5,7 +5,7 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 const Amazing = () => {
   return (
     <>
-      <div className="hero min-h-screen overflow-x-hidden mt-28 lg:mt-0">
+      <div className="hero min-h-screen overflow-x-hidden mt-28 lg:mt-40">
         <div className="hero-content max-w-[1400px] justify-between flex-col lg:flex-row-reverse p-2 md:p-4">
           <div className="w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] lg:w-[504px] lg:h-[500px]  xl:w-[604px] xl:h-[600px] rounded-[50%] bg-green-300 relative overflow-hidden">
             <div
@@ -30,7 +30,7 @@ const Amazing = () => {
               autoPlay
               loop={true}
               muted={true}
-              // className='absolute top-0 left-0 w-full h-full opacity-100'
+            // className='absolute top-0 left-0 w-full h-full opacity-100'
             >
               <p>Your browser doesn't support this video</p>
             </video>
@@ -41,9 +41,7 @@ const Amazing = () => {
                 An Amazing Journey
               </h1>
               <p className="py-6 text-[#5C5C5C] lg:text-[23px] xl:[26px] 2xl:text-[30px] leading-[34px] md:leading-[48px] lg:pr-52">
-                We design and develop world-class websites and applications,
-                design better and spend less time without restricting creative
-                freedom.
+                We design and develop world-class websites and applications, design better and spend less time without restricting creative freedom They give us all we need for internet purchasing, at the most basic level..
               </p>
             </div>
           </div>

@@ -26,6 +26,7 @@ import ChatAdmin from "./components/ChatFile/ChatAdmin";
 import PrivateRoute from "./utils/PrivateRoute";
 import BusinessDashboard from "./pages/BusinessDashboard";
 import Payment from "./components/payment/Payment";
+import PrivateUserRoute from "./utils/PrivateUserRoute";
 
 function App() {
   return (
@@ -46,11 +47,17 @@ function App() {
         <Route path="/" element={<Home />} />
 
         <Route path="/dashboard">
-          <Route path="normalDashboard" element={<NormalDashboard />} />
-          <Route path="updateProfile" element={<NormalProfile />} />
+          <Route path="normalDashboard" element={<PrivateRoute>
+            <NormalDashboard />
+          </PrivateRoute>} />
+          <Route path="updateProfile" element={<PrivateRoute>
+            <NormalProfile />
+          </PrivateRoute>} />
           <Route
             path="updatePasswordNormalProfile"
-            element={<ChangePassword />}
+            element={<PrivateRoute>
+              <ChangePassword />
+            </PrivateRoute>}
           />
         </Route>
 
