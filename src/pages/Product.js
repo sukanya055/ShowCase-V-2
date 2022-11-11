@@ -62,17 +62,19 @@ const Product = () => {
 
   const savedVideo = async () => {
     try {
-      const { data } = await axios.post(`http://localhost:5000/admin/save?userId=${userDetails?._id}&productId=${id}`)
+      if (userDetails?.role === 0) {
+        const { data } = await axios.post(`http://localhost:5000/admin/save?userId=${userDetails?._id}&productId=${id}`)
 
-      console.log(data)
+        console.log(data)
+      }
 
     } catch (error) {
-
+      console.log(error)
     }
   }
 
   if (isLoading) return <Loader />
-  const { link, price, discount, category, brand, type, companyName, email,saved } = data?.data?.result[0] || {}
+  const { link, price, discount, category, brand, type, companyName, email, saved } = data?.data?.result[0] || {}
 
   const { latitude, longitude, phone, country } = data?.data?.result[0]?.videoOwner || {}
   return (
@@ -159,7 +161,7 @@ const Product = () => {
               </label>
               <div className="basis-1/3 px-8 py-3 shadow-md rounded-xl cursor-pointer  hover:scale-105 transition-transform ease-out delay-100">
                 <div
-                  onClick={()=>savedVideo()}
+                  onClick={() => savedVideo()}
                   className="flex items-center justify-center gap-1 flex-col">
                   <img
                     src={save}
@@ -168,9 +170,9 @@ const Product = () => {
                   />
                   <h1 className="text-lg font-semibold">SAVE</h1>
                   <p className="text-md font-light">
-                   {
-                    saved?.includes(userDetails?._id) ? 'You have already save ':' Save the video for later use'
-                   }
+                    {
+                      saved?.includes(userDetails?._id) ? 'You have already save ' : ' Save the video for later use'
+                    }
                   </p>
                 </div>
               </div>
