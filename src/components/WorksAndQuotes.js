@@ -3,22 +3,27 @@ import circleGif2 from "../assets/circle2.gif";
 import rocket from "../assets/rocket.gif";
 const WorksAndQuotes = () => {
   const quotes = [
+
     {
       number: 1,
-      title: "Quick Quotes",
-      desc: "  Cras ultricies ligula sed magna dictum porta. Donec rutrum congue leo eget malesuada.",
+      title: "Business Building",
+      desc: "A company creates the website and advertises the goods or services it offers, along with their costs.",
     },
     {
       number: 2,
-      title: "Fast Approval",
-      desc: "  Cras ultricies ligula sed magna dictum porta. Donec rutrum congue leo eget malesuada.",
+      title: "Customer’s POV",
+      desc: "After discovering the website, a client purchases products and services. They go to the checkout stage after deciding they are finished purchasing online.",
     },
     {
       number: 3,
-      title: "Easy Application",
-      desc: "  Cras ultricies ligula sed magna dictum porta. Donec rutrum congue leo eget malesuada.",
+      title: "Payment",
+      desc: "The e-commerce website transmits the payment data via a payment processor, which authorises the transaction and gathers the associated money.",
     },
+    
   ];
+
+
+
 
   return (
     <>
