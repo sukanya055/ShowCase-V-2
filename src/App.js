@@ -74,9 +74,7 @@ function App() {
         <Route
           path="/changePassword"
           element={
-            <PrivateRoute>
               <PasswordChange />
-            </PrivateRoute>
           }
         />
         <Route
@@ -89,9 +87,7 @@ function App() {
         <Route
           path="/otpVerify"
           element={
-            <PrivateRoute>
               <OtpVerify />
-            </PrivateRoute>
           }
         />
         <Route path="/joinUs" element={<JoinUs />} />

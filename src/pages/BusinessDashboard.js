@@ -24,6 +24,7 @@ const BusinessDashboard = React.memo(() => {
             _id
             })
            console.log(data)
+           setVideos(data?.data)
         } catch (error) {
             console.log(error)
         }
@@ -53,7 +54,7 @@ const BusinessDashboard = React.memo(() => {
 
         })();
         getAdminProductVideo()
-    }, [cookies])
+    }, [cookies,openModal])
     console.log(_id)
     return (
         <Layout>
