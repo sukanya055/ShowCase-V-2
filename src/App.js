@@ -50,7 +50,9 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/product/:id" element={<Product />} />
+        <Route path="/product/:id" element={<PrivateRoute>
+          <Product />
+        </PrivateRoute>} />
         <Route path="/auth" element={<Login />} />
 
         <Route path="/" element={<Home />} />

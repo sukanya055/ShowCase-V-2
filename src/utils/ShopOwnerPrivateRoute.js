@@ -22,15 +22,15 @@ const ShopOwnerPrivateRoute = ({ children }) => {
                         'Authorization': cookies?.token,
                     }
                 })
-               console.log('hello ')
+           
                 if (data?.message === "Success" && data?.data?.role === 1) {
                     setLoading(false)
                     setUserToken(data)
                 }
-                console.log(data)
+               
                 setLoading(false)
             } catch (error) {
-                console.log('owner route',error)
+                
                 if (error?.response.status === 400) {
                     removeCookie('token'/* , {
                         path: '/',

@@ -34,7 +34,7 @@ const useGoogleRegister = (user, setErrorMessage, setSuccess, role) => {
                 }
                 else if (userExistData.exist === 0 && regex.test(email)) {
 
-                    console.log('click')
+                 
                     try {
 
                         const response = await axios.post(
@@ -46,7 +46,7 @@ const useGoogleRegister = (user, setErrorMessage, setSuccess, role) => {
                                 google: 'Google',
                             }
                         );
-                        console.log(response)
+                       
                         localStorage.setItem(
                             "token",
                             JSON.stringify(response.data.accesstoken)

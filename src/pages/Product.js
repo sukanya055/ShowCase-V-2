@@ -21,6 +21,7 @@ const Product = () => {
   const { id } = useParams();
   const [productData, setProductData] = useState({});
   const [userDetails, setUserDetails] = useState(null)
+  const [saveSuccess, setSaveSuccess] = useState('')
   console.log(id)
   const { isLoading, data, refetch } = useQuery(
     [
@@ -47,6 +48,7 @@ const Product = () => {
             }
           });
           console.log(data)
+        
           setUserDetails(data)
         }
         catch (err) {
@@ -64,7 +66,7 @@ const Product = () => {
     try {
       if (userDetails?.role === 0) {
         const { data } = await axios.post(`http://localhost:5000/admin/save?userId=${userDetails?._id}&productId=${id}`)
-
+        setSaveSuccess(data?.message)
         console.log(data)
       }
 
@@ -171,7 +173,7 @@ const Product = () => {
                   <h1 className="text-lg font-semibold">SAVE</h1>
                   <p className="text-md font-light">
                     {
-                      saved?.includes(userDetails?._id) ? 'You have already save ' : ' Save the video for later use'
+                      (saved?.includes(userDetails?._id) || saveSuccess) ? 'You have already save ' : ' Save the video for later use'
                     }
                   </p>
                 </div>

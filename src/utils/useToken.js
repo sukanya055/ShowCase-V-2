@@ -7,7 +7,7 @@ const useToken = async (user, signOut, setLoginError) => {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
   let expiryDate = new Date();
   const navigate = useNavigate();
-  console.log(user);
+
   useEffect(() => {
     (async () => {
       if (user) {
@@ -32,14 +32,14 @@ const useToken = async (user, signOut, setLoginError) => {
           });
 
           response = data;
-          console.log(response);
+       
           localStorage.setItem(
             "token",
             JSON.stringify(response.data.accesstoken)
           );
           localStorage.setItem("val", JSON.stringify(response.data.val));
           let token = localStorage.getItem("token");
-          console.log("token", token);
+       
           setCookie("token", response?.data?.accesstoken, {
             path: '/',
             maxAge: expiryDate.setMonth(expiryDate.getMonth() + 1),
@@ -48,7 +48,7 @@ const useToken = async (user, signOut, setLoginError) => {
 
           // verify token api
           token = token.replace(/['"]+/g, "");
-          console.log(cookies.token)
+       
           const roles = await fetch("http://localhost:5000/user/infor", {
             method: "GET",
             headers: {
@@ -59,7 +59,7 @@ const useToken = async (user, signOut, setLoginError) => {
           });
 
           const roleData = await roles.json();
-          console.log(roleData)
+      
           // verify on role
           if (roleData.role === 1) {
             navigate("/businessProfile/businessDashboard");
