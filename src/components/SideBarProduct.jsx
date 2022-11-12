@@ -13,9 +13,10 @@ const SideBarProduct = ({
   handleOnChangeCollections,
   content,
   setPrice,
-  refetch
+  refetch,
 }) => {
   const [priceValue, setPriceValue] = useState(0);
+
   useEffect(() => {
     (async () => {
       const { data } = await axios.get(
@@ -25,11 +26,11 @@ const SideBarProduct = ({
       );
       setPriceValue(data?.data);
       setPrice(data?.data);
-      console.log(data)
-      setSizeNumber(data?.data?.max)
+        console.log(data?.data)
+      setSizeNumber(data?.data?.max);
     })();
-  }, [content, setPrice,setSizeNumber]);
-  console.log(sizeNumber);
+  }, [content, setPrice, setSizeNumber]);
+
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -39,7 +40,7 @@ const SideBarProduct = ({
           <img src={blackFilter} alt="black" className="h-8" />
         </div>
       </div>
-      
+
       <div className="mt-3">
         <h1 className="text-lg font-bold  ">FILTER BY PRICE</h1>
         <div className="w-[100px] h-[2px] bg-yellow-500" />
@@ -51,9 +52,10 @@ const SideBarProduct = ({
           max={priceValue?.max}
           value={sizeNumber}
           onChange={(e) => {
+            
               setSizeNumber(+e.target.value);
-              refetch()
-            SetSize();
+              refetch();
+          
           }}
           className="range range-secondary range-xs"
           step="0"

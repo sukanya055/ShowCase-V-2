@@ -5,7 +5,7 @@ const Card = ({ product }) => {
   const { link, price, category, discount, brand, _id, userId, productId } =
     product || {};
   const navigate = useNavigate();
-  console.log(product);
+
   return (
     <div className=" pb-6 rounded-lg border-[1px] border-b-4  shadow-sm  border-gray-300">
       <video className="rounded-t-lg h-full w-full md:w-[322px]" controls>

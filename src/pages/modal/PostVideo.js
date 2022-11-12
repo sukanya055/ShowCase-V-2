@@ -43,7 +43,6 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
     })
     console.log(userId)
 
-
     useEffect(() => {
         if (successMessage) {
 
@@ -59,6 +58,7 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
             })
         }
     }, [successMessage])
+
     useEffect(() => {
         if (errorMessage) {
 
@@ -79,10 +79,8 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
 
     const videoHandler = (event) => {
         setLoading(true)
-        /* if (event.target.files && event.target.files[0]) {
-            setVideo(URL.createObjectURL(event.target.files[0]));
-        }
- */
+
+
         window.Buffer = window.Buffer || require("buffer").Buffer;
         uploadFile(event.target.files[0], config)
             .then(data => {
@@ -132,6 +130,7 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                     .then(data => {
                         setLoad(false)
                         setSuccessMessage('Product upload success')
+                        setOpenModal(null)
                         console.log(data)
                     }
                     )
@@ -297,12 +296,12 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                             </div>
 
                             <div className="form-control mt-6">
-                                <button 
-                                disabled={load}
-                                className="btn btn-primary">{load?'Uploading':"Post"}</button>
+                                <button
+                                    disabled={load}
+                                    className="btn btn-primary">{load ? 'Uploading' : "Post"}</button>
                             </div>
                             {
-                                error?.videError && <p className='text-red-500 py-3 text-[14px]'>{error?.videError}</p>
+                                error?.videError && <p className='text-red-500 text-center py-3 text-[14px]'>{error?.videError}</p>
                             }
                         </form>
                     </div>

@@ -1,3 +1,4 @@
+import React, { Suspense, useState } from 'react';
 import { Route, Routes } from "react-router-dom";
 import {
   Product,
@@ -19,16 +20,23 @@ import {
 import "./App.css";
 
 import ChangePassword from "./pages/ChangePassword";
-import NormalDashboard from "./pages/NormalDashboard";
+// import NormalDashboard from "./pages/NormalDashboard";
 import BusinessChangePassword from "./pages/BusinessChangePassword";
 import Gps from "./pages/Gps";
 import ChatAdmin from "./components/ChatFile/ChatAdmin";
 import PrivateRoute from "./utils/PrivateRoute";
-import BusinessDashboard from "./pages/BusinessDashboard";
+// import BusinessDashboard from "./pages/BusinessDashboard";
 import Payment from "./components/payment/Payment";
 import PrivateUserRoute from "./utils/PrivateUserRoute";
 
 function App() {
+
+
+  const BusinessDashboard = React.lazy(() => import('./pages/BusinessDashboard'))
+  const NormalDashboard = React.lazy(() => import('./pages/NormalDashboard'))
+
+
+
   return (
     <div className="App">
       <Routes>
@@ -48,8 +56,13 @@ function App() {
 
         <Route path="/dashboard">
           <Route path="normalDashboard" element={<PrivateRoute>
-            <NormalDashboard />
+            <Suspense
+              fallback={<div className='flex justify-center items-center h-screen'>Loading...</div>}
+            >
+              <NormalDashboard />
+            </Suspense>
           </PrivateRoute>} />
+
           <Route path="updateProfile" element={<PrivateRoute>
             <NormalProfile />
           </PrivateRoute>} />
@@ -62,7 +75,11 @@ function App() {
         </Route>
 
         <Route path="/businessProfile">
-          <Route path="businessDashboard" element={<BusinessDashboard />} />
+          <Route path="businessDashboard" element={<Suspense
+            fallback={<div className='flex justify-center items-center h-screen'>Loading...</div>}
+          >
+            <BusinessDashboard />
+          </Suspense>} />
           <Route
             path="updateBusinessPassword"
             element={<BusinessChangePassword />}
@@ -74,24 +91,21 @@ function App() {
         <Route
           path="/changePassword"
           element={
-            <PrivateRoute>
-              <PasswordChange />
-            </PrivateRoute>
+            <PasswordChange />
           }
         />
         <Route
           path="/businessAccountSetup"
           element={<BussinessAccountSetup />}
         />
+
         <Route path="/normalAccountSetup" element={<BussinessAccountSetup />} />
-        {/* lds */}
+
         <Route path="/completeProfile" element={<CompleteProfile />} />
         <Route
           path="/otpVerify"
           element={
-            <PrivateRoute>
-              <OtpVerify />
-            </PrivateRoute>
+            <OtpVerify />
           }
         />
         <Route path="/joinUs" element={<JoinUs />} />
