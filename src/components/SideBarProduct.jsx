@@ -26,7 +26,7 @@ const SideBarProduct = ({
       );
       setPriceValue(data?.data);
       setPrice(data?.data);
-
+        console.log(data?.data)
       setSizeNumber(data?.data?.max);
     })();
   }, [content, setPrice, setSizeNumber]);
