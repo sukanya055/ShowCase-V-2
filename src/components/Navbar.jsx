@@ -81,6 +81,14 @@ const Navbar = ({ adminNav }) => {
     navigate(`/products/${content}-${user}`);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      console.log("do validate");
+      console.log(event.target.value);
+      navigate(`/products/${event.target.value}-input`);
+    }
+  };
+
   return (
     <div className="shadow-md md:py-2 px-6 py-0">
       <div className="flex items-center justify-between">
@@ -102,6 +110,7 @@ const Navbar = ({ adminNav }) => {
                 type="text"
                 placeholder="Search..."
                 className="outline-none border-none bg-inherit"
+                onKeyDown={handleKeyDown}
               />
             </label>
           </div>

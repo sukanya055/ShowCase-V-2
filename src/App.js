@@ -31,7 +31,7 @@ import PrivateUserRoute from "./utils/PrivateUserRoute";
 
 function App() {
 
-
+  const [userId, setUserId] = useState(null)
   const BusinessDashboard = React.lazy(() => import('./pages/BusinessDashboard'))
   const NormalDashboard = React.lazy(() => import('./pages/NormalDashboard'))
 
@@ -75,16 +75,18 @@ function App() {
         </Route>
 
         <Route path="/businessProfile">
-          <Route path="businessDashboard" element={<Suspense
-            fallback={<div className='flex justify-center items-center h-screen'>Loading...</div>}
-          >
-            <BusinessDashboard />
-          </Suspense>} />
+          <Route path="businessDashboard" element={
+            <BusinessDashboard
+              setUserId={setUserId}
+            />}
+     />
           <Route
             path="updateBusinessPassword"
             element={<BusinessChangePassword />}
           />
-          <Route path="updateBusinessProfile" element={<BusinessProfile />} />
+          <Route path="updateBusinessProfile" element={<BusinessProfile 
+          // userId={userId}
+          />} />
           <Route path="updateGps" element={<Gps />} />
         </Route>
 

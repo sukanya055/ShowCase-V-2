@@ -7,14 +7,14 @@ import axios from 'axios';
 import PostVideo from './modal/PostVideo';
 import userImg from '../assets/user.png'
 
-const BusinessDashboard = React.memo(() => {
+const BusinessDashboard = React.memo(({setUserId}) => {
     const [cookies] = useCookies(['token']);
     const [openModal, setOpenModal] = useState(null)
     const [userDetails, setUserDetails] = useState({})
 
     const { about, country, name, phone, whats, profile, _id } = userDetails || {}
     const [videos, setVideos] = useState()
-
+    // setUserId(_id)
     const getAdminProductVideo = async () => {
         try {
             const { data } = await axios.get(`http://localhost:5000/admin/adminProductVideo`, {
@@ -28,6 +28,7 @@ const BusinessDashboard = React.memo(() => {
         } catch (error) {
             console.log(error)
         }
+
     }
 
     useEffect(() => {
