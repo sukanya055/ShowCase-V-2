@@ -26,11 +26,10 @@ const SideBarProduct = ({
       );
       setPriceValue(data?.data);
       setPrice(data?.data);
-   
+
       setSizeNumber(data?.data?.max);
     })();
   }, [content, setPrice, setSizeNumber]);
-
 
   return (
     <div>
@@ -53,9 +52,10 @@ const SideBarProduct = ({
           max={priceValue?.max}
           value={sizeNumber}
           onChange={(e) => {
-            setSizeNumber(+e.target.value);
-            refetch()
-           
+            
+              setSizeNumber(+e.target.value);
+              refetch();
+          
           }}
           className="range range-secondary range-xs"
           step="0"

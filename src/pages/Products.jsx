@@ -108,7 +108,10 @@ const Products = () => {
             />
           </div>
           <div className="md:basis-3/4 basis-4/4 h-full">
-            <MainProducts filteredData={data?.data?.result} />
+            <MainProducts 
+            filteredData={data?.data?.result} 
+            isLoading={isLoading}
+            />
           </div>
         </div>
         <div className="md:hidden block absolute top-0">
