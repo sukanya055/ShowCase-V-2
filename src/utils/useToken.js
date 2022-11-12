@@ -24,12 +24,7 @@ const useToken = async (user, signOut, setLoginError) => {
               }),
             }
           );
-          /*  const userExistData = await userexist.json();
-                    console.log(userExistData)
-                    if(userExistData.message.includes('Email not exist')){
-                        console.log('click')
-                        setLoginError(userExistData.message)
-                    } */
+          
           let response;
           const data = await axios.post("http://localhost:5000/user/login", {
             email: user?.email,
@@ -72,11 +67,7 @@ const useToken = async (user, signOut, setLoginError) => {
             navigate("/dashboard/normalDashboard");
           }
         } catch (error) {
-          /*   if (error.response) {
-                        setMsg(error.response.data.msg);
-                        setOpen(true);
-                        setErrorMessage(error.response.data.msg);
-                      } */
+         
           console.log(error);
           setLoginError(error?.response?.data?.msg);
           signOut(auth);

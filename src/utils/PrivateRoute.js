@@ -24,6 +24,7 @@ const PrivateRoute = ({ children }) => {
                 })
                 console.log('from private Route', data)
                 console.log('from private Route', data?.data?.role)
+                
                 if (data?.message === "Success" && data?.data?.role === 0) {
                     setLoading(false)
                     setUserToken(data)
