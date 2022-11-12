@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { data } from "../utils/productData";
 import { mensCategories } from "../utils/data";
 import productVideo from "../assets/video/product.mp4";
 import blackFilter from "../assets/blackFilter.png";
@@ -16,7 +15,7 @@ const SideBarProduct = ({
   refetch,
 }) => {
   const [priceValue, setPriceValue] = useState(0);
-
+  const [bestVideo, setBestVideo] = useState([]);
   useEffect(() => {
     (async () => {
       const { data } = await axios.get(
@@ -26,11 +25,25 @@ const SideBarProduct = ({
       );
       setPriceValue(data?.data);
       setPrice(data?.data);
-        console.log(data?.data)
+      console.log(data?.data);
       setSizeNumber(data?.data?.max);
     })();
   }, [content, setPrice, setSizeNumber]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:5000/admin/best-seller-video`
+        );
+        setBestVideo(data?.data);
+        console.log(data)
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+  console.log(bestVideo)
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -52,10 +65,8 @@ const SideBarProduct = ({
           max={priceValue?.max}
           value={sizeNumber}
           onChange={(e) => {
-            
-              setSizeNumber(+e.target.value);
-              refetch();
-          
+            setSizeNumber(+e.target.value);
+            refetch();
           }}
           className="range range-secondary range-xs"
           step="0"
@@ -74,23 +85,23 @@ const SideBarProduct = ({
         <h1 className="text-lg font-bold  ">BEST SELLER</h1>
         <div className="w-[100px] h-[2px] bg-yellow-500" />
       </div>
-      {data.map((product) => (
+      {bestVideo.map((product) => (
         <div
           className="mt-5 flex flex-col items-center gap-2 w-full"
-          key={product.id}
+          key={product?._id}
         >
           <div className=" flex flex-row gap-[2px] w-full">
             <div className="basis-1/2">
               <video height="500" className="w-full" controls>
-                <source src={productVideo} type="video/mp4" />
+                <source src={product?.link} type="video/mp4" />
               </video>
             </div>
             <div className="basis-1/2">
               <h1 className="text-md font-semibold text-gray-500 text-center">
-                {product.title}
+                {product?.category}
               </h1>
               <p className="text-lg text-center font-semibold text-yellow-500">
-                ₹{product.price}
+                ₹{(+product?.price - (+product?.price * +product?.discount) / 100).toFixed(0)}
               </p>
             </div>
           </div>
