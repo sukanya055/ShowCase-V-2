@@ -28,6 +28,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 // import BusinessDashboard from "./pages/BusinessDashboard";
 import Payment from "./components/payment/Payment";
 import PrivateUserRoute from "./utils/PrivateUserRoute";
+import ShopOwnerPrivateRoute from './utils/ShopOwnerPrivateRoute';
 
 function App() {
 
@@ -76,15 +77,18 @@ function App() {
 
         <Route path="/businessProfile">
           <Route path="businessDashboard" element={
-            <BusinessDashboard
-              setUserId={setUserId}
-            />}
-     />
+            <ShopOwnerPrivateRoute>
+              <BusinessDashboard
+                setUserId={setUserId}
+              />
+            </ShopOwnerPrivateRoute>
+          }
+          />
           <Route
             path="updateBusinessPassword"
             element={<BusinessChangePassword />}
           />
-          <Route path="updateBusinessProfile" element={<BusinessProfile 
+          <Route path="updateBusinessProfile" element={<BusinessProfile
           // userId={userId}
           />} />
           <Route path="updateGps" element={<Gps />} />

@@ -53,7 +53,7 @@ const Navbar = ({ adminNav }) => {
             Authorization: cookies?.token,
           },
         });
-        console.log(data);
+        console.log('from',data);
         if (data?.role === 1) {
           navigate("/businessProfile/businessDashboard");
         }
@@ -83,8 +83,6 @@ const Navbar = ({ adminNav }) => {
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      console.log("do validate");
-      console.log(event.target.value);
       navigate(`/products/${event.target.value}-input`);
     }
   };
