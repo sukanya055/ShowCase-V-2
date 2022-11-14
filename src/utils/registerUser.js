@@ -11,7 +11,7 @@ const RegisterUser = async (
   const { name, email, password } = formData || {};
   let expiryDate = new Date();
   // const navigate = useNavigate()
-  console.log(formData);
+
   let regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
   let regxpass = new RegExp(
     "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})"
@@ -26,7 +26,7 @@ const RegisterUser = async (
     }),
   });
   const userExistData = await userexist.json();
-  console.log(userExistData);
+
 
   if (userExistData.message === "Email already exist")
     return setErrorMessage("Email already exist");

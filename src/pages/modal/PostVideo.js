@@ -252,7 +252,7 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                                     <option value="Kurti">Kurti</option>
                                     <option value="Knife">Knife</option>
                                     <option value="Faurniture">Faurniture</option>
-                                    <option value="Bed Sheet">Bed Sheet</option>
+                                    <option value="Bed Sheet">BedSheet</option>
                                     <option value="Blancket">Blancket</option>
                                 </select>
 

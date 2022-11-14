@@ -18,6 +18,10 @@ import { BiTrendingDown } from "react-icons/bi";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { useQuery } from "react-query";
+import axios from "axios";
+import Loader from '../utils/Loader'
+
 
 const features = [
   {
@@ -47,6 +51,13 @@ const features = [
 ];
 
 const Dashboard = () => {
+  const { isLoading, data, refetch } = useQuery(
+    ["get-all-product-details"],
+    () => axios.get(`http://localhost:5000/review/get-all-product-details`)
+  );
+
+    if(isLoading) return <Loader/>
+
   return (
     <Layout adminNav>
       <div className="flex flex-row">
@@ -176,12 +187,17 @@ const Dashboard = () => {
                 <SimpleTable />
               </div>
               <div className="flex-1">
-                <Reviews />
+                <Reviews 
+                  data={data?.data?.data}
+                />
               </div>
             </div>
             {/* Customer Revies Carosal */}
-            <div className=" ">
-              <CustomerCard />
+            <div className="mt-10">
+              <CustomerCard 
+              data={data?.data?.data}
+              refetch={refetch}
+              />
             </div>
             {/* Data table */}
             <div className="flex w-full">

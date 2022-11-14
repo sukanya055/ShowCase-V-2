@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, } from 'react';
 import { Route, Routes } from "react-router-dom";
 import {
   Product,
@@ -14,6 +14,7 @@ import {
   Products,
   SetUpCompleted,
   Dashboard,
+ 
   // ChangePassword
 } from "./pages";
 
@@ -28,10 +29,13 @@ import PrivateRoute from "./utils/PrivateRoute";
 // import BusinessDashboard from "./pages/BusinessDashboard";
 import Payment from "./components/payment/Payment";
 import PrivateUserRoute from "./utils/PrivateUserRoute";
+import ShopOwnerPrivateRoute from './utils/ShopOwnerPrivateRoute';
+import Review from './pages/Review';
+
 
 function App() {
 
-
+ 
   const BusinessDashboard = React.lazy(() => import('./pages/BusinessDashboard'))
   const NormalDashboard = React.lazy(() => import('./pages/NormalDashboard'))
 
@@ -49,7 +53,9 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/product/:id" element={<Product />} />
+        <Route path="/product/:id" element={<PrivateRoute>
+          <Product />
+        </PrivateRoute>} />
         <Route path="/auth" element={<Login />} />
 
         <Route path="/" element={<Home />} />
@@ -59,12 +65,16 @@ function App() {
             <Suspense
               fallback={<div className='flex justify-center items-center h-screen'>Loading...</div>}
             >
-              <NormalDashboard />
+              <NormalDashboard
+            
+              />
             </Suspense>
           </PrivateRoute>} />
 
           <Route path="updateProfile" element={<PrivateRoute>
-            <NormalProfile />
+            <NormalProfile
+             
+            />
           </PrivateRoute>} />
           <Route
             path="updatePasswordNormalProfile"
@@ -75,16 +85,21 @@ function App() {
         </Route>
 
         <Route path="/businessProfile">
-          <Route path="businessDashboard" element={<Suspense
-            fallback={<div className='flex justify-center items-center h-screen'>Loading...</div>}
-          >
-            <BusinessDashboard />
-          </Suspense>} />
+          <Route path="businessDashboard" element={
+            <ShopOwnerPrivateRoute>
+              <BusinessDashboard
+                
+              />
+            </ShopOwnerPrivateRoute>
+          }
+          />
           <Route
             path="updateBusinessPassword"
             element={<BusinessChangePassword />}
           />
-          <Route path="updateBusinessProfile" element={<BusinessProfile />} />
+          <Route path="updateBusinessProfile" element={<BusinessProfile
+          // userId={userId}
+          />} />
           <Route path="updateGps" element={<Gps />} />
         </Route>
 
@@ -113,6 +128,8 @@ function App() {
         <Route path="/setupCompleted" element={<SetUpCompleted />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/admindashboard" element={<Dashboard />} />
+        <Route path="/product/review/:id" element={<Review />} />
+
       </Routes>
     </div>
   );

@@ -7,7 +7,7 @@ const useToken = async (user, signOut, setLoginError) => {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
   let expiryDate = new Date();
   const navigate = useNavigate();
-  console.log(user);
+
   useEffect(() => {
     (async () => {
       if (user) {
@@ -24,12 +24,7 @@ const useToken = async (user, signOut, setLoginError) => {
               }),
             }
           );
-          /*  const userExistData = await userexist.json();
-                    console.log(userExistData)
-                    if(userExistData.message.includes('Email not exist')){
-                        console.log('click')
-                        setLoginError(userExistData.message)
-                    } */
+          
           let response;
           const data = await axios.post("http://localhost:5000/user/login", {
             email: user?.email,
@@ -37,14 +32,14 @@ const useToken = async (user, signOut, setLoginError) => {
           });
 
           response = data;
-          console.log(response);
+       
           localStorage.setItem(
             "token",
             JSON.stringify(response.data.accesstoken)
           );
           localStorage.setItem("val", JSON.stringify(response.data.val));
           let token = localStorage.getItem("token");
-          console.log("token", token);
+       
           setCookie("token", response?.data?.accesstoken, {
             path: '/',
             maxAge: expiryDate.setMonth(expiryDate.getMonth() + 1),
@@ -53,7 +48,7 @@ const useToken = async (user, signOut, setLoginError) => {
 
           // verify token api
           token = token.replace(/['"]+/g, "");
-          console.log(cookies.token)
+       
           const roles = await fetch("http://localhost:5000/user/infor", {
             method: "GET",
             headers: {
@@ -64,7 +59,7 @@ const useToken = async (user, signOut, setLoginError) => {
           });
 
           const roleData = await roles.json();
-          console.log(roleData)
+      
           // verify on role
           if (roleData.role === 1) {
             navigate("/businessProfile/businessDashboard");
@@ -72,12 +67,8 @@ const useToken = async (user, signOut, setLoginError) => {
             navigate("/dashboard/normalDashboard");
           }
         } catch (error) {
-          /*   if (error.response) {
-                        setMsg(error.response.data.msg);
-                        setOpen(true);
-                        setErrorMessage(error.response.data.msg);
-                      } */
-          console.log(error);
+         
+         
           setLoginError(error?.response?.data?.msg);
           signOut(auth);
         }

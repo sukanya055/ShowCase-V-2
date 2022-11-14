@@ -17,7 +17,7 @@ const Products = () => {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
   const [count, setCount] = useState();
-
+  console.log(content)
   const { isLoading, data, refetch } = useQuery(
 
     [
@@ -60,7 +60,7 @@ const Products = () => {
     }
   };
 
-  console.log('number',sizeNumber)
+  console.log('number',content)
   return (
     <Layout>
       <div className="px-8 py-5">

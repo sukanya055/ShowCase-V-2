@@ -9,6 +9,7 @@ import { useCookies } from 'react-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import DeleteModal from "./modal/DeleteModal";
 
 const S3_BUCKET = 'showcase28';
 const REGION = 'us-east-1';
@@ -24,7 +25,7 @@ const config = {
 
 
 
-const BusinessProfile = () => {
+const BusinessProfile = ({userId}) => {
 
   const [cookies] = useCookies(['token']);
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const BusinessProfile = () => {
   const [about, setAbout] = useState('')
   const [whatsapp, setWhatsApp] = useState('')
   const [phone, setPhone] = useState('')
-
+  const [openModal, setOpenModal] = useState(false)
   useEffect(() => {
     if (ErrorMessage) {
 
@@ -79,7 +80,7 @@ const BusinessProfile = () => {
   }, [cookies]);
 
 
-
+  console.log(userId)
 
 
   const handleForm = async (e) => {
@@ -283,8 +284,8 @@ const BusinessProfile = () => {
                 <p className="border-2 border-[#CED0D0] px-4 py-2 text-[#858A89] border-solid cursor-pointer text-center  rounded-md text-[14px] md:text-[16px]">
                   Temporarily disable my account
                 </p>
-                <p className="border-2 border-[#CED0D0] px-4 py-2 text-[#858A89] border-solid cursor-pointer text-center rounded-md text-[14px] md:text-[16px]">
-                  Delete my account
+                <p className="flex justify-center items-center">
+                  <label onClick={()=>setOpenModal(true)} htmlFor="my-modal-3" className="border-2 border-[#CED0D0] px-4 py-2 text-[#858A89] border-solid cursor-pointer text-center rounded-md text-[14px] md:text-[16px]">Delete Account</label>
                 </p>
               </div>
               <div className="flex justify-center mt-10">
@@ -296,6 +297,11 @@ const BusinessProfile = () => {
                 </button>
               </div>
             </form>
+            {
+              openModal && <DeleteModal
+              setOpenModal={setOpenModal}
+              />
+            }
           </div>
         </div>
       </div>

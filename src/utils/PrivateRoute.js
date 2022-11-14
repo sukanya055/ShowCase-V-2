@@ -22,15 +22,15 @@ const PrivateRoute = ({ children }) => {
                         'Authorization': cookies?.token,
                     }
                 })
-                console.log('from private Route', data)
-                console.log('from private Route', data?.data?.role)
+              
+                
                 if (data?.message === "Success" && data?.data?.role === 0) {
                     setLoading(false)
                     setUserToken(data)
                 }
                 setLoading(false)
             } catch (error) {
-                console.log('private route',error)
+                
                 if (error?.response.status === 400) {
                     removeCookie('token'/* , {
                         path: '/',

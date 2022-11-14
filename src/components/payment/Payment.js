@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Layout from '../Layout';
+// import Razorpay from "razorpay"
+import { useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import logo from '../../assets/logo1.jpg'
 import payment from '../../assets/payment.png'
@@ -18,6 +20,47 @@ const Payment = () => {
     const [check3, setCheck3] = useState(false)
     const [select,setSelect] = useState("")
     const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+    const [userDetails, setUserDetails] = useState({})
+
+
+    useEffect(() => {
+        (async () => {
+
+            if (cookies?.token) {
+                try {
+                    const { data } = await axios.get('http://localhost:5000/user/infor', {
+                        headers: {
+                            'Authorization': cookies?.token,
+                        }
+                    });
+                    setUserDetails(data)
+             
+
+                    if(data.role == 0){
+                      
+                    }
+                    else if(data.role >1 && data.role < 5){
+                        if(data.role == 2){
+                            setCheck1(true)
+                        }
+                        else if(data.role == 3){
+                            setCheck2(true)
+                        }
+                        else if(data.role == 4){
+                            setCheck3(true)
+                        }
+                    }
+                }
+                catch (err) {
+                    console.log(err)
+                }
+            }
+            else {
+                alert("Login please");
+            }
+
+        })();
+    }, [cookies])
 
 
     const handleSilver = (status) => {
@@ -58,11 +101,35 @@ const Payment = () => {
         }
     }
 
-    const f = async() =>{
-        console.log("ghhj")
+    const f = async(amount) =>{
+        let newrole = 5000;
+        if(amount == 400){
+            newrole = 2;
+        }
+        else if(amount == 700){
+            newrole = 3;
+        }
+        else if(amount == 1000){
+            newrole = 4;
+        }
+     
+        try{
+            const verifyUrl = "http://localhost:5000/api/payment/changerole";
+            const { data } = await axios.patch(verifyUrl,  {
+                role: newrole
+              }, {
+                headers: {
+                  'Authorization': cookies?.token,
+                }
+              });
+         
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 
-	const initPayment = (data) => {
+	const initPayment = (data, pay) => {
 		const options = {
 			key: "rzp_test_fLJID3VgxuLyoR",
 			amount: data.amount,
@@ -76,9 +143,9 @@ const Payment = () => {
 					const verifyUrl = "http://localhost:5000/api/payment/verify";
 					const { data } = await axios.post(verifyUrl, response);
                     if(data.message != null){
-                        f();
+                        
+                        f(pay);
                     }
-					console.log(data.message);
 				} catch (error) {
 					console.log(error);
 				}
@@ -97,7 +164,7 @@ const Payment = () => {
         try{
             const orderurl = "http://localhost:5000/api/payment/orders";
             const {data} = await axios.post(orderurl, {amount:pay});
-            initPayment(data.data);
+            initPayment(data.data, pay);
         }
         catch(e){
             console.log(e);
@@ -169,11 +236,11 @@ const Payment = () => {
                             </div>
                                 <div className='flex items-center justify-between '>
                                     <label htmlFor="">Email</label>
-                                    <input type="text" className="input input-bordered w-[70%]" />
+                                    <input type="text" className="input input-bordered w-[70%]" defaultValue={userDetails.email} disabled/>
                                 </div>
                                 <div className='flex items-center justify-between'>
                                     <label htmlFor="">Phone</label>
-                                    <input type="number" className="input input-bordered w-[70%]" />
+                                    <input type="number" className="input input-bordered w-[70%]" defaultValue={userDetails.phone} disabled />
                                 </div>
                                 <div className='flex items-center justify-between '>
                                     <label className='text-[14px] sm:text-[16px]' htmlFor="">
