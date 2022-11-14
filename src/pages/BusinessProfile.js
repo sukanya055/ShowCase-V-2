@@ -136,9 +136,6 @@ const BusinessProfile = ({userId}) => {
     navigate(`/businessProfile/${path}`)
   }
 
-  const handleDelete = () => {
-
-  }
 
   return (
     <Layout>

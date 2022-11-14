@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Layout } from "../components";
-import { data } from "../utils/productData";
 import whatsApp from "../assets/whatsapp.png";
 import gps from "../assets/location.png";
 import save from "../assets/save.png";
-import product from "../assets/product_demo.png";
-import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
-import { useParams } from "react-router-dom";
+import feedback from "../assets/feedback.png";
+
+
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import "./Map";
 import Map from "./Map";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useCookies } from 'react-cookie';
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import Loader from "../utils/Loader";
 
 
@@ -22,7 +21,7 @@ const Product = () => {
   const [productData, setProductData] = useState({});
   const [userDetails, setUserDetails] = useState(null)
   const [saveSuccess, setSaveSuccess] = useState('')
-  console.log(id)
+  const navigate=useNavigate()
   const { isLoading, data, refetch } = useQuery(
     [
       "get-single-product",
@@ -47,8 +46,8 @@ const Product = () => {
               'Authorization': cookies?.token,
             }
           });
-          console.log(data)
-        
+    
+
           setUserDetails(data)
         }
         catch (err) {
@@ -67,7 +66,7 @@ const Product = () => {
       if (userDetails?.role === 0) {
         const { data } = await axios.post(`http://localhost:5000/admin/save?userId=${userDetails?._id}&productId=${id}`)
         setSaveSuccess(data?.message)
-        console.log(data)
+  
       }
 
     } catch (error) {
@@ -76,13 +75,16 @@ const Product = () => {
   }
 
   if (isLoading) return <Loader />
-  const { link, price, discount, category, brand, type, companyName, email, saved } = data?.data?.result[0] || {}
+  const { link, price, discount, category, brand, type, companyName, email, saved, Description } = data?.data?.result[0] || {}
 
   const { latitude, longitude, phone, country } = data?.data?.result[0]?.videoOwner || {}
+
+ 
+
   return (
     <div>
       <Layout>
-        <div className="lg:px-28 py-40 sm:px-8">
+        <div className="lg:px-18 py-40 sm:px-8">
           <div className="flex relative items-center justify-center">
 
 
@@ -103,27 +105,42 @@ const Product = () => {
             </div>
 
           </div>
-          <div className="shadow-md rounded-lg p-5 px-28 my-8  ">
+          <div className="flex flex-col lg:flex-row gap-10 justify-center items-center my-20 ">
+            <div className="shadow-xl p-4 rounded-xl ">
+              {
+                Description
+              }
+            </div>
+            <div className="shadow-xl rounded-lg p-3">
+              <div className="mt-3 px-4 py-3">
+                <h4 className="text-md font-normal ">Category: {category}</h4>
+                <h4 className="text-md font-normal ">Type: {type}</h4>
+                <h4 className="text-md font-normal capitalize">
+                  Brand: <span className="capitalize">{brand}</span>
+                </h4>
+                <h4 className="text-md font-normal capitalize">
+                  Company: <span className="capitalize">{companyName}</span>
+                </h4>
+                <h4 className="text-md font-normal capitalize">
+                  Email: <span className="capitalize">{email}</span>
+                </h4>
+
+              </div>
+            </div>
+          </div>
+          <div className="shadow-md rounded-lg p-5 px-20 my-8  ">
             {/* top part */}
             <div className="flex flex-row items-center justify-between">
-              <div className="basis-1/2">
-                <h3 className="font-light font-roboto text-md">
-                  {productData?.type}
-                </h3>
-                <h1 className="font-semibold text-2xl font-roboto my-2">
-                  {productData?.title}
-                </h1>
-                <p className=" text-md font-poppins font-normal w-8/12">
-                  {productData?.desc}
-                </p>
+              
+              <div className="flex justify-end w-full">
+                <button className="basis-1/1 md:basis-1/9 shadow-xl hover:shadow-lg font-bold p-2 rounded-md text-[14px] md:text-[18px] ">
+                  Rs. {(price - (price * discount) / 100).toFixed(0)}  <span className="text-green-700 text-lg font-normal">
+                    {discount}% off
+                  </span>
+                </button>
               </div>
-              <button className="basiz-1/2 shadow-xl hover:shadow-lg font-bold p-2 rounded-md ">
-                Rs. {(price - (price * discount) / 100).toFixed(0)}  <span className="text-green-700 text-lg font-normal">
-                  {discount}% off
-                </span>
-              </button>
             </div>
-            <div className="flex flex-row place-items-stretch  justify-between gap-8 mt-12">
+            <div className="flex flex-col lg:flex-row place-items-stretch  justify-between gap-8 mt-12 w-full pb-20">
               <div className="basis-1/3 px-8 py-3 shadow-md rounded-xl cursor-pointer hover:scale-105 transition-transform ease-out delay-100 ">
                 <div
                   onClick={() => {
@@ -171,7 +188,7 @@ const Product = () => {
                     className="w-[50px] h-[75px]"
                   />
                   <h1 className="text-lg font-semibold">SAVE</h1>
-                  <p className="text-md font-light">
+                  <p className="text-md font-light text-center">
                     {
                       (saved?.includes(userDetails?._id) || saveSuccess) ? 'You have already save ' : ' Save the video for later use'
                     }
@@ -179,23 +196,24 @@ const Product = () => {
                 </div>
               </div>
 
-            </div>
-            <div>
-              <div className="mt-3 px-4 py-3">
-                <h4 className="text-md font-normal ">Category: {category}</h4>
-                <h4 className="text-md font-normal ">Type: {type}</h4>
-                <h4 className="text-md font-normal capitalize">
-                  Brand: <span className="capitalize">{brand}</span>
-                </h4>
-                <h4 className="text-md font-normal capitalize">
-                  Company: <span className="capitalize">{companyName}</span>
-                </h4>
-                <h4 className="text-md font-normal capitalize">
-                  Email: <span className="capitalize">{email}</span>
-                </h4>
-
+              <div className="basis-1/3 px-8 py-3 shadow-md rounded-xl cursor-pointer  hover:scale-105 transition-transform ease-out delay-100">
+                <div
+                  onClick={() => navigate(`/product/review/${id}`)}
+                  className="flex items-center justify-center gap-1 flex-col">
+                  <img
+                    src={feedback}
+                    alt="whatsapp"
+                    className="w-[50px] h-[75px]"
+                  />
+                  <h1 className="text-lg font-semibold">FEEDBACK</h1>
+                  <p className="text-md font-light text-center">
+                    Click to give feedback of the product
+                  </p>
+                </div>
               </div>
+
             </div>
+
           </div>
 
         </div>

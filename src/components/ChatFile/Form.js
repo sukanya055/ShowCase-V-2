@@ -17,8 +17,6 @@ const Form = (props) => {
 
     const { email, name } = userData || {}
 
-    console.log(userData)
-
 
     useEffect(() => {
         if (ErrorMessage) {
@@ -103,11 +101,11 @@ const Form = (props) => {
         if (userData) {
             getOrCreateUser(
                 user => {
-                    console.log(user)
+                  
                     props.setUser && props.setUser(user)
                     getOrCreateChat(chat => {
                         // setLoading(false)
-                        console.log(chat)
+                      
                         props.setChat && props.setChat(chat)
                     })
                 }

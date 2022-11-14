@@ -21,11 +21,11 @@ const SideBarProduct = ({
       const { data } = await axios.get(
         `http://localhost:5000/admin/min-max-price?content=${
           content.split("-")[1]
-        }`
+        }&inputSearch=${content.split("-")[0]}`
       );
       setPriceValue(data?.data);
       setPrice(data?.data);
-      console.log(data?.data);
+  
       setSizeNumber(data?.data?.max);
     })();
   }, [content, setPrice, setSizeNumber]);
@@ -37,13 +37,13 @@ const SideBarProduct = ({
           `http://localhost:5000/admin/best-seller-video`
         );
         setBestVideo(data?.data);
-        console.log(data)
+      
       } catch (error) {
-        console.log(error);
+       
       }
     })();
   }, []);
-  console.log(bestVideo)
+
   return (
     <div>
       <div className="flex justify-between items-center">

@@ -15,8 +15,6 @@ const JoinUs = () => {
 
   const navigate=useNavigate()
 
-
-
   return (
     <Layout>
       <div className=" py-1 pb-26 mb-14  flex flex-row h-full">

@@ -26,7 +26,7 @@ class BarChart extends Component {
           type: "bar",
           events: {
             click: function (chart, w, e) {
-              // console.log(chart, w, e)
+             
             },
           },
         },

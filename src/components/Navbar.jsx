@@ -21,29 +21,13 @@ import axios from "axios";
 // >>>>>>> 606301900deb403c949899cf94cbf7d5f0d3b2c2
 const Navbar = ({ adminNav }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState("");
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [cookies, removeCookie] = useCookies(["token"]);
 
   const toggle = () => {
     setIsOpen((prev) => !prev);
   };
 
-  useEffect(() => {
-    (async () => {
-      if (cookies?.token) {
-        try {
-          const { data } = await axios.get("http://localhost:5000/user/infor", {
-            headers: {
-              Authorization: cookies?.token,
-            },
-          });
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    })();
-  }, [cookies]);
 
   const handleDashboard = async () => {
     if (cookies?.token) {
@@ -53,7 +37,7 @@ const Navbar = ({ adminNav }) => {
             Authorization: cookies?.token,
           },
         });
-        console.log('from',data);
+  
         if (data?.role === 1) {
           navigate("/businessProfile/businessDashboard");
         }
@@ -66,14 +50,14 @@ const Navbar = ({ adminNav }) => {
     }
   };
 
-  const token = localStorage.getItem("token");
   const [user] = useAuthState(auth);
 
   const handleSignOut = () => {
     signOut(auth);
     localStorage.removeItem("token");
-    removeCookie("token");
+    removeCookie("token",);
     navigate("/");
+  
   };
 
   // for filtering data
@@ -86,6 +70,7 @@ const Navbar = ({ adminNav }) => {
       navigate(`/products/${event.target.value}-input`);
     }
   };
+
 
   return (
     <div className="shadow-md md:py-2 px-6 py-0">
@@ -245,7 +230,7 @@ const Navbar = ({ adminNav }) => {
               </ul>
             </div>
           </div>
-          {token || user ? (
+          {cookies?.token ? (
             <button
               onClick={handleSignOut}
               className="py-2 hidden lg:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out"

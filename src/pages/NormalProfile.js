@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { useCookies } from 'react-cookie';
+import DeleteModal from "./modal/DeleteModal";
 
 const S3_BUCKET = 'showcase28';
 const REGION = 'us-east-1';
@@ -23,14 +24,14 @@ const config = {
 }
 
 const NormalProfile = () => {
-  const [cookies, setCookie] = useCookies(['token']);
+  const [cookies, removeCookie] = useCookies(['token']);
   const navigate = useNavigate();
-  const location = useLocation()
+
   const [image, setImage] = useState("");
   const [imgFile, setImgFile] = useState('')
   const [ErrorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false)
-
+  const [openModal, setOpenModal] = useState(false)
   const [name, setName] = useState('')
   const [about, setAbout] = useState('')
 
@@ -63,7 +64,7 @@ const NormalProfile = () => {
               'Authorization': cookies?.token,
             }
           });
-          console.log(response)
+
           setImage(response.data.profile);
           setName(response?.data?.name)
           setAbout(response?.data?.about)
@@ -136,7 +137,10 @@ const NormalProfile = () => {
     navigate(`/dashboard/${path}`)
   }
 
-
+  const handleSignUp=()=>{
+    removeCookie('token')
+    navigate('/')
+  }
 
   return (
     <Layout>
@@ -247,11 +251,13 @@ const NormalProfile = () => {
                 ></textarea>
               </div>
               <div className="flex gap-4 justify-center mt-[64px] flex-col md:flex-row">
-                <p className="border-2 border-[#CED0D0] px-4 py-2 text-[#858A89] border-solid cursor-pointer text-center  rounded-md text-[14px] md:text-[16px]">
+                <p 
+                onClick={handleSignUp}
+                className="border-2 border-[#CED0D0] px-4 py-2 text-[#858A89] border-solid cursor-pointer text-center  rounded-md text-[14px] md:text-[16px]">
                   Temporarily disable my account
                 </p>
-                <p className="border-2 border-[#CED0D0] px-4 py-2 text-[#858A89] border-solid cursor-pointer text-center rounded-md text-[14px] md:text-[16px]">
-                  Delete my account
+                <p className="flex justify-center items-center">
+                  <label onClick={() => setOpenModal(true)} htmlFor="my-modal-3" className="border-2 border-[#CED0D0] px-4 py-2 text-[#858A89] border-solid cursor-pointer text-center rounded-md text-[14px] md:text-[16px]">Delete Account</label>
                 </p>
               </div>
               <div className="flex justify-center mt-10">
@@ -262,9 +268,13 @@ const NormalProfile = () => {
                   Save
                 </button>
               </div>
+
             </form>
           </div>
         </div>
+        {
+          openModal && <DeleteModal />
+        }
         <ToastContainer />
       </div>
     </Layout>

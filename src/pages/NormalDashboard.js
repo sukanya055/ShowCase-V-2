@@ -5,11 +5,11 @@ import { Layout } from '../components';
 import { useCookies } from 'react-cookie';
 import userImg from '../assets/user.png'
 import axios from 'axios';
-const NormalDashboard = () => {
+const NormalDashboard = ({setUserId}) => {
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
     const [details, setDetails] = useState()
-    const { email, about, address, name, profile } = details || {}
+    const { email, about, address, name, profile,_id } = details || {}
 
     useEffect(() => {
         (async () => {
@@ -24,6 +24,7 @@ const NormalDashboard = () => {
                     });
 
                     setDetails(data)
+                    setUserId(data?._id)
                 }
                 catch (err) {
                     console.log(err)
@@ -36,11 +37,6 @@ const NormalDashboard = () => {
     }, [cookies])
 
 
-    console.log(details)
-
-
-
-
     return (
         <Layout>
             <section>
@@ -50,7 +46,7 @@ const NormalDashboard = () => {
                     </div>
                     <div className='flex mt-10 md:mt-0'>
                         <div className=' '>
-                            <div className='flex gap-10 sm:gap-16 md:gap-32 w-full items-center'>
+                            <div className='flex gap-10 sm:gap-16 md:gap-10 w-full items-center'>
                                 <h3 className='text-[17px] sm:text-[20px] md:text-[28px] font-bold '>{name}</h3>
                                 <div className="dropdown dropdown-end md:dropdown-start ml-10">
                                     <label tabIndex={0} className="btn btn-ghost rounded-btn"><p><BsGearWide

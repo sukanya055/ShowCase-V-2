@@ -2,6 +2,7 @@ import React from "react";
 import Card from "./Card";
 
 const MainProducts = ({ filteredData, isLoading }) => {
+
   return (
     <div>
       <div className="flex flex-wrap mt-8 gap-20 items-center justify-center">

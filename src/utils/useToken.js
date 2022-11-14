@@ -68,7 +68,7 @@ const useToken = async (user, signOut, setLoginError) => {
           }
         } catch (error) {
          
-          console.log(error);
+         
           setLoginError(error?.response?.data?.msg);
           signOut(auth);
         }
