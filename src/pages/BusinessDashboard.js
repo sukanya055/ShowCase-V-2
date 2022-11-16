@@ -117,7 +117,7 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
                         <p>WhatsApp</p>
                     </div>
                     <div className=' flex justify-center items-center border-solid border-gray-400 border-2 px-10 py-5 cursor-pointer rounded-lg'>
-                        <p>  <label htmlFor="my-modal-6">GPS</label></p>
+                        <p>  <label className='cursor-pointer' htmlFor="my-modal-6">GPS</label></p>
                     </div>
 
                     <div className='flex justify-center items-center border-solid border-gray-400 border-2 px-10 py-5 cursor-pointer rounded-lg'>

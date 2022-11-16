@@ -14,14 +14,14 @@ import {
   Products,
   SetUpCompleted,
   Dashboard,
- 
+
   // ChangePassword
 } from "./pages";
 
 import "./App.css";
 
 import ChangePassword from "./pages/ChangePassword";
-// import NormalDashboard from "./pages/NormalDashboard";
+import NormalDashboard from "./pages/NormalDashboard";
 import BusinessChangePassword from "./pages/BusinessChangePassword";
 import Gps from "./pages/Gps";
 import ChatAdmin from "./components/ChatFile/ChatAdmin";
@@ -37,7 +37,7 @@ function App() {
 
 
   const BusinessDashboard = React.lazy(() => import('./pages/BusinessDashboard'))
-  const NormalDashboard = React.lazy(() => import('./pages/NormalDashboard'))
+  // const NormalDashboard = React.lazy(() => import('./pages/NormalDashboard'))
 
   return (
     <div className="App">
@@ -59,19 +59,20 @@ function App() {
         <Route path="/" element={<Home />} />
 
         <Route path="/dashboard">
-          <Route path="normalDashboard" element={<PrivateRoute>
-            <Suspense
-              fallback={<div className='flex justify-center items-center h-screen'>Loading...</div>}
-            >
-              <NormalDashboard
-            
-              />
-            </Suspense>
-          </PrivateRoute>} />
+          <Route path="normalDashboard" element={
 
+            // <Suspense fallback={<div className='flex justify-center items-center h-s'>Loading....</div>}>
+
+              <NormalDashboard
+              />
+            // </Suspense>
+
+
+          }
+          />
           <Route path="updateProfile" element={<PrivateRoute>
             <NormalProfile
-             
+
             />
           </PrivateRoute>} />
           <Route
@@ -86,7 +87,7 @@ function App() {
           <Route path="businessDashboard" element={
             <ShopOwnerPrivateRoute>
               <BusinessDashboard
-                
+
               />
             </ShopOwnerPrivateRoute>
           }

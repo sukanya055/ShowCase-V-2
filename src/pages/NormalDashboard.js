@@ -16,19 +16,29 @@ const NormalDashboard = ({ setUserId }) => {
 
             if (cookies?.token) {
 
-                try {
-                    const { data } = await axios.get('http://localhost:5000/user/infor', {
-                        headers: {
-                            'Authorization': cookies?.token,
-                        }
-                    });
+                // try {
+                //     const { data } = await axios.get('http://localhost:5000/user/infor', {
+                //         headers: {
+                //             'Authorization': cookies?.token,
+                //         }
+                //     });
 
+                //     setDetails(data)
+                //     setUserId(data?._id)
+                // }
+                // catch (err) {
+                //     console.log(err)
+                // }
+
+                fetch('http://localhost:5000/user/infor',{
+                    headers: {
+                                    'Authorization': cookies?.token,
+                                }
+                }).then(res=>res.json())
+                .then(data=>{
                     setDetails(data)
                     setUserId(data?._id)
-                }
-                catch (err) {
-                    console.log(err)
-                }
+                })
             }
             else {
                 alert("Login please");

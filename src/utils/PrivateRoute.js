@@ -16,21 +16,24 @@ const PrivateRoute = ({ children }) => {
 
     useEffect(() => {
         (async () => {
+            console.log('effectt')
             try {
+                setLoading(true)
+                console.log('effectt')
                 const { data } = await axios.get('http://localhost:5000/user/validation', {
                     headers: {
                         'Authorization': cookies?.token,
                     }
                 })
-              
-                
+                console.log(data)
+                console.log('effectt')
                 if (data?.message === "Success" && data?.data?.role === 0) {
                     setLoading(false)
                     setUserToken(data)
                 }
                 setLoading(false)
             } catch (error) {
-                
+                console.log(error)
                 if (error?.response.status === 400) {
                     removeCookie('token'/* , {
                         path: '/',
@@ -39,10 +42,15 @@ const PrivateRoute = ({ children }) => {
                     signOut(auth)
                     navigate('/auth')
                 }
-
+                setLoading(false)
             }
         })()
+
     }, [token, cookies, removeCookie,navigate])
+
+
+    console.log(loading)
+    console.log('userToken',userToken)
     if (loading) return <div className='text-center my-40'>Loading...</div>
 
     return userToken ? children : <Navigate to={'/auth'} />

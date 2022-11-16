@@ -172,7 +172,7 @@ const Login = () => {
           }
         );
         const roleData = await roles.json();
-        console.log(roleData)
+     
         if (roleData.role == 0) {
           navigate("/dashboard/normalDashboard");
         } else {
