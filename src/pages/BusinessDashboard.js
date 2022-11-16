@@ -6,11 +6,14 @@ import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import PostVideo from './modal/PostVideo';
 import userImg from '../assets/user.png'
+import MapModal from './modal/googleMapModal/MapModal';
 
-const BusinessDashboard = React.memo(({setUserId}) => {
+const BusinessDashboard = React.memo(({ setUserId }) => {
     const [cookies] = useCookies(['token']);
     const [openModal, setOpenModal] = useState(null)
     const [userDetails, setUserDetails] = useState({})
+    const [googleMapModal, setGoogleMapModal] = useState(false)
+
 
     const { about, country, name, phone, whats, profile, _id } = userDetails || {}
     const [videos, setVideos] = useState()
@@ -21,10 +24,10 @@ const BusinessDashboard = React.memo(({setUserId}) => {
                 headers: {
                     'Authorization': cookies?.token,
                 },
-            _id
+                _id
             })
-           console.log(data)
-           setVideos(data?.data)
+
+            setVideos(data?.data)
         } catch (error) {
             console.log(error)
         }
@@ -55,7 +58,7 @@ const BusinessDashboard = React.memo(({setUserId}) => {
 
         })();
         getAdminProductVideo()
-    }, [cookies,openModal])
+    }, [cookies, openModal])
     console.log(_id)
     return (
         <Layout>
@@ -78,6 +81,7 @@ const BusinessDashboard = React.memo(({setUserId}) => {
                                     </label>
                                     <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
                                         <li><Link to='/businessProfile/updateBusinessProfile'>Update Profile</Link></li>
+                                        <li><Link to='/payment'>Subscription</Link></li>
                                     </ul>
                                 </div>
                             </div>
@@ -113,7 +117,7 @@ const BusinessDashboard = React.memo(({setUserId}) => {
                         <p>WhatsApp</p>
                     </div>
                     <div className=' flex justify-center items-center border-solid border-gray-400 border-2 px-10 py-5 cursor-pointer rounded-lg'>
-                        <p>GPS</p>
+                        <p>  <label htmlFor="my-modal-6">GPS</label></p>
                     </div>
 
                     <div className='flex justify-center items-center border-solid border-gray-400 border-2 px-10 py-5 cursor-pointer rounded-lg'>
@@ -165,6 +169,13 @@ const BusinessDashboard = React.memo(({setUserId}) => {
                     openModal={openModal}
                     setOpenModal={setOpenModal}
                     userId={_id}
+                />
+            }
+            {
+                userDetails?.name && <MapModal
+                    origin={userDetails?.address}
+                    destination={userDetails?.address}
+                    userDetails={userDetails}
                 />
             }
 

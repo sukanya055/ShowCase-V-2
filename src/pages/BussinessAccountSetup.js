@@ -32,9 +32,9 @@ const BussinessAccountSetup = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState("");
   const [user] = useAuthState(auth);
-  let role = location.pathname.includes("/businessAcountSetup") ? 1:0;
-  role = location.pathname.includes("/normalAcountSetup") ? 0:1;
-  console.log(role)
+  let role = location.pathname.includes("/businessAccountSetup") ? 1:0;
+  role = location.pathname.includes("/normalAccountSetup") ? 0:1;
+
   // for google register 
   useGoogleRegister(user, setErrorMessage, setSuccess, role);
  
@@ -85,7 +85,6 @@ const BussinessAccountSetup = () => {
     }
   }
 
-  
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
@@ -137,7 +136,9 @@ const BussinessAccountSetup = () => {
         </div>
         <div className="md:basis-2/4 w-full md:py-6  md:px-8 px-3 ">
           <div className="flex justify-between items-center">
-            <h1 className="text-gray-400 font-bold flex text-lg items-center cursor-pointer">
+            <h1 
+            onClick={()=>navigate(-1)}
+            className="text-gray-400 font-bold flex text-lg items-center cursor-pointer">
               <FaAngleLeft />
               Back
             </h1>

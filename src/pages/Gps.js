@@ -37,7 +37,7 @@ const Gps = () => {
     useEffect(() => {
         if (errorMessage) {
 
-            toast.success(errorMessage, {
+            toast.error(errorMessage, {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -65,11 +65,12 @@ const Gps = () => {
 
             console.log(res)
             if (res.status === 200) {
-                setSuccessMessage('Your address update successfully')
+                setSuccessMessage('Your address is updated')
             }
         }
         catch (error) {
-            setErrorMessage(error.message)
+            console.log(error)
+            setErrorMessage(error?.response?.data?.message)
         }
 
     }

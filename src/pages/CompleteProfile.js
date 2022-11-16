@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useCookies } from "react-cookie";
 
 const initialState = {
   phone: "",
@@ -23,7 +24,8 @@ const CompleteProfile = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
   const { phone, address, country } = formData || {};
-
+  const [cookies] = useCookies(['token'])
+  const [loading, setLoading] = useState(false)
   console.log(formData)
 
   useEffect(() => {
@@ -45,7 +47,7 @@ const CompleteProfile = () => {
     e.preventDefault();
     console.log(formData);
     setFormData(initialState);
-
+ 
     if (phone.length !== 10) {
       setOpen(true);
       setErrorMessage("Please enter valid phone number");
@@ -54,6 +56,7 @@ const CompleteProfile = () => {
       setErrorMessage("Please select country");
     } else if (phone.length === 10 && country !== "please" && country != "") {
       try {
+        setLoading(true)
         const response = await axios.patch(
           "http://localhost:5000/user/compdetail",
           {
@@ -63,11 +66,11 @@ const CompleteProfile = () => {
           },
           {
             headers: {
-              Authorization: localStorage.getItem("token").replace(/"/g, ""),
+              Authorization: cookies?.token,
             },
           }
         );
-       
+
         const res = await fetch("http://localhost:5000/onetimepassword", {
           method: "POST",
           headers: {
@@ -87,11 +90,17 @@ const CompleteProfile = () => {
             country: country,
           })
         );
+        setLoading(false)
         navigate("/otpVerify");
       } catch (error) {
         console.log(error);
+        setLoading(false)
+        if (error?.response?.data?.message) {
+          setErrorMessage(error?.response?.data?.message)
+        }
         if (error.response.data.error == 0) {
           setOpen(true);
+
           setErrorMessage(
             "Enter Address properly with commas or whitespaces Example Moiz Manzil, 59 Bibi Jaan St, 89 Off Abdul Rehman Stree, Abdul Rehman Street Mumbai Maharastra India"
           );
@@ -848,10 +857,13 @@ const CompleteProfile = () => {
                 </div>
 
                 <button
+                  disabled={loading}
                   type="submit"
                   className="text-lg text-white bg-blue-500 px-4 py-2 rounded-md  hover:bg-blue-400 transition-colors delay-100 ease-out"
                 >
-                  Save & continue
+                  {
+                    loading ? 'Sending' : 'Save & continue'
+                  }
                 </button>
                 <p className="test-sm flex items-center justify-center text-gray-500 gap-1 text-center">
                   <AiOutlineLock /> your account is safely secured

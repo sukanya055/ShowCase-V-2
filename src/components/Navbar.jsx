@@ -28,7 +28,6 @@ const Navbar = ({ adminNav }) => {
     setIsOpen((prev) => !prev);
   };
 
-
   const handleDashboard = async () => {
     if (cookies?.token) {
       try {
@@ -37,7 +36,7 @@ const Navbar = ({ adminNav }) => {
             Authorization: cookies?.token,
           },
         });
-  
+
         if (data?.role === 1) {
           navigate("/businessProfile/businessDashboard");
         }
@@ -45,6 +44,10 @@ const Navbar = ({ adminNav }) => {
           navigate("/dashboard/normalDashboard");
         }
       } catch (err) {
+        if(err?.response?.status === 403 || err?.response?.status === 400){
+          removeCookie('token')
+          navigate('/auth')
+        }
         console.log(err);
       }
     }
@@ -55,9 +58,8 @@ const Navbar = ({ adminNav }) => {
   const handleSignOut = () => {
     signOut(auth);
     localStorage.removeItem("token");
-    removeCookie("token",);
+    removeCookie("token");
     navigate("/");
-  
   };
 
   // for filtering data
@@ -71,6 +73,7 @@ const Navbar = ({ adminNav }) => {
     }
   };
 
+  console.log(typeof cookies?.token);
 
   return (
     <div className="shadow-md md:py-2 px-6 py-0">
@@ -230,7 +233,7 @@ const Navbar = ({ adminNav }) => {
               </ul>
             </div>
           </div>
-          {cookies?.token ? (
+          {cookies?.token !== "undefined" ? (
             <button
               onClick={handleSignOut}
               className="py-2 hidden lg:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out"
@@ -251,7 +254,7 @@ const Navbar = ({ adminNav }) => {
           )}
         </div>
         {isOpen && (
-          <div className="top-0 left-0  h-auto absolute w-full px-4 py-2 backdrop-blur-sm bg-white/95 z-40 shadow-lg ">
+          <div className="top-0 left-0  h-auto absolute w-full px-4 py-2 backdrop-blur-sm bg-white/95 z-40 shadow-lg pb-5">
             <div className="flex justify-end">
               <CgClose
                 onClick={toggle}
@@ -278,14 +281,14 @@ const Navbar = ({ adminNav }) => {
                 >
                   {commonCategory.map((item) => (
                     <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name)}>
+                      <p onClick={() => handleOption(item?.name, "Men")}>
                         {item.name}
                       </p>
                     </li>
                   ))}
                   {mensCategories.map((item) => (
                     <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name)}>
+                      <p onClick={() => handleOption(item?.name, "Men")}>
                         {item.name}
                       </p>
                     </li>
@@ -305,14 +308,14 @@ const Navbar = ({ adminNav }) => {
                 >
                   {commonCategory.map((item) => (
                     <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name)}>
+                      <p onClick={() => handleOption(item?.name, "Women")}>
                         {item.name}
                       </p>
                     </li>
                   ))}
                   {womenCategories.map((item) => (
                     <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name)}>
+                      <p onClick={() => handleOption(item?.name, "Women")}>
                         {item.name}
                       </p>
                     </li>
@@ -332,14 +335,14 @@ const Navbar = ({ adminNav }) => {
                 >
                   {commonCategory.map((item) => (
                     <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name)}>
+                      <p onClick={() => handleOption(item?.name, "Kids")}>
                         {item.name}
                       </p>
                     </li>
                   ))}
                   {mensCategories.map((item) => (
                     <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name)}>
+                      <p onClick={() => handleOption(item?.name, "Kids")}>
                         {item.name}
                       </p>
                     </li>
@@ -359,16 +362,27 @@ const Navbar = ({ adminNav }) => {
                 >
                   {homeCategories.map((item) => (
                     <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name)}>
+                      <p
+                        onClick={() => handleOption(item?.name, "Home&Kitchen")}
+                      >
                         {item.name}
                       </p>
                     </li>
                   ))}
                 </ul>
               </div>
-              <button className="text-lg text-white bg-blue-500 px-2 py-1 rounded-md  hover:bg-blue-400 transition-colors delay-100 ease-out">
-                <Link to="/auth">Login</Link>
-              </button>
+              {cookies?.token !== "undefined" ? (
+                <button
+                  onClick={handleSignOut}
+                  className="py-2 lg:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out"
+                >
+                  Sign Out
+                </button>
+              ) : (
+                <button className="text-lg text-white bg-blue-500 px-2 py-1 rounded-md  hover:bg-blue-400 transition-colors delay-100 ease-out">
+                  <Link to="/auth">Login</Link>
+                </button>
+              )}
             </div>
           </div>
         )}
