@@ -63,19 +63,27 @@ const Product = () => {
 
 
   const savedVideo = async () => {
+
     try {
       if (userDetails?.role === 0) {
-        const { data } = await axios.post(`http://localhost:5000/admin/save?userId=${userDetails?._id}&productId=${id}`)
-        setSaveSuccess(data?.message)
-
+        
+        fetch(`http://localhost:5000/admin/save?userId=${userDetails?._id}&productId=${id}`,{
+          method:"POST",
+          headers: {
+                'Authorization': cookies?.token,
+            }
+        }).then(res=>res.json())
+        .then(data=> setSaveSuccess(data?.message))
+        
       }
-
+      
     } catch (error) {
+      console.log(error)
       if(error?.response?.status === 403 || error?.response?.status === 400){
         removeCookie('token')
         navigate('/auth')
       }
-      console.log(error)
+      
     }
   }
 
@@ -84,7 +92,6 @@ const Product = () => {
 
   const { phone, country } = data?.data?.result[0].videoOwner || {}
 
- 
 
   return (
     <div>
