@@ -107,6 +107,9 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                 if (!video) {
                     return setError({ ...error, videError: 'Please select a video' })
                 }
+                if (formData?.description.length < 25) {
+                    return setError({ ...error, videError: 'Description length must be greater that 27' })
+                }
 
                 setError({ ...formData, videError: '' })
                 setLoad(true)
@@ -142,9 +145,11 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
     console.log(formData)
     return (
         <div>
+
             <input type="checkbox" id="my-modal-6" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box w-[800px]">
+                    <label htmlFor="my-modal-6" className="btn btn-sm btn-circle ">✕</label>
                     <h5 className='text-center my-10 text-2xl font-bold'>Post Your Video</h5>
                     <div className="card-body">
                         <form onSubmit={handleSubmit}>
@@ -175,7 +180,7 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                                     ></video>
                                 </div>
                             }
-                            <div className="form-control">
+                            <div className="form-control my-4">
                                 <label className="label">
                                     <span className="label-text">Company Name</span>
                                 </label>
@@ -188,7 +193,7 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                                     autoComplete='off'
                                 />
                             </div>
-                            <div className="form-control">
+                            <div className="form-control my-4">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
@@ -202,7 +207,7 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                                 />
 
                             </div>
-                            <div className="form-control">
+                            <div className="form-control my-4">
                                 <label className="label">
                                     <span className="label-text">Product Brand(with Model)</span>
                                 </label>
@@ -214,7 +219,7 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                                     autoComplete='off'
                                     required />
                             </div>
-                            <div className="form-control">
+                            <div className="form-control my-4">
                                 <label className="label">
                                     <span className="label-text">Product Type</span>
                                 </label>
@@ -231,7 +236,7 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                                 </select>
 
                             </div>
-                            <div className="form-control">
+                            <div className="form-control my-4">
                                 <label className="label">
                                     <span className="label-text">Category</span>
                                 </label>
@@ -258,7 +263,7 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
 
                             </div>
 
-                            <div className="form-control">
+                            <div className="form-control my-4">
                                 <label className="label">
                                     <span className="label-text">Product price</span>
                                 </label>
@@ -270,9 +275,9 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                                     required
                                 />
                             </div>
-                            <div className="form-control">
+                            <div className="form-control my-4">
                                 <label className="label">
-                                    <span className="label-text">Product discount percentage</span>
+                                    <span className="label-text">Product discount (optional)</span>
                                 </label>
                                 <input
                                     value={formData.discount}

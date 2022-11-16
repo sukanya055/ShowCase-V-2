@@ -15,7 +15,7 @@ const Products = () => {
   const [sortedBy, setSortedBy] = useState("1");
   const { content } = useParams();
   const [page, setPage] = useState(0);
-  const [size, setSize] = useState(10);
+  const [size, setSize] = useState(8);
   const [count, setCount] = useState();
   console.log(content)
   const { isLoading, data, refetch } = useQuery(
@@ -25,7 +25,8 @@ const Products = () => {
       content?.split("-")[0],
       content?.split("-")[1],
       sortedBy,
-      sizeNumber
+      sizeNumber,
+      page
     ],
 
     () =>
@@ -40,7 +41,7 @@ const Products = () => {
   );
 
   useEffect(() => {
-    const length = Math.ceil(data?.data?.count / 10);
+    const length = Math.ceil(data?.data?.count / 8);
     setCount(length);
   }, [data?.data?.count]);
 
@@ -136,7 +137,7 @@ const Products = () => {
           </div>
         </div>
 
-        {data?.data?.result && (
+        {data?.data?.result.length >0 && (
           <div className="flex justify-center items-center mb-5">
             <div className="w-[100%]  flex items-center justify-center">
               <ReactPaginate

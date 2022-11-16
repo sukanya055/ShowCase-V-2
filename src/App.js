@@ -35,11 +35,9 @@ import Review from './pages/Review';
 
 function App() {
 
- 
+
   const BusinessDashboard = React.lazy(() => import('./pages/BusinessDashboard'))
   const NormalDashboard = React.lazy(() => import('./pages/NormalDashboard'))
-
-
 
   return (
     <div className="App">

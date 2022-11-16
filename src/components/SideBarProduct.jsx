@@ -25,7 +25,7 @@ const SideBarProduct = ({
       );
       setPriceValue(data?.data);
       setPrice(data?.data);
-  
+        console.log(data)
       setSizeNumber(data?.data?.max);
     })();
   }, [content, setPrice, setSizeNumber]);
@@ -61,7 +61,7 @@ const SideBarProduct = ({
       <div className="mt-3">
         <input
           type="range"
-          min={priceValue?.min}
+          min={0}
           max={priceValue?.max}
           value={sizeNumber}
           onChange={(e) => {
@@ -72,13 +72,15 @@ const SideBarProduct = ({
           step="0"
         />
         <div className="w-full flex justify-between text-md font-semibold text-gray-400 px-2">
-          <span>{priceValue?.min}</span>
+          <span>{0}</span>
           <span>{priceValue?.max}</span>
         </div>
         <div className="flex justify-end w-full  ">
-          <buton className="btn btn-sm  bg-transparent text-red-600 mt-3">
+          <button 
+          onClick={()=>setSizeNumber(priceValue?.max)}
+          className="btn btn-sm  bg-transparent text-red-600 mt-3">
             Clear all
-          </buton>
+          </button>
         </div>
       </div>
       <div className="mt-5">
