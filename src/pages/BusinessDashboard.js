@@ -13,7 +13,7 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
     const [openModal, setOpenModal] = useState(null)
     const [userDetails, setUserDetails] = useState({})
     const [googleMapModal, setGoogleMapModal] = useState(false)
-
+    const [payment, setPayment] = useState({})
 
     const { about, country, name, phone, whats, profile, _id } = userDetails || {}
     const [videos, setVideos] = useState()
@@ -59,6 +59,43 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
         })();
         getAdminProductVideo()
     }, [cookies, openModal])
+
+    useEffect(() => {
+        (async () => {
+
+            if (cookies?.token) {
+                // information 
+                try {
+                    const { data } = await axios.get(`http://localhost:5000/api/payment/get-payment-details?email=${userDetails?.email}`, {
+                        headers: {
+                            'Authorization': cookies?.token,
+                        }
+                    });
+                    setPayment(data.data)
+                    console.log(data)
+                }
+                catch (err) {
+                    console.log(err)
+                }
+            }
+            else {
+                alert("Login please");
+            }
+
+        })();
+
+    }, [cookies, userDetails])
+
+
+
+
+
+    console.log(payment)
+
+
+
+
+
     console.log(_id)
     return (
         <Layout>
@@ -96,6 +133,11 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
 
 
                             </div>
+                            {
+                                payment?.plan && <div className='mt-4'>
+                                    <p className='pt-3 bg-[#C9BBFF] px-3 py-2 rounded-lg text-center font-bold'>Your Plan is {payment?.plan}</p>
+                                </div>
+                            }
                             <div className=' leading-7 mt-6 pr-7'>
                                 <p>{about} .</p>
                             </div>

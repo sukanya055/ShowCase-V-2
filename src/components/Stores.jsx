@@ -29,6 +29,7 @@ const Stores = () => {
       }
     })();
   }, []);
+  
   return (
     <div className="my-14">
       <h1 className="md:text-4xl text-xl text-center font-bold  text-[#112D57] mb-14 font-[poppins] ">

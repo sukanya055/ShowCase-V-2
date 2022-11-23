@@ -9,7 +9,7 @@ import axios from "axios";
 import Loader from "../utils/Loader";
 import ReactPaginate from "react-paginate";
 const Products = () => {
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState("");
   const [selectedCollections, setSelectedCollections] = useState([]);
   const [sizeNumber, setSizeNumber] = useState(price?.max);
   const [sortedBy, setSortedBy] = useState("1");
@@ -17,16 +17,15 @@ const Products = () => {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(8);
   const [count, setCount] = useState();
-  console.log(content)
+  console.log(content);
   const { isLoading, data, refetch } = useQuery(
-
     [
       "get-all-video",
       content?.split("-")[0],
       content?.split("-")[1],
       sortedBy,
       sizeNumber,
-      page
+      page,
     ],
 
     () =>
@@ -37,7 +36,6 @@ const Products = () => {
           price?.min || 0
         }&maxPrice=${sizeNumber}&size=${size}&page=${page}`
       )
-
   );
 
   useEffect(() => {
@@ -45,8 +43,9 @@ const Products = () => {
     setCount(length);
   }, [data?.data?.count]);
 
-  // if (isLoading) return <Loader />;
-
+  // if (isLoading)return <Loader />;
+  
+  console.log("number", sizeNumber);
   const handlePageClick = (data) => {
     setPage(data?.selected);
   };
@@ -61,7 +60,7 @@ const Products = () => {
     }
   };
 
-  console.log('number',content)
+  console.log("number", content);
   return (
     <Layout>
       <div className="px-8 py-5">
@@ -109,9 +108,9 @@ const Products = () => {
             />
           </div>
           <div className="md:basis-3/4 basis-4/4 h-full">
-            <MainProducts 
-            filteredData={data?.data?.result} 
-            isLoading={isLoading}
+            <MainProducts
+              filteredData={data?.data?.result}
+              isLoading={isLoading}
             />
           </div>
         </div>
@@ -137,7 +136,7 @@ const Products = () => {
           </div>
         </div>
 
-        {data?.data?.result.length >0 && (
+        {data?.data?.result.length > 0 && (
           <div className="flex justify-center items-center mb-5">
             <div className="w-[100%]  flex items-center justify-center">
               <ReactPaginate

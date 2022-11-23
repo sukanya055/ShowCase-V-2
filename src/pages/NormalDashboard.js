@@ -30,15 +30,15 @@ const NormalDashboard = ({ setUserId }) => {
                 //     console.log(err)
                 // }
 
-                fetch('http://localhost:5000/user/infor',{
+                fetch('http://localhost:5000/user/infor', {
                     headers: {
-                                    'Authorization': cookies?.token,
-                                }
-                }).then(res=>res.json())
-                .then(data=>{
-                    setDetails(data)
-                    setUserId(data?._id)
-                })
+                        'Authorization': cookies?.token,
+                    }
+                }).then(res => res.json())
+                    .then(data => {
+                        setDetails(data)
+                        setUserId(data?._id)
+                    })
             }
             else {
                 alert("Login please");
