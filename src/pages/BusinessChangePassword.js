@@ -86,7 +86,7 @@ const BusinessChangePassword = () => {
             } else {
                 if (newPassword === confirmPass) {
                     console.log(confirmPass)
-                    const response = await axios.patch('http://localhost:5000/user/changePass', {
+                    const response = await axios.patch('https://api.showcaseurbusiness.com/user/changePass', {
                         oldPassword,
                         newPassword,
                         google: user && 'google'

@@ -26,7 +26,7 @@ const ChatAdmin = () => {
     useEffect(() => {
         (async () => {
             try {
-                const { data } = await axios.get('http://localhost:5000/api/message/get-user-id', {
+                const { data } = await axios.get('https://api.showcaseurbusiness.com/api/message/get-user-id', {
                     headers: {
                         "Authorization": cookies?.token,
                     },

@@ -31,7 +31,7 @@ const Navbar = ({ adminNav }) => {
   const handleDashboard = async () => {
     if (cookies?.token) {
       try {
-        const { data } = await axios.get("http://localhost:5000/user/infor", {
+        const { data } = await axios.get("https://api.showcaseurbusiness.com/user/infor", {
           headers: {
             Authorization: cookies?.token,
           },

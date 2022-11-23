@@ -29,7 +29,7 @@ const Product = () => {
       id
     ],
     () =>
-      axios.get(`http://localhost:5000/admin/get-single-product/${id}`, {
+      axios.get(`https://api.showcaseurbusiness.com/admin/get-single-product/${id}`, {
         headers: {
           'Authorization': cookies?.token,
         }
@@ -42,7 +42,7 @@ const Product = () => {
       if (cookies?.token) {
 
         try {
-          const { data } = await axios.get('http://localhost:5000/user/infor', {
+          const { data } = await axios.get('https://api.showcaseurbusiness.com/user/infor', {
             headers: {
               'Authorization': cookies?.token,
             }
@@ -67,7 +67,7 @@ const Product = () => {
     try {
       if (userDetails?.role === 0) {
         
-        fetch(`http://localhost:5000/admin/save?userId=${userDetails?._id}&productId=${id}`,{
+        fetch(`https://api.showcaseurbusiness.com/admin/save?userId=${userDetails?._id}&productId=${id}`,{
           method:"POST",
           headers: {
                 'Authorization': cookies?.token,
