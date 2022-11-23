@@ -59,7 +59,7 @@ const BusinessProfile = ({userId}) => {
       if (token !== undefined && token !== null) {
         token = token.replace(/['"]+/g, "");
         try {
-          const response = await axios.get('https://api.showcaseurbusiness.com/user/getpic', {
+          const response = await axios.get('http://localhost:5000/user/getpic', {
             headers: {
               'Authorization': cookies?.token,
             }
@@ -91,7 +91,7 @@ const BusinessProfile = ({userId}) => {
     if (cookies?.token) {
       try {
 
-        const { data } = await axios.patch('https://api.showcaseurbusiness.com/user/editpro', {
+        const { data } = await axios.patch('http://localhost:5000/user/editpro', {
           name: name,
           phone: phone,
           about: about,

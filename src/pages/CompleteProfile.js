@@ -58,7 +58,7 @@ const CompleteProfile = () => {
       try {
         setLoading(true)
         const response = await axios.patch(
-          "https://api.showcaseurbusiness.com/user/compdetail",
+          "http://localhost:5000/user/compdetail",
           {
             phone: phone,
             address: address.replace(/\s/g, ","),
@@ -71,7 +71,7 @@ const CompleteProfile = () => {
           }
         );
 
-        const res = await fetch("https://api.showcaseurbusiness.com/onetimepassword", {
+        const res = await fetch("http://localhost:5000/onetimepassword", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

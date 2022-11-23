@@ -28,7 +28,7 @@ const Payment = () => {
 
             if (cookies?.token) {
                 try {
-                    const { data } = await axios.get('https://api.showcaseurbusiness.com/user/infor', {
+                    const { data } = await axios.get('http://localhost:5000/user/infor', {
                         headers: {
                             'Authorization': cookies?.token,
                         }
@@ -114,7 +114,7 @@ const Payment = () => {
         }
 
         try {
-            const verifyUrl = "https://api.showcaseurbusiness.com/api/payment/changerole";
+            const verifyUrl = "http://localhost:5000/api/payment/changerole";
             const { data } = await axios.patch(verifyUrl, {
                 role: newrole
             }, {
@@ -140,7 +140,7 @@ const Payment = () => {
             order_id: data.id,
             handler: async (response) => {
                 try {
-                    const verifyUrl = "https://api.showcaseurbusiness.com/api/payment/verify";
+                    const verifyUrl = "http://localhost:5000/api/payment/verify";
                     const { data } = await axios.put(verifyUrl, { response, userDetails, pay });
                     if (data.message != null) {
                         setSuccess('Payment Success')
@@ -162,7 +162,7 @@ const Payment = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const orderurl = "https://api.showcaseurbusiness.com/api/payment/orders";
+            const orderurl = "http://localhost:5000/api/payment/orders";
             const { data } = await axios.post(orderurl, { amount: pay });
             initPayment(data.data, pay);
         }

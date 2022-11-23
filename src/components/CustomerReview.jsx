@@ -42,7 +42,7 @@ const CustomerReview = () => {
   useEffect(() => { 
     (async()=>{
       try {
-          const {data}=await axios.get('https://api.showcaseurbusiness.com/review/getAccepted-review')
+          const {data}=await axios.get('http://localhost:5000/review/getAccepted-review')
         
           setReview(data?.data)
       } catch (error) {

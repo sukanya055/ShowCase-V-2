@@ -20,7 +20,7 @@ const Stores = () => {
     (async () => {
       try {
         const { data } = await axios.get(
-          `https://api.showcaseurbusiness.com/admin/get-latest-video`
+          `http://localhost:5000/admin/get-latest-video`
         );
         setProductData(data?.data);
         

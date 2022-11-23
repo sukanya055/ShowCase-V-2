@@ -32,6 +32,7 @@ import PrivateUserRoute from "./utils/PrivateUserRoute";
 import ShopOwnerPrivateRoute from './utils/ShopOwnerPrivateRoute';
 import Review from './pages/Review';
 import MobileRightBar from './components/ChatFile/MobileRightBar';
+import NotFound from './pages/NotFound';
 
 
 function App() {
@@ -142,7 +143,7 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/admindashboard" element={<Dashboard />} />
         <Route path="/product/review/:id" element={<Review />} />
-
+        <Route path='*' element={<NotFound/>}/>
       </Routes>
     </div>
   );

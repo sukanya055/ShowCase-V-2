@@ -19,9 +19,9 @@ const SideBarProduct = ({
   useEffect(() => {
     (async () => {
       const { data } = await axios.get(
-        `https://api.showcaseurbusiness.com/admin/min-max-price?content=${
-          content.split("-")[1]
-        }&inputSearch=${content.split("-")[0]}`
+        `http://localhost:5000/admin/min-max-price?content=${
+          content?.split("-")[1]
+        }&inputSearch=${content?.split("-")[0]}`
       );
       setPriceValue(data?.data);
       setPrice(data?.data);
@@ -34,7 +34,7 @@ const SideBarProduct = ({
     (async () => {
       try {
         const { data } = await axios.get(
-          `https://api.showcaseurbusiness.com/admin/best-seller-video`
+          `http://localhost:5000/admin/best-seller-video`
         );
         setBestVideo(data?.data);
       

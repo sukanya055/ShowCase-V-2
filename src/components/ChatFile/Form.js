@@ -27,7 +27,7 @@ const Form = (props) => {
 
     useEffect(() => {
 
-        fetch(`https://api.showcaseurbusiness.com/api/message/get-message/637737f0a11e400551d0593d`, {
+        fetch(`http://localhost:5000/api/message/get-message/637737f0a11e400551d0593d`, {
             headers: {
                 "Authorization": cookies?.token,
             },
@@ -69,13 +69,13 @@ const Form = (props) => {
 
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [chats]);
+    }, [chats, refresh]);
     console.log(chats)
 
     useEffect(() => {
         (async () => {
             try {
-                const { data } = await axios.get('https://api.showcaseurbusiness.com/api/message/get-user-id', {
+                const { data } = await axios.get('http://localhost:5000/api/message/get-user-id', {
                     headers: {
                         "Authorization": cookies?.token,
                     },
@@ -106,7 +106,7 @@ const Form = (props) => {
         console.log('chats', chats)
         try {
 
-            const { data } = await axios.post(`https://api.showcaseurbusiness.com/api/message/add-message`,
+            const { data } = await axios.post(`http://localhost:5000/api/message/add-message`,
                 {
                     text: e.target.input.value,
                     to: '637737f0a11e400551d0593d'
@@ -134,6 +134,7 @@ const Form = (props) => {
     return (
         <div>
             <div
+                ref={scrollRef}
                 style={{
                     opacity: props.visible ? '1' : '0',
                     width: props.visible ? '400px' : '0px',
@@ -142,16 +143,19 @@ const Form = (props) => {
                 className={
                     `fixed bottom-[150px] right-[20px]  bg-white rounded-xl form shadow-xl hidden md:block`
                 }>
-                <div className='p-2 max-h-[420px]  overflow-y-auto'>
+                <div
+
+                    className='p-2 max-h-[420px]  overflow-y-auto'>
                     <p className='text-center py-3 font-bold text-xl'>Customer Supporter</p>
                     <div
+                        ref={scrollRef}
                         className=''
                     >
                         {
                             chats?.map((chat, i) => <div
                                 className={`flex ${chat?.fromSelf ? 'justify-end' : 'justify-start'}   my-3  `}
                             >
-                                <span className='bg-gray-300 p-3 rounded-[30%]'> {chat?.message}</span>
+                                <span className='bg-gray-300 p-3 rounded-full'> {chat?.message}</span>
                             </div>)
                         }
                     </div>
@@ -161,7 +165,9 @@ const Form = (props) => {
                     <form
                         onSubmit={handleForm}
                         className='flex gap-7' action="">
-                        <input name='input' type="text" placeholder="Type here" className="input input-bordered w-full rounded-full" />
+                        <input
+                            autoComplete='off'
+                            name='input' type="text" placeholder="Type here" className="input input-bordered w-full rounded-full" />
                         <button type='submit' className="py-2 lg:flex px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out rounded-full">Send</button>
                     </form>
                 </div>
@@ -177,16 +183,17 @@ const Form = (props) => {
                 className={
                     `fixed bottom-[150px] right-[20px]  bg-white rounded-xl form shadow-xl block md:hidden`
                 }>
-                <div className='p-2 max-h-[370px]  overflow-y-auto'>
+                <div className='p-2 h-[370px]  overflow-y-auto'>
                     <p className='text-center py-3 font-bold text-xl'>Customer Supporter</p>
                     <div
+                        ref={scrollRef}
                         className=''
                     >
                         {
                             chats?.map((chat, i) => <div
                                 className={`flex ${chat?.fromSelf ? 'justify-end' : 'justify-start'}   my-3  `}
                             >
-                                <span className='bg-gray-300 p-3 rounded-[30%]'> {chat?.message}</span>
+                                <span className='bg-gray-300 p-3 rounded-full'> {chat?.message}</span>
                             </div>)
                         }
                     </div>
@@ -196,9 +203,9 @@ const Form = (props) => {
                     <form
                         onSubmit={handleForm}
                         className='flex gap-7' action="">
-                        <input 
-                        autoComplete='off'
-                        name='input' type="text" placeholder="Type here" className="input input-bordered w-full rounded-full" />
+                        <input
+                            autoComplete='off'
+                            name='input' type="text" placeholder="Type here" className="input input-bordered w-full rounded-full" />
                         <button type='submit' className="py-2 lg:flex px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out rounded-full">Send</button>
                     </form>
                 </div>
