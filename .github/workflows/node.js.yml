@@ -28,4 +28,4 @@ jobs:
         username: ftpgitshowcase@app.showcaseurbusiness.com
         password: ${{ secrets.FTP_PASSWORD }}
         port: 21
-        server-dir: /app.showcaseurbusiness.com/ftpgitshowcase/
+        server-dir: ./
