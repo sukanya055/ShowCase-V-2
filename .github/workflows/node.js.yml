@@ -25,7 +25,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@4.3.2
       with:
         server: ftp.showcaseurbusiness.com
-        username: ftpgitshowcase
+        username: ftpgitshowcase@app.showcaseurbusiness.com
         password: ${{ secrets.FTP_PASSWORD }}
         port: 21
         server-dir: /app.showcaseurbusiness.com/ftpgitshowcase/
