@@ -24,4 +24,4 @@ jobs:
         server: de3.fcomet.com
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        server-dir: /app.showcaseurbusiness.com/ftpgitshowcase
+        server-dir: /app.showcaseurbusiness.com/ftpgitshowcase/
