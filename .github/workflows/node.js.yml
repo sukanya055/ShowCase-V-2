@@ -24,7 +24,7 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.2
       with:
-        server: www.showcaseurbusiness.com
+        server: ftp.showcaseurbusiness.com
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         server-dir: /app.showcaseurbusiness.com/ftpgitshowcase/
