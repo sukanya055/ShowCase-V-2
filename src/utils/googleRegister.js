@@ -13,7 +13,7 @@ const useGoogleRegister = (user, setErrorMessage, setSuccess, role) => {
             if (user) {
                 let regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
                 let regxpass = new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})");
-                const userexist = await fetch("http://3.110.147.43:5000/exist", {
+                const userexist = await fetch("https://api.showcaseurbusiness.com/exist", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -38,7 +38,7 @@ const useGoogleRegister = (user, setErrorMessage, setSuccess, role) => {
                     try {
 
                         const response = await axios.post(
-                            "http://3.110.147.43:5000/user/register",
+                            "https://api.showcaseurbusiness.com/user/register",
                             {
                                 name: displayName,
                                 email: email,

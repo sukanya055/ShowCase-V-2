@@ -54,7 +54,7 @@ const Review = () => {
             productId: id
         }
        
-        fetch(`http://3.110.147.43:5000/review/add-review`, {
+        fetch(`https://api.showcaseurbusiness.com/review/add-review`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

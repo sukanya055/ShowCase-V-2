@@ -31,7 +31,7 @@ const Products = () => {
 
     () =>
       axios.get(
-        `http://3.110.147.43:5000/admin/get-product?content=${
+        `https://api.showcaseurbusiness.com/admin/get-product?content=${
           content.split("-")[0]
         }&user=${content?.split("-")[1]}&sortedBy=${sortedBy}&minPrice=${
           price?.min || 0

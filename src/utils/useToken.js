@@ -13,7 +13,7 @@ const useToken = async (user, signOut, setLoginError) => {
       if (user) {
         try {
           const userexist = await fetch(
-            "http://3.110.147.43:5000/exist",
+            "https://api.showcaseurbusiness.com/exist",
             {
               method: "POST",
               headers: {
@@ -26,7 +26,7 @@ const useToken = async (user, signOut, setLoginError) => {
           );
           
           let response;
-          const data = await axios.post("http://3.110.147.43:5000/user/login", {
+          const data = await axios.post("https://api.showcaseurbusiness.com/user/login", {
             email: user?.email,
             google: "google",
           });
@@ -49,7 +49,7 @@ const useToken = async (user, signOut, setLoginError) => {
           // verify token api
           token = token.replace(/['"]+/g, "");
        
-          const roles = await fetch("http://3.110.147.43:5000/user/infor", {
+          const roles = await fetch("https://api.showcaseurbusiness.com/user/infor", {
             method: "GET",
             headers: {
               Authorization: response?.data?.accesstoken,

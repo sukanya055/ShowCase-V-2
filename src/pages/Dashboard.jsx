@@ -53,7 +53,7 @@ const features = [
 const Dashboard = () => {
   const { isLoading, data, refetch } = useQuery(
     ["get-all-product-details"],
-    () => axios.get(`http://3.110.147.43:5000/review/get-all-product-details`)
+    () => axios.get(`https://api.showcaseurbusiness.com/review/get-all-product-details`)
   );
 
     if(isLoading) return <Loader/>

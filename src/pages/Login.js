@@ -117,7 +117,7 @@ const Login = () => {
       "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})"
     );
 
-    const userexist = await fetch("http://3.110.147.43:5000/exist", {
+    const userexist = await fetch("https://api.showcaseurbusiness.com/exist", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -136,7 +136,7 @@ const Login = () => {
       console.log("click");
       try {
         const data = await axios.post(
-          "http://3.110.147.43:5000/user/login",
+          "https://api.showcaseurbusiness.com/user/login",
           {
             email: email,
             password: password,
@@ -161,7 +161,7 @@ const Login = () => {
         token = token.replace(/['"]+/g, "");
 
         const roles = await fetch(
-          "http://3.110.147.43:5000/user/infor",
+          "https://api.showcaseurbusiness.com/user/infor",
           {
             method: "GET",
             headers: {
