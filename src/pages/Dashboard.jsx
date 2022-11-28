@@ -53,7 +53,7 @@ const features = [
 const Dashboard = () => {
   const { isLoading, data, refetch } = useQuery(
     ["get-all-product-details"],
-    () => axios.get(`http://13.234.213.238:3000/review/get-all-product-details`)
+    () => axios.get(`http://13.234.213.238:5000/review/get-all-product-details`)
   );
 
     if(isLoading) return <Loader/>

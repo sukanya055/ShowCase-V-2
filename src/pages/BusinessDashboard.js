@@ -20,7 +20,7 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
     // setUserId(_id)
     const getAdminProductVideo = async () => {
         try {
-            const { data } = await axios.get(`http://13.234.213.238:3000/admin/adminProductVideo`, {
+            const { data } = await axios.get(`http://13.234.213.238:5000/admin/adminProductVideo`, {
                 headers: {
                     'Authorization': cookies?.token,
                 },
@@ -40,7 +40,7 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
             if (cookies?.token) {
                 // information 
                 try {
-                    const { data } = await axios.get('http://13.234.213.238:3000/user/infor', {
+                    const { data } = await axios.get('http://13.234.213.238:5000/user/infor', {
                         headers: {
                             'Authorization': cookies?.token,
                         }

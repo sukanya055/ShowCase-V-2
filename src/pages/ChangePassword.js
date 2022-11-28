@@ -90,7 +90,7 @@ const ChangePassword = () => {
             } else {
                 if (newPassword === confirmPass) {
                     console.log(confirmPass)
-                    const response = await axios.patch('http://13.234.213.238:3000/user/changePass', {
+                    const response = await axios.patch('http://13.234.213.238:5000/user/changePass', {
                         oldPassword,
                         newPassword,
                         google: user && 'google'

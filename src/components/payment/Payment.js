@@ -28,7 +28,7 @@ const Payment = () => {
 
             if (cookies?.token) {
                 try {
-                    const { data } = await axios.get('http://13.234.213.238:3000/user/infor', {
+                    const { data } = await axios.get('http://13.234.213.238:5000/user/infor', {
                         headers: {
                             'Authorization': cookies?.token,
                         }
@@ -114,7 +114,7 @@ const Payment = () => {
         }
      
         try{
-            const verifyUrl = "http://13.234.213.238:3000/api/payment/changerole";
+            const verifyUrl = "http://13.234.213.238:5000/api/payment/changerole";
             const { data } = await axios.patch(verifyUrl,  {
                 role: newrole
               }, {
@@ -140,7 +140,7 @@ const Payment = () => {
 			order_id: data.id,
 			handler: async (response) => {
 				try {
-					const verifyUrl = "http://13.234.213.238:3000/api/payment/verify";
+					const verifyUrl = "http://13.234.213.238:5000/api/payment/verify";
 					const { data } = await axios.post(verifyUrl, response);
                     if(data.message != null){
                         
@@ -162,7 +162,7 @@ const Payment = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         try{
-            const orderurl = "http://13.234.213.238:3000/api/payment/orders";
+            const orderurl = "http://13.234.213.238:5000/api/payment/orders";
             const {data} = await axios.post(orderurl, {amount:pay});
             initPayment(data.data, pay);
         }
