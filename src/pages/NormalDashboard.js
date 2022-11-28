@@ -17,7 +17,7 @@ const NormalDashboard = ({ setUserId }) => {
             if (cookies?.token) {
 
                 // try {
-                //     const { data } = await axios.get('http://localhost:5000/user/infor', {
+                //     const { data } = await axios.get('http://13.234.213.238:3000/user/infor', {
                 //         headers: {
                 //             'Authorization': cookies?.token,
                 //         }
@@ -30,7 +30,7 @@ const NormalDashboard = ({ setUserId }) => {
                 //     console.log(err)
                 // }
 
-                fetch('http://localhost:5000/user/infor',{
+                fetch('http://13.234.213.238:3000/user/infor',{
                     headers: {
                                     'Authorization': cookies?.token,
                                 }

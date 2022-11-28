@@ -20,7 +20,7 @@ const Stores = () => {
     (async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/admin/get-latest-video`
+          `http://13.234.213.238:3000/admin/get-latest-video`
         );
         setProductData(data?.data);
         

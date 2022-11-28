@@ -20,7 +20,7 @@ const PrivateRoute = ({ children }) => {
             try {
                 setLoading(true)
                 console.log('effectt')
-                const { data } = await axios.get('http://localhost:5000/user/validation', {
+                const { data } = await axios.get('http://13.234.213.238:3000/user/validation', {
                     headers: {
                         'Authorization': cookies?.token,
                     }

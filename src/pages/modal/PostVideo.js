@@ -113,7 +113,7 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
 
                 setError({ ...formData, videError: '' })
                 setLoad(true)
-                fetch(`http://localhost:5000/admin/products`, {
+                fetch(`http://13.234.213.238:3000/admin/products`, {
                     method: "POST",
                     headers: {
                         'Authorization': cookies?.token,

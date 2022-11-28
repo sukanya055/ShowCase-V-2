@@ -54,7 +54,7 @@ const Review = () => {
             productId: id
         }
        
-        fetch(`http://localhost:5000/review/add-review`, {
+        fetch(`http://13.234.213.238:3000/review/add-review`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
