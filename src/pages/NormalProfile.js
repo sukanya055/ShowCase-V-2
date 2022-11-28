@@ -59,7 +59,7 @@ const NormalProfile = () => {
       if (cookies?.token) {
 
         try {
-          const response = await axios.get('http://13.234.213.238:5000/user/getpic', {
+          const response = await axios.get('http://3.110.147.43:5000/user/getpic', {
             headers: {
               'Authorization': cookies?.token,
             }
@@ -88,7 +88,7 @@ const NormalProfile = () => {
 
       try {
 
-        const response = await axios.patch("http://13.234.213.238:5000/user/personal", {
+        const response = await axios.patch("http://3.110.147.43:5000/user/personal", {
           about: about,
           profile: image,
           name: name

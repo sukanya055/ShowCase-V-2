@@ -11,7 +11,7 @@ const DeleteModal = ({setOpenModal}) => {
     const navigate=useNavigate()
     const handleDelete=async()=>{
         try {
-            const { data } = await axios.delete('http://13.234.213.238:5000/user/delete-user', {
+            const { data } = await axios.delete('http://3.110.147.43:5000/user/delete-user', {
                 headers: {
                     'Authorization': cookies?.token,
                 }

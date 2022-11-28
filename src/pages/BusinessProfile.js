@@ -59,7 +59,7 @@ const BusinessProfile = ({userId}) => {
       if (token !== undefined && token !== null) {
         token = token.replace(/['"]+/g, "");
         try {
-          const response = await axios.get('http://13.234.213.238:5000/user/getpic', {
+          const response = await axios.get('http://3.110.147.43:5000/user/getpic', {
             headers: {
               'Authorization': cookies?.token,
             }
@@ -91,7 +91,7 @@ const BusinessProfile = ({userId}) => {
     if (cookies?.token) {
       try {
 
-        const { data } = await axios.patch('http://13.234.213.238:5000/user/editpro', {
+        const { data } = await axios.patch('http://3.110.147.43:5000/user/editpro', {
           name: name,
           phone: phone,
           about: about,

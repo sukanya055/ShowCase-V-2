@@ -42,7 +42,7 @@ const CustomerReview = () => {
   useEffect(() => { 
     (async()=>{
       try {
-          const {data}=await axios.get('http://13.234.213.238:5000/review/getAccepted-review')
+          const {data}=await axios.get('http://3.110.147.43:5000/review/getAccepted-review')
         
           setReview(data?.data)
       } catch (error) {

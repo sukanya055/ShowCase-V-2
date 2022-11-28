@@ -39,7 +39,7 @@ const Form = (props) => {
         if (user || token) {
             (async () => {
                 try {
-                    const { data } = await axios.get('http://13.234.213.238:5000/user/getUser', {
+                    const { data } = await axios.get('http://3.110.147.43:5000/user/getUser', {
                         headers: {
                             'Authorization': localStorage.getItem('token')?.replace(/['"]+/g, "")
                         }

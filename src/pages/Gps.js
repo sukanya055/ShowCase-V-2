@@ -55,7 +55,7 @@ const Gps = () => {
 
         try {
             e.preventDefault()
-            const res = await axios.patch('http://13.234.213.238:5000/user/address', {
+            const res = await axios.patch('http://3.110.147.43:5000/user/address', {
                 address: address,
             }, {
                 headers: {

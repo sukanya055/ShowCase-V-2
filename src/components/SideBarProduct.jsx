@@ -19,7 +19,7 @@ const SideBarProduct = ({
   useEffect(() => {
     (async () => {
       const { data } = await axios.get(
-        `http://13.234.213.238:5000/admin/min-max-price?content=${
+        `http://3.110.147.43:5000/admin/min-max-price?content=${
           content.split("-")[1]
         }&inputSearch=${content.split("-")[0]}`
       );
@@ -34,7 +34,7 @@ const SideBarProduct = ({
     (async () => {
       try {
         const { data } = await axios.get(
-          `http://13.234.213.238:5000/admin/best-seller-video`
+          `http://3.110.147.43:5000/admin/best-seller-video`
         );
         setBestVideo(data?.data);
       

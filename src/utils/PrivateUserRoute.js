@@ -16,7 +16,7 @@ const PrivateUserRoute = ({ children }) => {
     useEffect(() => {
         (async () => {
             try {
-                const { data } = await axios.get('http://13.234.213.238:5000/user/validation', {
+                const { data } = await axios.get('http://3.110.147.43:5000/user/validation', {
                     headers: {
                         'Authorization': cookies?.token,
                     }
