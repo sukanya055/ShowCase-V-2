@@ -27,7 +27,7 @@ const Form = (props) => {
 
     useEffect(() => {
 
-        fetch(`https://api.showcaseurbusiness.com/api/message/get-message/637737f0a11e400551d0593d`, {
+        fetch(`http://localhost:5000/api/message/get-message/637737f0a11e400551d0593d`, {
             headers: {
                 "Authorization": cookies?.token,
             },
@@ -75,7 +75,7 @@ const Form = (props) => {
     useEffect(() => {
         (async () => {
             try {
-                const { data } = await axios.get('https://api.showcaseurbusiness.com/api/message/get-user-id', {
+                const { data } = await axios.get('http://localhost:5000/api/message/get-user-id', {
                     headers: {
                         "Authorization": cookies?.token,
                     },
@@ -106,7 +106,7 @@ const Form = (props) => {
         console.log('chats', chats)
         try {
 
-            const { data } = await axios.post(`https://api.showcaseurbusiness.com/api/message/add-message`,
+            const { data } = await axios.post(`http://localhost:5000/api/message/add-message`,
                 {
                     text: e.target.input.value,
                     to: '637737f0a11e400551d0593d'

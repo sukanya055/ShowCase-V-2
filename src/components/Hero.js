@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
 
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   const images = [
     {
@@ -46,17 +46,17 @@ const Hero = () => {
   return (
     <div>
       <div className="hero min-h-screen p-0 my-20 lg:my-20">
-        <div className="hero-content items-start flex-col lg:flex-row-reverse  max-w-[1600px] p-0">
-          <div className='lg:w-[60%] w-full relative'>
+        <div className="hero-content items-start flex-col lg:flex-row-reverse  max-w-[2100px] p-0">
+          <div className='w-screen lg:w-[60%] relative '>
             <div>
               <div className='absolute top-0 left-[90px]'>
                 <img className='w-[120px]' src={circle3} alt="" />
                 <img className='w-[31px]' src={circle4} alt="" />
               </div>
             </div>
-            <div className='flex justify-end w-full relative mt-40'>
+            <div className='flex justify-end relative mt-40'>
               <img
-                className='w-[200px] md:w-[300px] lg:w-[354px] xl:w-[500px] 2xl:w-[552px] 2xl:h-[480px] absolute top-[94px] lg:top-[161px] xl:top-[134px]  right-[100px]  lg:right-[183px] xl:right-[238px]'
+                className='w-[200px] md:w-[400px] lg:w-[354px] xl:w-[500px] 2xl:w-[552px] 2xl:h-[480px] absolute top-[94px] md:top-[127px] lg:top-[161px] xl:top-[134px] 2xl:top-[122px] right-[100px]  lg:right-[183px] xl:right-[238px]'
                 src={circle1}
                 alt=""
               />
@@ -65,37 +65,22 @@ const Hero = () => {
                 src={circle2}
                 alt=""
               />
-              <div className='absolute  w-[70%] lg:w-[80%] px-5'>
-               
+              <div className='absolute w-[70%] md:w-[65%] lg:w-[80%] px-5  '>
+
                 <Slider {...settings}>
                   {
-                    images?.map((img, index) => <img
-                      key={index}
-                      className=' w-[70%] lg:w-[80%]  lg:mt-[82px] lg:ml-[92px]' src={img.img} alt="shoes" />)
+                    images?.map((img, index) => <div className='mt-[50px] sm:!w-full md:!w-[70%] lg:!w-[80%] lg:mt-[82px] lg:ml-[92px] md:mt-10 !flex justify-end '>
+                      <img
+                        className="!w-full  sm:!w-[50%] lg:!w-[90%] lg:mt-10"
+                        key={index}
+                        src={img.img} alt="shoes" />
+                    </div>)
                   }
                 </Slider>
 
 
 
               </div>
-
-
-           {/*    <div>
-
-                <Slider {...settings}>
-                  {
-                    images?.map((img, index) => <div className="absolute">
-                      <img
-                        key={index}
-                        className=' w-[70%] lg:w-[80%] ml-[27%] lg:mt-[82px] z-40 lg:ml-[92px] bg-red-500' src={img} alt="shoes" />
-                    </div>)
-                  }
-                </Slider>
-
-
-              </div> */}
-
-
 
 
             </div>
@@ -112,12 +97,12 @@ const Hero = () => {
 
             </div>
             <div className='pl:5  md:pl-14 flex justify-center lg:justify-start gap-9'>
-              <button 
-              onClick={() => navigate(`/products/${"product-allVideo"}`)}
-              className="btn btn-primary bg-[#FF109F] rounded-full border-0 outline-none text-white px-5 sm:px-7">Shop more</button>
-              <button 
-              
-              className="btn btn-primary bg-[#719efd] opacity-[0.3] rounded-full border-0 outline-none text-white px-5 sm:px-7">Read more</button>
+              <button
+                onClick={() => navigate(`/products/${"product-allVideo"}`)}
+                className="btn btn-primary bg-[#FF109F] rounded-full border-0 outline-none text-white px-5 sm:px-7">Shop more</button>
+              <button
+
+                className="btn btn-primary bg-[#719efd] opacity-[0.3] rounded-full border-0 outline-none text-white px-5 sm:px-7">Read more</button>
             </div>
           </div>
         </div>

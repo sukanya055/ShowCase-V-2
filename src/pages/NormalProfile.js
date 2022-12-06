@@ -59,7 +59,7 @@ const NormalProfile = () => {
       if (cookies?.token) {
 
         try {
-          const response = await axios.get('https://api.showcaseurbusiness.com/user/getpic', {
+          const response = await axios.get('http://localhost:5000/user/getpic', {
             headers: {
               'Authorization': cookies?.token,
             }
@@ -88,7 +88,7 @@ const NormalProfile = () => {
 
       try {
 
-        const response = await axios.patch("https://api.showcaseurbusiness.com/user/personal", {
+        const response = await axios.patch("http://localhost:5000/user/personal", {
           about: about,
           profile: image,
           name: name

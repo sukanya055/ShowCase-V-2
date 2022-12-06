@@ -22,7 +22,7 @@ const LeftBar = () => {
 
         () =>
             axios.get(
-                `https://api.showcaseurbusiness.com/api/message/get-latest-message`, {
+                `http://localhost:5000/api/message/get-latest-message`, {
                 headers: {
                     "Authorization": cookies?.token,
                 },

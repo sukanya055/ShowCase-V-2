@@ -16,7 +16,24 @@ import Stores from "../components/Stores";
 const Home = () => {
   return (
     <Layout>
-      <Hero />
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onReset={() => {
+          // reset the state of your app so the error doesn't happen again
+        }}
+      >
+
+        <Suspense
+          fallback={
+            <div>
+              <p className="text-center py-5">Loading...</p>
+            </div>
+          }
+        >
+          <Hero />
+        </Suspense>
+
+      </ErrorBoundary>
       <ErrorBoundary
         FallbackComponent={ErrorFallback}
         onReset={() => {
@@ -31,7 +48,25 @@ const Home = () => {
           }
         >
           <section>
-            <Amazing />
+            <ErrorBoundary
+              FallbackComponent={ErrorFallback}
+              onReset={() => {
+                // reset the state of your app so the error doesn't happen again
+              }}
+            >
+
+              <Suspense
+                fallback={
+                  <div>
+                    <p className="text-center py-5">Loading...</p>
+                  </div>
+                }
+              >
+                <Amazing />
+              </Suspense>
+
+            </ErrorBoundary>
+
             <Count />
             <WorkesAndQuotes />
             <GetStarted />

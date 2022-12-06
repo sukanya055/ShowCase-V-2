@@ -32,7 +32,7 @@ const Navbar = ({ adminNav }) => {
     if (cookies?.token) {
       try {
         const { data } = await axios.get(
-          "https://api.showcaseurbusiness.com/user/infor",
+          "http://localhost:5000/user/infor",
           {
             headers: {
               Authorization: cookies?.token,
@@ -261,7 +261,7 @@ const Navbar = ({ adminNav }) => {
         )}
 
         {isOpen && (
-          <div className="top-0 left-0  h-auto absolute w-full px-4 py-2 backdrop-blur-sm bg-white/95 z-40 shadow-lg pb-5">
+          <div className="top-0 left-0  h-auto absolute w-full px-4 py-2 backdrop-blur-sm bg-white/95 z-40 shadow-lg pb-5 duration-150">
             <div className="flex justify-end">
               <CgClose
                 onClick={toggle}
