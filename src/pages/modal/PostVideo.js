@@ -114,7 +114,7 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
 
                 setError({ ...formData, videError: '' })
                 setLoad(true)
-                fetch(`http://localhost:5000/admin/products`, {
+                fetch(`https://api.showcaseurbusiness.com/admin/products`, {
                     method: "POST",
                     headers: {
                         'Authorization': cookies?.token,

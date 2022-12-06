@@ -55,7 +55,7 @@ const Gps = () => {
 
         try {
             e.preventDefault()
-            const res = await axios.patch('http://localhost:5000/user/address', {
+            const res = await axios.patch('https://api.showcaseurbusiness.com/user/address', {
                 address: address,
             }, {
                 headers: {

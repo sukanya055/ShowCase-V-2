@@ -70,7 +70,7 @@ const CustomerCard = ({ data, refetch }) => {
   const handleReviewAccept = async (id) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/review/update-review/${id}`
+        `https://api.showcaseurbusiness.com/review/update-review/${id}`
       );
     
       setError("");
@@ -88,7 +88,7 @@ const CustomerCard = ({ data, refetch }) => {
   const handleReviewDelete = async (id) => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:5000/review/delete-review/${id}`
+        `https://api.showcaseurbusiness.com/review/delete-review/${id}`
       );
      
       refetch();

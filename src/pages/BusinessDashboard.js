@@ -20,7 +20,7 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
     // setUserId(_id)
     const getAdminProductVideo = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/admin/adminProductVideo`, {
+            const { data } = await axios.get(`https://api.showcaseurbusiness.com/admin/adminProductVideo`, {
                 headers: {
                     'Authorization': cookies?.token,
                 },
@@ -40,7 +40,7 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
             if (cookies?.token) {
                 // information 
                 try {
-                    const { data } = await axios.get('http://localhost:5000/user/infor', {
+                    const { data } = await axios.get('https://api.showcaseurbusiness.com/user/infor', {
                         headers: {
                             'Authorization': cookies?.token,
                         }
@@ -66,7 +66,7 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
             if (cookies?.token) {
                 // information 
                 try {
-                    const { data } = await axios.get(`http://localhost:5000/api/payment/get-payment-details?email=${userDetails?.email}`, {
+                    const { data } = await axios.get(`https://api.showcaseurbusiness.com/api/payment/get-payment-details?email=${userDetails?.email}`, {
                         headers: {
                             'Authorization': cookies?.token,
                         }

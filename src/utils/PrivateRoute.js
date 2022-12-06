@@ -20,7 +20,7 @@ const PrivateRoute = ({ children }) => {
             try {
                 setLoading(true)
              
-                const { data } = await axios.get('http://localhost:5000/user/validation', {
+                const { data } = await axios.get('https://api.showcaseurbusiness.com/user/validation', {
                     headers: {
                         'Authorization': cookies?.token,
                     }

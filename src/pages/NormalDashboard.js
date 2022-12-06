@@ -16,7 +16,7 @@ const NormalDashboard = () => {
 
             if (cookies?.token) {
 
-                fetch('http://localhost:5000/user/infor', {
+                fetch('https://api.showcaseurbusiness.com/user/infor', {
                     headers: {
                         'Authorization': cookies?.token,
                     }

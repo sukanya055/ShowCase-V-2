@@ -26,7 +26,7 @@ const RightBar = ({ currentUserId, socket }) => {
 
     useEffect(() => {
 
-        fetch(`http://localhost:5000/api/message/get-message/${id}`, {
+        fetch(`https://api.showcaseurbusiness.com/api/message/get-message/${id}`, {
             headers: {
                 "Authorization": cookies?.token,
             },
@@ -75,7 +75,7 @@ const RightBar = ({ currentUserId, socket }) => {
         setRefresh(!refresh)
         try {
 
-            const { data } = await axios.post(`http://localhost:5000/api/message/add-message-support`,
+            const { data } = await axios.post(`https://api.showcaseurbusiness.com/api/message/add-message-support`,
                 {
                     text: e.target.input.value,
                     to: id
