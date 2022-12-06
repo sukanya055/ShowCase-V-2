@@ -9,7 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useRef } from 'react';
 import io from "socket.io-client";
-const ENDPOINT = 'http://localhost:5000'
+const ENDPOINT = 'https://api.showcaseurbusiness.com'
 
 
 const Form = (props) => {

@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
 
-const ENDPOINT = 'http://localhost:5000'
+const ENDPOINT = 'https://api.showcaseurbusiness.com'
 
 const ChatAdmin = () => {
 
