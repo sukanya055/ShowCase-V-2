@@ -171,7 +171,7 @@ const Payment = () => {
         }
     }
 
-    console.log(success && true)
+ 
 
     return (
         <>

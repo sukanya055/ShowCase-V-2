@@ -63,7 +63,7 @@ const MobileRightBar = ({ currentUserId, socket }) => {
             msg: e.target.input.value,
         });
         setChats([...chats, { fromSelf: true, message: e.target.input.value }])
-        console.log('chats', chats)
+       
         try {
 
             const { data } = await axios.post(`http://localhost:5000/api/message/add-message-support`,
@@ -77,13 +77,13 @@ const MobileRightBar = ({ currentUserId, socket }) => {
                     },
 
                 })
-            console.log(data)
+          
 
         } catch (error) {
             console.log(error)
         }
 
-        console.log('click')
+     
         e.target.reset()
     }
 

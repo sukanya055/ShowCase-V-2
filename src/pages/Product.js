@@ -56,10 +56,11 @@ const Product = () => {
         }
       }
       else {
-        alert("Login please");
+        removeCookie('token')
+        navigate('/auth')
       }
     })();
-  }, [cookies])
+  }, [cookies,navigate,removeCookie])
 
 
   const savedVideo = async () => {

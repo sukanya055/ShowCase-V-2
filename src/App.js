@@ -33,6 +33,7 @@ import ShopOwnerPrivateRoute from './utils/ShopOwnerPrivateRoute';
 import Review from './pages/Review';
 import MobileRightBar from './components/ChatFile/MobileRightBar';
 import NotFound from './pages/NotFound';
+import AdminRoute from './utils/AdminRoute';
 
 
 function App() {
@@ -52,9 +53,9 @@ function App() {
         <Route
           path="/supportChat/:id"
           element={
-            <PrivateRoute>
+            <AdminRoute>
               <ChatAdmin />
-            </PrivateRoute>
+            </AdminRoute>
           }
         />
         {/* for mobile device */}

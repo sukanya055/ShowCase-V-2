@@ -37,11 +37,11 @@ const Form = (props) => {
 
     }, [cookies])
 
-    console.log(id)
+ 
 
     useEffect(() => {
         if (currentUserId) {
-            console.log(currentUserId)
+           
             socket.current = io(ENDPOINT);
             socket.current.emit("add-user", currentUserId);
         }
@@ -51,11 +51,11 @@ const Form = (props) => {
 
 
     useEffect(() => {
-        console.log('socket', socket)
+       
         if (socket.current) {
-            console.log('ref', socket)
+           
             socket.current.on("msg-recieve", (msg) => {
-                console.log('recieve-msg', msg)
+             
                 setArrivalMessage({ fromSelf: false, message: msg });
             });
         }
@@ -63,14 +63,14 @@ const Form = (props) => {
 
 
     useEffect(() => {
-        console.log(arrivalMessage)
+     
         arrivalMessage && setChats((prev) => [...prev, arrivalMessage]);
     }, [arrivalMessage]);
 
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [chats, refresh]);
-    console.log(chats)
+   
 
     useEffect(() => {
         (async () => {
@@ -80,7 +80,7 @@ const Form = (props) => {
                         "Authorization": cookies?.token,
                     },
                 })
-                // console.log(data)
+              
                 setCurrentUserId(data?.data)
             } catch (error) {
                 console.log(error)
@@ -89,7 +89,7 @@ const Form = (props) => {
     }, [cookies])
 
 
-    console.log(currentUserId)
+    
 
 
     const handleForm = async (e) => {
@@ -103,7 +103,7 @@ const Form = (props) => {
         });
         setRefresh(!refresh)
         setChats([...chats, { fromSelf: true, message: e.target.input.value }])
-        console.log('chats', chats)
+   
         try {
 
             const { data } = await axios.post(`http://localhost:5000/api/message/add-message`,
@@ -117,13 +117,13 @@ const Form = (props) => {
                     },
 
                 })
-            console.log(data)
+           
 
         } catch (error) {
             console.log(error)
         }
 
-        console.log('click')
+       
         e.target.reset()
     }
 
@@ -146,7 +146,7 @@ const Form = (props) => {
                 <div
 
                     className='p-2 max-h-[420px]  overflow-y-auto'>
-                    <p className='text-center py-3 font-bold text-xl'>Customer Supporter</p>
+                    <p className='text-center py-3 font-bold text-xl'>Customer Support</p>
                     <div
                         ref={scrollRef}
                         className=''
@@ -184,7 +184,7 @@ const Form = (props) => {
                     `fixed bottom-[150px] right-[20px]  bg-white rounded-xl form shadow-xl block md:hidden`
                 }>
                 <div className='p-2 h-[370px]  overflow-y-auto'>
-                    <p className='text-center py-3 font-bold text-xl'>Customer Supporter</p>
+                    <p className='text-center py-3 font-bold text-xl'>Customer Support</p>
                     <div
                         ref={scrollRef}
                         className=''

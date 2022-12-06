@@ -7,6 +7,7 @@ import img2 from "../assets/img2.png";
 import img6 from "../assets/img6.png";
 import img4 from "../assets/img4.png";
 import img5 from "../assets/img5.png";
+import loginImg from '../assets/images/login/collage DD.png'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
@@ -33,10 +34,10 @@ const Login = () => {
   useToken(user, signOut, setLoginError)
   const [ErrorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
-  console.log(loginError)
+ 
   useEffect(() => {
     if (loginError) {
-      console.log(loginError)
+     
       toast.error(loginError, {
         position: "bottom-center",
         autoClose: 5000,
@@ -64,7 +65,7 @@ const Login = () => {
       });
     }
   }, [ErrorMessage]);
-  console.log(user);
+
   const loaderVariants = {
     animationOne: {
       y: [0, 20],
@@ -133,7 +134,7 @@ const Login = () => {
       regex.test(email) &&
       regxpass.test(password)
     ) {
-      console.log("click");
+  
       try {
         const data = await axios.post(
           "http://localhost:5000/user/login",
@@ -143,7 +144,7 @@ const Login = () => {
           }
         );
         response = data;
-        console.log("from response", response);
+     
 
         localStorage.setItem(
           "token",
@@ -165,14 +166,14 @@ const Login = () => {
           {
             method: "GET",
             headers: {
-              Authorization:response.data.accesstoken,
+              Authorization: response.data.accesstoken,
               Accept: "application/json",
               "Content-Type": "application/json",
             },
           }
         );
         const roleData = await roles.json();
-     
+
         if (roleData.role == 0) {
           navigate("/dashboard/normalDashboard");
         } else {
@@ -204,9 +205,9 @@ const Login = () => {
 
   return (
     <Layout>
-      <div className="bg-gradient-to-tl h-full flex items-center justify-center from-sky-200 to-sky-100 md:px-14 px-4 py-8">
-        <div className="md:flex flex-row my-8 h-auto md:w-2/3 w-full shadow-white shadow ">
-          <div className="basis-1/2 bg-gradient-to-tl md:px-14 px-5 py-5 from-[#5151E5] text-white to-[#72EDF2]">
+      <div className="bg-gradient-to-tl h-full flex items-center justify-center md:px-14 px-4 py-8">
+        <div className="lg:flex flex-row my-8 h-auto lg:w-2/3 w-full shadow-white shadow ">
+          <div className="basis-1/2 bg-gradient-to-tl md:px-14 px-5 my-4 from-[#5151E5] text-white to-[#72EDF2] py-5 md:w-[60%] lg:w-full mx-auto ">
             <h1 className="text-center md:text-xl text-2xl font-bold my-2 font-sans mt-8">
               {isLogin ? "Login" : "Create Account"}
             </h1>
@@ -227,11 +228,6 @@ const Login = () => {
                 }
                 className=" border-[1px] rounded-lg p-2 placeholder-white outline-none text-white bg-transparent w-full  md:text-lg border-white "
               />
-
-
-
-
-
 
               <input
                 type="password"
@@ -276,8 +272,8 @@ const Login = () => {
             </p>
           </div>
 
-          <div className="basis-1/2 hidden  md:block  relative bg-white">
-            <div className="relative h-full">
+          <div className="basis-1/2 hidden  lg:block  relative bg-white">
+            {/* <div className="relative h-full">
               <div className="relative  ">
                 <motion.img
                   src={img2}
@@ -315,6 +311,9 @@ const Login = () => {
                 animate="animationOne"
                 className="h-[224px] w-[224px] object-contain overflow-hidden absolute top-2/3 left-2/4"
               />
+            </div> */}
+            <div className="!h-full">
+              <img className="w-full !h-full" src={loginImg} alt="loginImg" />
             </div>
             <ToastContainer />
           </div>

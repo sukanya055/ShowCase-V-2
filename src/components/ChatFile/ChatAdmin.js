@@ -31,7 +31,7 @@ const ChatAdmin = () => {
                         "Authorization": cookies?.token,
                     },
                 })
-                console.log(data)
+              
                 setCurrentUserId(data?.data)
             } catch (error) {
                 console.log(error)

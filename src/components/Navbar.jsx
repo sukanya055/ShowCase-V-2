@@ -13,6 +13,7 @@ import { signOut } from "firebase/auth";
 import {
   commonCategory,
   homeCategories,
+  Kids,
   mensCategories,
   womenCategories,
 } from "../utils/data";
@@ -29,16 +30,14 @@ const Navbar = ({ adminNav }) => {
   };
 
   const handleDashboard = async () => {
-    if (cookies?.token) {
+    if (cookies?.token !== "undefined") {
+      console.log(cookies.token);
       try {
-        const { data } = await axios.get(
-          "http://localhost:5000/user/infor",
-          {
-            headers: {
-              Authorization: cookies?.token,
-            },
-          }
-        );
+        const { data } = await axios.get("http://localhost:5000/user/infor", {
+          headers: {
+            Authorization: cookies?.token,
+          },
+        });
 
         if (data?.role === 1) {
           navigate("/businessProfile/businessDashboard");
@@ -53,6 +52,9 @@ const Navbar = ({ adminNav }) => {
         }
         console.log(err);
       }
+    } else {
+      removeCookie("token");
+      navigate("/auth");
     }
   };
 
@@ -75,8 +77,6 @@ const Navbar = ({ adminNav }) => {
       navigate(`/products/${event.target.value}-input`);
     }
   };
-
-  console.log(typeof cookies?.token);
 
   return (
     <div className="shadow-md md:py-2 px-6 py-0">
@@ -123,16 +123,12 @@ const Navbar = ({ adminNav }) => {
                 tabIndex={0}
                 className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
               >
-                {commonCategory.map((item) => (
-                  <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Men")}>
-                      {item.name}
-                    </p>
-                  </li>
-                ))}
                 {mensCategories.map((item) => (
                   <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Men")}>
+                    <p
+                      className="capitalize"
+                      onClick={() => handleOption(item?.name, "Men")}
+                    >
                       {item.name}
                     </p>
                   </li>
@@ -151,16 +147,12 @@ const Navbar = ({ adminNav }) => {
                 tabIndex={0}
                 className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
               >
-                {commonCategory.map((item) => (
-                  <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Women")}>
-                      {item.name}
-                    </p>
-                  </li>
-                ))}
                 {womenCategories.map((item) => (
                   <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Women")}>
+                    <p
+                      className="capitalize"
+                      onClick={() => handleOption(item?.name, "Women")}
+                    >
                       {item.name}
                     </p>
                   </li>
@@ -178,16 +170,12 @@ const Navbar = ({ adminNav }) => {
                 tabIndex={0}
                 className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
               >
-                {commonCategory.map((item) => (
+                {Kids.map((item) => (
                   <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Kids")}>
-                      {item.name}
-                    </p>
-                  </li>
-                ))}
-                {mensCategories.map((item) => (
-                  <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Kids")}>
+                    <p
+                      className="capitalize"
+                      onClick={() => handleOption(item?.name, "Kids")}
+                    >
                       {item.name}
                     </p>
                   </li>
@@ -207,7 +195,10 @@ const Navbar = ({ adminNav }) => {
               >
                 {homeCategories.map((item) => (
                   <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Home&Kitchen")}>
+                    <p
+                      className="capitalize"
+                      onClick={() => handleOption(item?.name, "Home&Kitchen")}
+                    >
                       {item.name}
                     </p>
                   </li>
@@ -286,16 +277,12 @@ const Navbar = ({ adminNav }) => {
                   tabIndex={0}
                   className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
                 >
-                  {commonCategory.map((item) => (
-                    <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name, "Men")}>
-                        {item.name}
-                      </p>
-                    </li>
-                  ))}
                   {mensCategories.map((item) => (
                     <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name, "Men")}>
+                      <p
+                        className="capitalize"
+                        onClick={() => handleOption(item?.name, "Men")}
+                      >
                         {item.name}
                       </p>
                     </li>
@@ -313,16 +300,12 @@ const Navbar = ({ adminNav }) => {
                   tabIndex={0}
                   className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
                 >
-                  {commonCategory.map((item) => (
-                    <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name, "Women")}>
-                        {item.name}
-                      </p>
-                    </li>
-                  ))}
                   {womenCategories.map((item) => (
                     <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name, "Women")}>
+                      <p
+                        className="capitalize"
+                        onClick={() => handleOption(item?.name, "Women")}
+                      >
                         {item.name}
                       </p>
                     </li>
@@ -340,16 +323,12 @@ const Navbar = ({ adminNav }) => {
                   tabIndex={0}
                   className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
                 >
-                  {commonCategory.map((item) => (
+                  {Kids.map((item) => (
                     <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name, "Kids")}>
-                        {item.name}
-                      </p>
-                    </li>
-                  ))}
-                  {mensCategories.map((item) => (
-                    <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name, "Kids")}>
+                      <p
+                        className="capitalize"
+                        onClick={() => handleOption(item?.name, "Kids")}
+                      >
                         {item.name}
                       </p>
                     </li>
@@ -370,6 +349,7 @@ const Navbar = ({ adminNav }) => {
                   {homeCategories.map((item) => (
                     <li key={item.id}>
                       <p
+                        className="capitalize"
                         onClick={() => handleOption(item?.name, "Home&Kitchen")}
                       >
                         {item.name}

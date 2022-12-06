@@ -21,13 +21,7 @@ const RightBar = ({ currentUserId, socket }) => {
 
 
 
-    // useEffect(() => {
-    //     socket = io(ENDPOINT)
-    //     socket.on('msg', (data) => {
-    //         console.log('server msg', data)
-    //     })
-    // }, [])
-
+    
 
 
     useEffect(() => {
@@ -44,11 +38,11 @@ const RightBar = ({ currentUserId, socket }) => {
 
 
     useEffect(() => {
-        console.log(socket)
+      
         if (socket.current) {
-            console.log(socket)
+        
             socket.current.on("msg-recieve", (msg) => {
-                console.log('socket msg', msg)
+             
                 setArrivalMessage({ fromSelf: false, message: msg });
             });
         }
@@ -92,13 +86,13 @@ const RightBar = ({ currentUserId, socket }) => {
                     },
 
                 })
-            console.log(data)
+        
 
         } catch (error) {
             console.log(error)
         }
 
-        console.log('click')
+       
         e.target.reset()
     }
 

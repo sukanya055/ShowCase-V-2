@@ -87,7 +87,7 @@ const BussinessAccountSetup = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+  
     if (location?.pathname?.includes("/businessAccountSetup")) {
       getLocation()
       RegisterUser(formData, setErrorMessage, setSuccess, 1,setCookie);

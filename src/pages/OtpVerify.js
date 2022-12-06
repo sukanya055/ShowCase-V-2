@@ -74,7 +74,7 @@ const CompleteProfile = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+   
     setFormData(initialState);
 
     let details = localStorage.getItem("details");

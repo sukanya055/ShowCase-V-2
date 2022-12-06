@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import { useCookies } from "react-cookie";
 import { ErrorBoundary } from "react-error-boundary";
 import {
   Amazing,
@@ -14,6 +15,7 @@ import CustomerReview from "../components/CustomerReview";
 import Stores from "../components/Stores";
 
 const Home = () => {
+  const [cookies, removeCookie] = useCookies(["token"]);
   return (
     <Layout>
       <ErrorBoundary
@@ -73,7 +75,9 @@ const Home = () => {
             <CustomerReview />
             <Stores />
           </section>
-          <Chat />
+          {
+            cookies?.token !== 'undefined' && <Chat />
+          }
         </Suspense>
       </ErrorBoundary>
     </Layout>

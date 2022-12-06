@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ChatEngineWrapper, Socket, ChatFeed } from 'react-chat-engine'
 const UserChat = (props) => {
-    console.log(props)
+   
     const { formOpen, visible } = props || {}
     const { email } = props?.user || {}
     const [chat, setChat] = useState(false)

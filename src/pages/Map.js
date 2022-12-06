@@ -6,7 +6,7 @@ import L from "leaflet";
 import location from "../assets/location.png";
 const Map = ({ productData }) => {
   const position = [51.505, -0.09];
-  // console.log(productData?.coordinates?.lng);
+
   const [center, setCenter] = useState({
     lat: productData?.coordinates?.lat,
     lng: productData?.coordinates?.lng,

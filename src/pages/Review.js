@@ -14,14 +14,10 @@ const Review = () => {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
     const { id } = useParams()
-    console.log(cookies?.token)
-    console.log(cookies?.token)
-
-    console.log(id)
-
+   
     useEffect(() => {
         if (success) {
-            console.log(success)
+           
             toast.success(success, {
                 position: "bottom-center",
                 autoClose: 5000,
@@ -38,7 +34,7 @@ const Review = () => {
 
     const handleStar = rating => {
         setRating(rating)
-        console.log(rating)
+      
     }
 
     const handleSubmit = async (e) => {
