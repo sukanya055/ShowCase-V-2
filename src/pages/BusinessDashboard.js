@@ -13,9 +13,9 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
     const [openModal, setOpenModal] = useState(null)
     const [userDetails, setUserDetails] = useState({})
     const [googleMapModal, setGoogleMapModal] = useState(false)
+    const [payment, setPayment] = useState({})
 
-
-    const { about, country, name, phone, whats, profile, _id } = userDetails || {}
+    const { about, country, name, phone, whats, profile, _id, email } = userDetails || {}
     const [videos, setVideos] = useState()
     // setUserId(_id)
     const getAdminProductVideo = async () => {
@@ -46,7 +46,7 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
                         }
                     });
                     setUserDetails(data)
-                    console.log(data)
+                  
                 }
                 catch (err) {
                     console.log(err)
@@ -59,7 +59,36 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
         })();
         getAdminProductVideo()
     }, [cookies, openModal])
-    console.log(_id)
+
+    useEffect(() => {
+        (async () => {
+
+            if (cookies?.token) {
+                // information 
+                try {
+                    const { data } = await axios.get(`https://api.showcaseurbusiness.com/api/payment/get-payment-details?email=${userDetails?.email}`, {
+                        headers: {
+                            'Authorization': cookies?.token,
+                        }
+                    });
+                    setPayment(data.data)
+               
+                }
+                catch (err) {
+                    console.log(err)
+                }
+            }
+            else {
+                alert("Login please");
+            }
+
+        })();
+
+    }, [cookies, userDetails])
+
+
+
+
     return (
         <Layout>
             <section className='overflow-x-hidden'>
@@ -81,7 +110,13 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
                                     </label>
                                     <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
                                         <li><Link to='/businessProfile/updateBusinessProfile'>Update Profile</Link></li>
-                                        <li><Link to='/payment'>Subscription</Link></li>
+                                        {
+                                            email === 'showcaseofficial1@gmail.com' && <li><Link to='/supportChat/admin'>User Chat</Link></li>
+                                        }
+                                        {
+                                            email !== 'showcaseofficial1@gmail.com' && <li><Link to='/payment'>Subscription</Link></li>
+                                        }
+
                                     </ul>
                                 </div>
                             </div>
@@ -96,6 +131,11 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
 
 
                             </div>
+                            {
+                                payment?.plan && <div className='mt-4'>
+                                    <p className='pt-3 bg-[#C9BBFF] px-3 py-2 rounded-lg text-center font-bold'>Your Plan is {payment?.plan}</p>
+                                </div>
+                            }
                             <div className=' leading-7 mt-6 pr-7'>
                                 <p>{about} .</p>
                             </div>
@@ -121,8 +161,7 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
                     </div>
 
                     <div className='flex justify-center items-center border-solid border-gray-400 border-2 px-10 py-5 cursor-pointer rounded-lg'>
-                        {/* <p>Post Video</p> */}
-                        {/* <!-- The button to open modal --> */}
+
                         <label onClick={() => setOpenModal(true)} htmlFor="my-modal-6" className="btn modal-button">Post Video</label>
                     </div>
                 </div>
@@ -140,7 +179,7 @@ const BusinessDashboard = React.memo(({ setUserId }) => {
                                         <div class="border-2 border-gray-200 border-opacity-60 rounded-lg ">
 
                                             <video
-                                                // className='w-full h-full' 
+
                                                 src={video?.link}
                                                 width={"100%"}
                                                 height='400'

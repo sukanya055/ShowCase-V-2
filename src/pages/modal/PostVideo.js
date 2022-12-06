@@ -4,6 +4,7 @@ import { uploadFile } from 'react-s3';
 import { useCookies } from 'react-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { allMenu } from '../../utils/data';
 const S3_BUCKET = 'showcase28';
 const REGION = 'us-east-1';
 const ACCESS_KEY = 'AKIAQFXX4ZU3AHYZQUFH';
@@ -245,20 +246,13 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
                                     value={formData.category}
                                     onChange={e => setFormData({ ...formData, category: e.target.value || null })}
                                     className="select select-bordered w-full " >
-                                    <option value="">Select a category</option>
-                                    <option value="Jeans">Jeans</option>
-                                    <option value="Whoose">Whoose</option>
-                                    <option value="Watch">Watch</option>
-                                    <option value="Casual Shirt">Casual Shirt</option>
-                                    <option value="Cutton Pants">Cutton Pants</option>
-                                    <option value="Jeans Shirt">Jeans Shirt</option>
-                                    <option value="Kurtas">Kurtas</option>
-                                    <option value="Jeans Top">Jeans Top</option>
-                                    <option value="Kurti">Kurti</option>
-                                    <option value="Knife">Knife</option>
-                                    <option value="Faurniture">Faurniture</option>
-                                    <option value="Bed Sheet">BedSheet</option>
-                                    <option value="Blancket">Blancket</option>
+                                    
+                                      <option disabled value="Select a product category">Select a product category</option>
+                                    {
+                                        allMenu.map((menu, i) => <option
+                                            key={i}
+                                            value={menu?.name}>{menu?.name}</option>)
+                                    }
                                 </select>
 
                             </div>

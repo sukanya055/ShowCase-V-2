@@ -63,13 +63,13 @@ const Gps = () => {
                 }
             });
 
-            console.log(res)
+           
             if (res.status === 200) {
                 setSuccessMessage('Your address is updated')
             }
         }
         catch (error) {
-            console.log(error)
+           
             setErrorMessage(error?.response?.data?.message)
         }
 

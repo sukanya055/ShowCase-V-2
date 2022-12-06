@@ -56,10 +56,11 @@ const Product = () => {
         }
       }
       else {
-        alert("Login please");
+        removeCookie('token')
+        navigate('/auth')
       }
     })();
-  }, [cookies])
+  }, [cookies,navigate,removeCookie])
 
 
   const savedVideo = async () => {
@@ -92,13 +93,11 @@ const Product = () => {
 
   const { phone, country } = data?.data?.result[0].videoOwner || {}
 
-
   return (
     <div>
       <Layout>
         <div className="lg:px-18 py-40 sm:px-8">
           <div className="flex relative items-center justify-center">
-
 
             <div className="w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] lg:w-[404px] lg:h-[400px]  xl:w-[604px] xl:h-[600px] rounded-[50%] bg-green-300 relative overflow-hidden">
 

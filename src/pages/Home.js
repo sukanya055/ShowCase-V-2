@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import { useCookies } from "react-cookie";
 import { ErrorBoundary } from "react-error-boundary";
 import {
   Amazing,
@@ -14,9 +15,27 @@ import CustomerReview from "../components/CustomerReview";
 import Stores from "../components/Stores";
 
 const Home = () => {
+  const [cookies, removeCookie] = useCookies(["token"]);
   return (
     <Layout>
-      <Hero />
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onReset={() => {
+          // reset the state of your app so the error doesn't happen again
+        }}
+      >
+
+        <Suspense
+          fallback={
+            <div>
+              <p className="text-center py-5">Loading...</p>
+            </div>
+          }
+        >
+          <Hero />
+        </Suspense>
+
+      </ErrorBoundary>
       <ErrorBoundary
         FallbackComponent={ErrorFallback}
         onReset={() => {
@@ -31,14 +50,34 @@ const Home = () => {
           }
         >
           <section>
-            <Amazing />
+            <ErrorBoundary
+              FallbackComponent={ErrorFallback}
+              onReset={() => {
+                // reset the state of your app so the error doesn't happen again
+              }}
+            >
+
+              <Suspense
+                fallback={
+                  <div>
+                    <p className="text-center py-5">Loading...</p>
+                  </div>
+                }
+              >
+                <Amazing />
+              </Suspense>
+
+            </ErrorBoundary>
+
             <Count />
             <WorkesAndQuotes />
             <GetStarted />
             <CustomerReview />
             <Stores />
           </section>
-          <Chat />
+          {
+            cookies?.token !== 'undefined' && <Chat />
+          }
         </Suspense>
       </ErrorBoundary>
     </Layout>

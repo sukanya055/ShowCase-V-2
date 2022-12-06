@@ -13,6 +13,8 @@ const SideBarProduct = ({
   content,
   setPrice,
   refetch,
+  setDefaultLoader,
+  setDiscount
 }) => {
   const [priceValue, setPriceValue] = useState(0);
   const [bestVideo, setBestVideo] = useState([]);
@@ -20,15 +22,17 @@ const SideBarProduct = ({
     (async () => {
       const { data } = await axios.get(
         `https://api.showcaseurbusiness.com/admin/min-max-price?content=${
-          content.split("-")[1]
-        }&inputSearch=${content.split("-")[0]}`
+          content?.split("-")[1]?content?.split("-")[1]:"empty"
+        }&inputSearch=${content?.split("-")[0]?content?.split("-")[0]:"empty"}`
       );
       setPriceValue(data?.data);
       setPrice(data?.data);
-        console.log(data)
+   
+      if (!data?.data?.max) setDefaultLoader(true);
       setSizeNumber(data?.data?.max);
+      
     })();
-  }, [content, setPrice, setSizeNumber]);
+  }, [content, setPrice, setSizeNumber, setDefaultLoader]);
 
   useEffect(() => {
     (async () => {
@@ -37,10 +41,7 @@ const SideBarProduct = ({
           `https://api.showcaseurbusiness.com/admin/best-seller-video`
         );
         setBestVideo(data?.data);
-      
-      } catch (error) {
-       
-      }
+      } catch (error) {}
     })();
   }, []);
 
@@ -60,9 +61,10 @@ const SideBarProduct = ({
       </div>
       <div className="mt-3">
         <input
+          disabled={!priceValue?.max && true}
           type="range"
           min={0}
-          max={priceValue?.max}
+          max={priceValue?.max ? priceValue?.max : 1}
           value={sizeNumber}
           onChange={(e) => {
             setSizeNumber(+e.target.value);
@@ -73,12 +75,14 @@ const SideBarProduct = ({
         />
         <div className="w-full flex justify-between text-md font-semibold text-gray-400 px-2">
           <span>{0}</span>
-          <span>{priceValue?.max}</span>
+          <span>{priceValue?.max ? priceValue?.max : 1}</span>
         </div>
         <div className="flex justify-end w-full  ">
-          <button 
-          onClick={()=>setSizeNumber(priceValue?.max)}
-          className="btn btn-sm  bg-transparent text-red-600 mt-3">
+          <button
+            disabled={!priceValue?.max && true}
+            onClick={() => setSizeNumber(priceValue?.max ? priceValue?.max : 1)}
+            className="btn btn-sm  bg-transparent text-red-600 mt-3"
+          >
             Clear all
           </button>
         </div>
@@ -103,7 +107,11 @@ const SideBarProduct = ({
                 {product?.category}
               </h1>
               <p className="text-lg text-center font-semibold text-yellow-500">
-                ₹{(+product?.price - (+product?.price * +product?.discount) / 100).toFixed(0)}
+                ₹
+                {(
+                  +product?.price -
+                  (+product?.price * +product?.discount) / 100
+                ).toFixed(0)}
               </p>
             </div>
           </div>

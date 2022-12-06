@@ -23,7 +23,7 @@ const BusinessChangePassword = () => {
     })
     const [ErrorMessage, setErrorMessage] = useState('')
     const [successMessage, setSuccessMessage] = useState('')
-    console.log(formData)
+ 
 
 
 
@@ -68,7 +68,7 @@ const BusinessChangePassword = () => {
     const handleForm = async (e) => {
         e.preventDefault()
         const { oldPassword, newPassword, confirmPass } = formData || {}
-        console.log(formData)
+   
         let token = cookies?.token;
         if (token !== undefined && token !== null) {
             token = token.replace(/['"]+/g, "");
@@ -85,7 +85,7 @@ const BusinessChangePassword = () => {
                 setErrorMessage(`You can't change the password. Because you are login in with google`)
             } else {
                 if (newPassword === confirmPass) {
-                    console.log(confirmPass)
+                    
                     const response = await axios.patch('https://api.showcaseurbusiness.com/user/changePass', {
                         oldPassword,
                         newPassword,
@@ -96,7 +96,7 @@ const BusinessChangePassword = () => {
                         }
                     })
                     await response;
-                    console.log(response)
+                  
                     if (response?.status === 200) {
                         setSuccessMessage('Password update successful')
                     }
@@ -107,7 +107,7 @@ const BusinessChangePassword = () => {
                 }
             }
         } catch (error) {
-            console.log(error)
+         
             setErrorMessage(error.response.data.message)
         }
         setFormData({

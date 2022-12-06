@@ -1,4 +1,4 @@
-import React, { Suspense, } from 'react';
+import React, { Suspense, useEffect, } from 'react';
 import { Route, Routes } from "react-router-dom";
 import {
   Product,
@@ -31,23 +31,39 @@ import Payment from "./components/payment/Payment";
 import PrivateUserRoute from "./utils/PrivateUserRoute";
 import ShopOwnerPrivateRoute from './utils/ShopOwnerPrivateRoute';
 import Review from './pages/Review';
+import MobileRightBar from './components/ChatFile/MobileRightBar';
+import NotFound from './pages/NotFound';
+import AdminRoute from './utils/AdminRoute';
 
 
 function App() {
-
+  let socket
 
   const BusinessDashboard = React.lazy(() => import('./pages/BusinessDashboard'))
   // const NormalDashboard = React.lazy(() => import('./pages/NormalDashboard'))
+
+
+
+
 
   return (
     <div className="App">
       <Routes>
         {/* support chat route For admin */}
         <Route
-          path="/supportChat"
+          path="/supportChat/:id"
+          element={
+            <AdminRoute>
+              <ChatAdmin />
+            </AdminRoute>
+          }
+        />
+        {/* for mobile device */}
+        <Route
+          path="/supportChat/device/:id"
           element={
             <PrivateRoute>
-              <ChatAdmin />
+              <MobileRightBar />
             </PrivateRoute>
           }
         />
@@ -63,8 +79,8 @@ function App() {
 
             // <Suspense fallback={<div className='flex justify-center items-center h-s'>Loading....</div>}>
 
-              <NormalDashboard
-              />
+            <NormalDashboard
+            />
             // </Suspense>
 
 
@@ -128,7 +144,7 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/admindashboard" element={<Dashboard />} />
         <Route path="/product/review/:id" element={<Review />} />
-
+        <Route path='*' element={<NotFound/>}/>
       </Routes>
     </div>
   );

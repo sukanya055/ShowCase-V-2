@@ -102,7 +102,7 @@ const NormalProfile = () => {
         if (response?.status === 200) {
           navigate('/dashboard/normalDashboard')
         }
-        console.log(response);
+     
       }
       catch (e) {
         console.log(e);
@@ -113,7 +113,7 @@ const NormalProfile = () => {
   };
 
   const onImageChange = async (event) => {
-    console.log("click");
+  
     setLoading(true)
     window.Buffer = window.Buffer || require("buffer").Buffer;
     uploadFile(event.target.files[0], config)
@@ -129,7 +129,7 @@ const NormalProfile = () => {
 
       )
 
-    console.log(imgFile)
+   
 
   };
 

@@ -26,7 +26,7 @@ const CompleteProfile = () => {
   const { phone, address, country } = formData || {};
   const [cookies] = useCookies(['token'])
   const [loading, setLoading] = useState(false)
-  console.log(formData)
+
 
   useEffect(() => {
     if (errorMessage) {
@@ -45,7 +45,7 @@ const CompleteProfile = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+ 
     setFormData(initialState);
  
     if (phone.length !== 10) {
@@ -82,7 +82,7 @@ const CompleteProfile = () => {
           }),
         });
         const resData = await res.json();
-        console.log(resData);
+        
         localStorage.setItem(
           "details",
           JSON.stringify({
@@ -93,7 +93,7 @@ const CompleteProfile = () => {
         setLoading(false)
         navigate("/otpVerify");
       } catch (error) {
-        console.log(error);
+     
         setLoading(false)
         if (error?.response?.data?.message) {
           setErrorMessage(error?.response?.data?.message)

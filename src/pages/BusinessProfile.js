@@ -64,7 +64,7 @@ const BusinessProfile = ({userId}) => {
               'Authorization': cookies?.token,
             }
           });
-          console.log(response)
+        
           setImage(response.data.profile);
 
         }
@@ -80,14 +80,10 @@ const BusinessProfile = ({userId}) => {
   }, [cookies]);
 
 
-  console.log(userId)
-
-
   const handleForm = async (e) => {
     e.preventDefault();
     setLoading(true)
-    console.log('from handle form', name, whatsapp, about, phone, image)
-
+ 
     if (cookies?.token) {
       try {
 
@@ -120,13 +116,13 @@ const BusinessProfile = ({userId}) => {
     uploadFile(event.target.files[0], config)
       .then(data => {
         setLoading(false)
-        console.log(data)
+    
         return setImage(data?.location)
 
       })
       .catch(error => {
         setLoading(false)
-        console.log(error)
+      
       }
       )
 

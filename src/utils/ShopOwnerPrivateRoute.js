@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie';
 
 const ShopOwnerPrivateRoute = ({ children }) => {
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
     const [userToken, setUserToken] = useState()
     let token = localStorage.getItem("token");
@@ -22,27 +22,28 @@ const ShopOwnerPrivateRoute = ({ children }) => {
                         'Authorization': cookies?.token,
                     }
                 })
-           
+
                 if (data?.message === "Success" && data?.data?.role === 1) {
                     setLoading(false)
                     setUserToken(data)
+                } else {
+                    removeCookie('token')
+                    signOut(auth)
+                    navigate('/auth')
                 }
-               
+
                 setLoading(false)
             } catch (error) {
-                
+
                 if (error?.response.status === 400) {
-                    removeCookie('token'/* , {
-                        path: '/',
-                        maxAge: 7 * 24 * 60 * 60 * 1000,// 7d,
-                    } */)
+                    removeCookie('token')
                     signOut(auth)
                     navigate('/auth')
                 }
 
             }
         })()
-    }, [token, cookies, removeCookie,navigate])
+    }, [token, cookies, removeCookie, navigate])
     if (loading) return <div className='text-center my-40'>Loading...</div>
 
     return userToken ? children : <Navigate to={'/auth'} />

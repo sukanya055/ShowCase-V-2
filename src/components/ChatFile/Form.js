@@ -5,154 +5,212 @@ import auth from '../../firebase.init';
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { useRef } from 'react';
+import io from "socket.io-client";
+const ENDPOINT = 'http://localhost:5000'
+
 
 const Form = (props) => {
 
-    const [user] = useAuthState(auth)
-    const [ErrorMessage, setErrorMessage] = useState('')
-    const [userData, setUserData] = useState('')
-    const navigate = useNavigate()
-    const [loading, setLoading] = useState(true)
-
-    const { email, name } = userData || {}
+    const socket = useRef()
+    const [messages, setMessages] = useState([])
+    const [cookies, removeCookie] = useCookies(["token"]);
+    const [arrivalMessage, setArrivalMessage] = useState(null)
+    const [chats, setChats] = useState([])
+    const { id } = useParams()
+    const scrollRef = useRef();
+    const [currentUserId, setCurrentUserId] = useState('')
+    const [refresh, setRefresh] = useState(true)
 
 
     useEffect(() => {
-        if (ErrorMessage) {
-            toast.error(ErrorMessage, {
-                position: "bottom-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
+
+        fetch(`https://api.showcaseurbusiness.com/api/message/get-message/637737f0a11e400551d0593d`, {
+            headers: {
+                "Authorization": cookies?.token,
+            },
+        })
+            .then(res => res.json())
+            .then(data => setChats(data?.data))
+
+    }, [cookies])
+
+ 
+
+    useEffect(() => {
+        if (currentUserId) {
+           
+            socket.current = io(ENDPOINT);
+            socket.current.emit("add-user", currentUserId);
+        }
+    }, [currentUserId, socket]);
+
+
+
+
+    useEffect(() => {
+       
+        if (socket.current) {
+           
+            socket.current.on("msg-recieve", (msg) => {
+             
+                setArrivalMessage({ fromSelf: false, message: msg });
             });
         }
-    }, [ErrorMessage]);
-
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        setLoading(true)
-        if (user || token) {
-            (async () => {
-                try {
-                    const { data } = await axios.get('https://api.showcaseurbusiness.com/user/getUser', {
-                        headers: {
-                            'Authorization': localStorage.getItem('token')?.replace(/['"]+/g, "")
-                        }
-                    })
-
-                    setUserData(data)
-                } catch (error) {
-                    console.log(error)
-                    if (error?.response?.status === 400 || error?.response?.status === 401 || error?.response?.status === 500) {
-                        setErrorMessage(error?.response?.data?.msg)
-                    }
-                }
-            })()
-        }
-        setLoading(false)
-    }, [user, ErrorMessage])
-
-
-
-    function getOrCreateUser(callback) {
-        axios.put(
-            'https://api.chatengine.io/users/',
-            {
-                "username": email,
-                "email": email,
-                "secret": email
-            },
-            {
-                headers: {
-                    "Private-Key": process.env.REACT_APP_PRIVATE_KEY
-                }
-            }
-        )
-            .then(r => callback(r.data))
-            .catch(e => console.log('Get or create user error', e))
-    }
-
-    function getOrCreateChat(callback) {
-        axios.put(
-            'https://api.chatengine.io/chats/',
-            {
-                "usernames": ["ShowCase", email],
-                "is_direct_chat": true
-            },
-            {
-                headers: {
-                    "Private-Key": process.env.REACT_APP_PRIVATE_KEY,
-
-                }
-            }
-        )
-            .then(r => callback(r.data))
-            .catch(e => console.log('Get or create chat error', e))
-    }
-
+    }, [currentUserId, refresh]);
 
 
     useEffect(() => {
-        if (userData) {
-            getOrCreateUser(
-                user => {
-                  
-                    props.setUser && props.setUser(user)
-                    getOrCreateChat(chat => {
-                        // setLoading(false)
-                      
-                        props.setChat && props.setChat(chat)
-                    })
-                }
-            )
+     
+        arrivalMessage && setChats((prev) => [...prev, arrivalMessage]);
+    }, [arrivalMessage]);
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [chats, refresh]);
+   
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const { data } = await axios.get('https://api.showcaseurbusiness.com/api/message/get-user-id', {
+                    headers: {
+                        "Authorization": cookies?.token,
+                    },
+                })
+              
+                setCurrentUserId(data?.data)
+            } catch (error) {
+                console.log(error)
+            }
+        })()
+    }, [cookies])
+
+
+    
+
+
+    const handleForm = async (e) => {
+        e.preventDefault()
+
+
+        socket.current.emit("send-msg", {
+            to: '637737f0a11e400551d0593d',
+            from: currentUserId,
+            msg: e.target.input.value,
+        });
+        setRefresh(!refresh)
+        setChats([...chats, { fromSelf: true, message: e.target.input.value }])
+   
+        try {
+
+            const { data } = await axios.post(`https://api.showcaseurbusiness.com/api/message/add-message`,
+                {
+                    text: e.target.input.value,
+                    to: '637737f0a11e400551d0593d'
+                },
+                {
+                    headers: {
+                        "Authorization": cookies?.token,
+                    },
+
+                })
+           
+
+        } catch (error) {
+            console.log(error)
         }
-    }, [userData,])
+
+       
+        e.target.reset()
+    }
+
+
+
 
 
     return (
-        <div
-            style={{
-                opacity: props.visible ? '1' : '0',
-                width: props.visible ? '400px' : '0px',
-                height: props.visible ? '500px' : '0px',
-            }}
-            className={
-                `fixed bottom-[150px] right-[20px] w-[${props.visible ? '400px' : '0px'}] h-[${props.visible ? '500px' : '0px'}] bg-white rounded-xl form shadow-xl `
-            }>
-            <div className='text-black '>
-                <div className='text-center'>
-                    <div className='text-center flex justify-center mt-5'>
-                        <BiSupport
-                            className='text-6xl text-black font-bold text-center'
-                        />
-                    </div>
-                    <p className='text-xl leading-9'>ChatBot</p>
-                </div>
-                {
-                    loading ? <div className='absolute top-0 left-0 w-full h-full'>
+        <div>
+            <div
+                ref={scrollRef}
+                style={{
+                    opacity: props.visible ? '1' : '0',
+                    width: props.visible ? '400px' : '0px',
+                    height: props.visible ? '500px' : '0px',
+                }}
+                className={
+                    `fixed bottom-[150px] right-[20px]  bg-white rounded-xl form shadow-xl hidden md:block`
+                }>
+                <div
 
-                        <p className='text-center my-20 '>Loading....</p>
-                    </div> : <div>
+                    className='p-2 max-h-[420px]  overflow-y-auto'>
+                    <p className='text-center py-3 font-bold text-xl'>Customer Support</p>
+                    <div
+                        ref={scrollRef}
+                        className=''
+                    >
                         {
-                            !userData && <div className='mt-5'>
-                                <div>
-                                    <p className='text-center mt-20 text-3xl font-bold'>Please login </p>
-                                </div>
-                                <div className='flex justify-center gap-7 mt-10'>
-                                    <button onClick={() => navigate('/auth')} className='bg-[#3371F2] text-white px-5 py-2 rounded-md'>Login</button>
-                                    <button onClick={() => navigate('/joinUs')} className='bg-[#3371F2] text-white px-5 py-2 rounded-md'>Sign Up</button>
-                                </div>
-                            </div>
+                            chats?.map((chat, i) => <div
+                                className={`flex ${chat?.fromSelf ? 'justify-end' : 'justify-start'}   my-3  `}
+                            >
+                                <span className='bg-gray-300 p-3 rounded-full'> {chat?.message}</span>
+                            </div>)
                         }
                     </div>
-                }
+
+                </div>
+                <div className='absolute bottom-0 left-0 w-full my-4 px-5 '>
+                    <form
+                        onSubmit={handleForm}
+                        className='flex gap-7' action="">
+                        <input
+                            autoComplete='off'
+                            name='input' type="text" placeholder="Type here" className="input input-bordered w-full rounded-full" />
+                        <button type='submit' className="py-2 lg:flex px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out rounded-full">Send</button>
+                    </form>
+                </div>
+                <ToastContainer />
             </div>
-            <ToastContainer />
+
+            <div
+                style={{
+                    opacity: props.visible ? '1' : '0',
+                    width: props.visible ? '300px' : '0px',
+                    height: props.visible ? '450px' : '0px',
+                }}
+                className={
+                    `fixed bottom-[150px] right-[20px]  bg-white rounded-xl form shadow-xl block md:hidden`
+                }>
+                <div className='p-2 h-[370px]  overflow-y-auto'>
+                    <p className='text-center py-3 font-bold text-xl'>Customer Support</p>
+                    <div
+                        ref={scrollRef}
+                        className=''
+                    >
+                        {
+                            chats?.map((chat, i) => <div
+                                className={`flex ${chat?.fromSelf ? 'justify-end' : 'justify-start'}   my-3  `}
+                            >
+                                <span className='bg-gray-300 p-3 rounded-full'> {chat?.message}</span>
+                            </div>)
+                        }
+                    </div>
+
+                </div>
+                <div className=' w-full my-4 px-5 '>
+                    <form
+                        onSubmit={handleForm}
+                        className='flex gap-7' action="">
+                        <input
+                            autoComplete='off'
+                            name='input' type="text" placeholder="Type here" className="input input-bordered w-full rounded-full" />
+                        <button type='submit' className="py-2 lg:flex px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out rounded-full">Send</button>
+                    </form>
+                </div>
+                <ToastContainer />
+            </div>
         </div>
     );
 };

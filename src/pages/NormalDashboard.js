@@ -1,50 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { BsGearWide, BsPlayCircle } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Layout } from '../components';
 import { useCookies } from 'react-cookie';
 import userImg from '../assets/user.png'
 import axios from 'axios';
-const NormalDashboard = ({ setUserId }) => {
+const NormalDashboard = () => {
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
     const [details, setDetails] = useState()
     const { email, about, address, name, profile, _id } = details || {}
-
+    const navigate = useNavigate()
     useEffect(() => {
         (async () => {
 
             if (cookies?.token) {
 
-                // try {
-                //     const { data } = await axios.get('https://api.showcaseurbusiness.com/user/infor', {
-                //         headers: {
-                //             'Authorization': cookies?.token,
-                //         }
-                //     });
-
-                //     setDetails(data)
-                //     setUserId(data?._id)
-                // }
-                // catch (err) {
-                //     console.log(err)
-                // }
-
-                fetch('https://api.showcaseurbusiness.com/user/infor',{
+                fetch('https://api.showcaseurbusiness.com/user/infor', {
                     headers: {
-                                    'Authorization': cookies?.token,
-                                }
-                }).then(res=>res.json())
-                .then(data=>{
-                    setDetails(data)
-                    setUserId(data?._id)
-                })
+                        'Authorization': cookies?.token,
+                    }
+                }).then(res => res.json())
+                    .then(data => {
+                        setDetails(data)
+
+                    })
             }
             else {
-                alert("Login please");
+                removeCookie("token");
+                navigate("/auth");
             }
         })();
-    }, [cookies])
+    }, [cookies, navigate, removeCookie])
 
 
     return (
@@ -77,7 +64,7 @@ const NormalDashboard = ({ setUserId }) => {
                                     <p><BsPlayCircle /></p>
                                     <p>Saved Videos</p>
                                 </div>
-                                <p>{details?.saveVideo.length}</p>
+                                <p>{details?.saveVideo?.length}</p>
 
                             </div>
                             <div className=' leading-7 mt-6 w-full pr-3'>
@@ -88,7 +75,7 @@ const NormalDashboard = ({ setUserId }) => {
                     </div>
                 </div>
                 {
-                    details?.saveVideo.length > 0 && <div className='text-center '>
+                    details?.saveVideo?.length > 0 && <div className='text-center '>
                         <h3 className='font-bold text-xl mb-10'>Your Saved Videos</h3>
                         <div>
                             <div class="container px-5 py-24 mx-auto overflow-x-hidden">

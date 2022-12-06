@@ -25,7 +25,7 @@ const ChangePassword = () => {
     })
     const [ErrorMessage, setErrorMessage] = useState('')
     const [successMessage, setSuccessMessage] = useState('')
-    console.log(formData)
+
 
 
 
@@ -89,7 +89,7 @@ const ChangePassword = () => {
                 setErrorMessage(`You can't change the password. Because you are login in with google`)
             } else {
                 if (newPassword === confirmPass) {
-                    console.log(confirmPass)
+                
                     const response = await axios.patch('https://api.showcaseurbusiness.com/user/changePass', {
                         oldPassword,
                         newPassword,
@@ -100,7 +100,7 @@ const ChangePassword = () => {
                         }
                     })
                     await response;
-                    console.log(response)
+                 
                     if (response?.status === 200) {
                         setSuccessMessage('Password update successful')
                     }
@@ -111,7 +111,7 @@ const ChangePassword = () => {
                 }
             }
         } catch (error) {
-            console.log(error)
+           
             setErrorMessage(error.response.data.message)
         }
         setFormData({

@@ -1,71 +1,157 @@
 const commonCategory = [
   {
     id: "1",
-    name: "jeans",
+    name: "Shirts",
   },
   {
     id: "2",
-    name: "whoose",
+    name: "T-Shirts",
   },
   {
     id: "3",
-    name: "watch",
+    name: "Jeans",
+  },
+  {
+    id: "4",
+    name: "Trousers",
+  },
+  {
+    id: "5",
+    name: "Kurtas",
+  },
+  {
+    id: "6",
+    name: "Sneakers",
+  },
+  {
+    id: "7",
+    name: "Watches",
   },
 ];
 
 const mensCategories = [
   {
-    id: "a",
-    name: "casual shirt",
+    id: "10",
+    name: "Shirts",
   },
   {
-    id: "b",
-    name: "cutton pants",
+    id: "11",
+    name: "T-Shirts",
   },
   {
-    id: "c",
-    name: "jeans shirt",
+    id: "12",
+    name: "Jeans",
   },
   {
-    id: "d",
+    id: "13",
+    name: "Trousers",
+  },
+  {
+    id: "14",
     name: "Kurtas",
+  },
+  {
+    id: "15",
+    name: "Sneakers",
+  },
+  {
+    id: "16",
+    name: "Watches",
   },
 ];
 const womenCategories = [
   {
-    id: "a",
-    name: "shorts",
+    id: 17,
+    name: "Dress",
   },
   {
-    id: "b",
-    name: "cutton pants",
+    id: 18,
+    name: "Kurtas",
   },
   {
-    id: "c",
-    name: "jeans Top",
+    id: 19,
+    name: "Jeans",
   },
   {
-    id: "d",
-    name: "kurti",
+    id: 20,
+    name: "Tops",
+  },
+  {
+    id: 21,
+    name: "Heels/Flats",
+  },
+  {
+    id: 22,
+    name: "Handbags",
+  },
+  {
+    id: 23,
+    name: "Cosmetics",
   },
 ];
 const homeCategories = [
   {
-    id: "a1",
-    name: "knife",
+    id: 24,
+    name: "Furniture",
   },
   {
-    id: "b1",
-    name: "faurniture",
+    id: 25,
+    name: "Floor carpets",
   },
   {
-    id: "c1",
-    name: "bedsheet",
+    id: 26,
+    name: "Curtains",
   },
   {
-    id: "d1",
-    name: "blancket",
+    id: 27,
+    name: "Beds & Sheets",
+  },
+  {
+    id: 28,
+    name: "Bath essential",
+  },
+  {
+    id: 29,
+    name: "Decor",
+  },
+  {
+    id: 30,
+    name: "Kitchen appliances",
+  },
+];
+const Kids = [
+  {
+    id: 31,
+    name: "Sweaters",
+  },
+  {
+    id: 32,
+    name: "Boots",
+  },
+  {
+    id: 33,
+    name: "Clothing sets",
+  },
+  {
+    id: 34,
+    name: "Jeans",
+  },
+  {
+    id: 35,
+    name: "Sports",
+  },
+  {
+    id: 36,
+    name: "Toys",
+  },
+  {
+    id: 37,
+    name: "accessories",
   },
 ];
 
-export { commonCategory, mensCategories, womenCategories, homeCategories };
+const allMenu=[...mensCategories,...Kids,...womenCategories,...homeCategories]
+
+
+
+export { commonCategory, mensCategories, womenCategories, homeCategories,Kids,allMenu };

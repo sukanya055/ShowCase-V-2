@@ -22,7 +22,7 @@ const DeleteModal = ({setOpenModal}) => {
                 signOut(auth)
                 setOpenModal(false)
             }
-            console.log(data)
+        
         } catch (error) {
             console.log(error)
             

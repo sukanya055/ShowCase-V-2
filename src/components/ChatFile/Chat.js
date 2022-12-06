@@ -42,12 +42,7 @@ const Chat = () => {
                 />
 
             }
-            <UserChat
-                formOpen={formOpen}
-                visible={user !== null || chat !== null}
-                user={user}
-                chat={chat}
-            />
+           
         </div>
     );
 };

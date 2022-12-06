@@ -20,7 +20,9 @@ const Stores = () => {
     (async () => {
       try {
         const { data } = await axios.get(
-          `https://api.showcaseurbusiness.com/admin/get-latest-video`
+          `https://api.showcaseurbusiness.com/admin/get-latest-video`,{
+            
+          }
         );
         setProductData(data?.data);
         
@@ -29,6 +31,7 @@ const Stores = () => {
       }
     })();
   }, []);
+  
   return (
     <div className="my-14">
       <h1 className="md:text-4xl text-xl text-center font-bold  text-[#112D57] mb-14 font-[poppins] ">

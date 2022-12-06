@@ -13,6 +13,7 @@ import { signOut } from "firebase/auth";
 import {
   commonCategory,
   homeCategories,
+  Kids,
   mensCategories,
   womenCategories,
 } from "../utils/data";
@@ -29,7 +30,8 @@ const Navbar = ({ adminNav }) => {
   };
 
   const handleDashboard = async () => {
-    if (cookies?.token) {
+    if (cookies?.token !== "undefined") {
+      console.log(cookies.token);
       try {
         const { data } = await axios.get("https://api.showcaseurbusiness.com/user/infor", {
           headers: {
@@ -44,12 +46,15 @@ const Navbar = ({ adminNav }) => {
           navigate("/dashboard/normalDashboard");
         }
       } catch (err) {
-        if(err?.response?.status === 403 || err?.response?.status === 400){
-          removeCookie('token')
-          navigate('/auth')
+        if (err?.response?.status === 403 || err?.response?.status === 400) {
+          removeCookie("token");
+          navigate("/auth");
         }
         console.log(err);
       }
+    } else {
+      removeCookie("token");
+      navigate("/auth");
     }
   };
 
@@ -73,13 +78,11 @@ const Navbar = ({ adminNav }) => {
     }
   };
 
-  console.log(typeof cookies?.token);
-
   return (
     <div className="shadow-md md:py-2 px-6 py-0">
       <div className="flex items-center justify-between">
         {/* Logo */}
-        <div className="flex gap-1 md:gap-8 items-center justify-between ">
+        <div className="flex gap-[10px] md:gap-8 items-center justify-between ">
           <img
             onClick={() => navigate("/")}
             src={logo}
@@ -87,7 +90,7 @@ const Navbar = ({ adminNav }) => {
             className="h-[57px] w-[110px] cursor-pointer"
           />
           {/* Search  */}
-          <div className="md:w-auto w-[130px]  bg-gray-100 py-2  rounded-2xl">
+          <div className="md:w-auto w-[157px]  bg-gray-100 py-2  rounded-2xl">
             <label className="input-group">
               <span className="bg-inherit">
                 <BiSearchAlt className="text-gray-900" />
@@ -120,16 +123,12 @@ const Navbar = ({ adminNav }) => {
                 tabIndex={0}
                 className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
               >
-                {commonCategory.map((item) => (
-                  <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Men")}>
-                      {item.name}
-                    </p>
-                  </li>
-                ))}
                 {mensCategories.map((item) => (
                   <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Men")}>
+                    <p
+                      className="capitalize"
+                      onClick={() => handleOption(item?.name, "Men")}
+                    >
                       {item.name}
                     </p>
                   </li>
@@ -148,16 +147,12 @@ const Navbar = ({ adminNav }) => {
                 tabIndex={0}
                 className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
               >
-                {commonCategory.map((item) => (
-                  <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Women")}>
-                      {item.name}
-                    </p>
-                  </li>
-                ))}
                 {womenCategories.map((item) => (
                   <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Women")}>
+                    <p
+                      className="capitalize"
+                      onClick={() => handleOption(item?.name, "Women")}
+                    >
                       {item.name}
                     </p>
                   </li>
@@ -175,16 +170,12 @@ const Navbar = ({ adminNav }) => {
                 tabIndex={0}
                 className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
               >
-                {commonCategory.map((item) => (
+                {Kids.map((item) => (
                   <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Kids")}>
-                      {item.name}
-                    </p>
-                  </li>
-                ))}
-                {mensCategories.map((item) => (
-                  <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Kids")}>
+                    <p
+                      className="capitalize"
+                      onClick={() => handleOption(item?.name, "Kids")}
+                    >
                       {item.name}
                     </p>
                   </li>
@@ -204,7 +195,10 @@ const Navbar = ({ adminNav }) => {
               >
                 {homeCategories.map((item) => (
                   <li key={item.id}>
-                    <p onClick={() => handleOption(item?.name, "Home&Kitchen")}>
+                    <p
+                      className="capitalize"
+                      onClick={() => handleOption(item?.name, "Home&Kitchen")}
+                    >
                       {item.name}
                     </p>
                   </li>
@@ -216,45 +210,49 @@ const Navbar = ({ adminNav }) => {
         {/* Actions link */}
 
         {/* users */}
-        <div className="flex items-center justify-center gap-1 md:gap-5">
-          <div className="bg-sky-100 rounded-lg cursor-pointer">
-            {/* <BiUser className="md:text-2xl text-xl" /> */}
-            <div className="dropdown ">
-              <label tabIndex={0} className="btn p-3  m-1">
-                <BiUser className="md:text-2xl text-xl " />
-              </label>
-              <ul
-                tabIndex={0}
-                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-auto"
-              >
-                <li onClick={handleDashboard} className="w-32">
-                  <Link to="/dashboard/normalDashboard">My Account</Link>
-                </li>
-              </ul>
+
+        <div className="hidden md:block">
+          <div className="flex items-center justify-center gap-1 md:gap-5 ">
+            <div className="bg-sky-100 rounded-lg cursor-pointer">
+              {/* <BiUser className="md:text-2xl text-xl" /> */}
+              <div className="dropdown ">
+                <label tabIndex={0} className="btn p-3  m-1">
+                  <BiUser className="md:text-2xl text-xl " />
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-auto"
+                >
+                  <li onClick={handleDashboard} className="w-32">
+                    <Link to="/dashboard/normalDashboard">My Account</Link>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-          {cookies?.token !== "undefined" ? (
-            <button
-              onClick={handleSignOut}
-              className="py-2 hidden lg:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out"
-            >
-              Sign Out
-            </button>
-          ) : (
-            <button className="py-2 hidden lg:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out">
-              {<Link to="/auth">Login</Link>}
-            </button>
-          )}
-
-          {!isOpen && (
-            <VscThreeBars
-              onClick={toggle}
-              className="lg:hidden block text-3xl   cursor-pointer text-gray-900"
-            />
-          )}
         </div>
+        {cookies?.token !== "undefined" ? (
+          <button
+            onClick={handleSignOut}
+            className="py-2 hidden lg:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out"
+          >
+            Sign Out
+          </button>
+        ) : (
+          <button className="py-2 hidden lg:flex rounded-lg px-6 text-lg text-white bg-blue-500 hover:bg-blue-400 transition-colors delay-100 ease-out">
+            {<Link to="/auth">Login</Link>}
+          </button>
+        )}
+
+        {!isOpen && (
+          <VscThreeBars
+            onClick={toggle}
+            className="lg:hidden block text-3xl   cursor-pointer text-gray-900"
+          />
+        )}
+
         {isOpen && (
-          <div className="top-0 left-0  h-auto absolute w-full px-4 py-2 backdrop-blur-sm bg-white/95 z-40 shadow-lg pb-5">
+          <div className="top-0 left-0  h-auto absolute w-full px-4 py-2 backdrop-blur-sm bg-white/95 z-40 shadow-lg pb-5 duration-150">
             <div className="flex justify-end">
               <CgClose
                 onClick={toggle}
@@ -279,16 +277,12 @@ const Navbar = ({ adminNav }) => {
                   tabIndex={0}
                   className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
                 >
-                  {commonCategory.map((item) => (
-                    <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name, "Men")}>
-                        {item.name}
-                      </p>
-                    </li>
-                  ))}
                   {mensCategories.map((item) => (
                     <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name, "Men")}>
+                      <p
+                        className="capitalize"
+                        onClick={() => handleOption(item?.name, "Men")}
+                      >
                         {item.name}
                       </p>
                     </li>
@@ -306,16 +300,12 @@ const Navbar = ({ adminNav }) => {
                   tabIndex={0}
                   className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
                 >
-                  {commonCategory.map((item) => (
-                    <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name, "Women")}>
-                        {item.name}
-                      </p>
-                    </li>
-                  ))}
                   {womenCategories.map((item) => (
                     <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name, "Women")}>
+                      <p
+                        className="capitalize"
+                        onClick={() => handleOption(item?.name, "Women")}
+                      >
                         {item.name}
                       </p>
                     </li>
@@ -333,16 +323,12 @@ const Navbar = ({ adminNav }) => {
                   tabIndex={0}
                   className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 "
                 >
-                  {commonCategory.map((item) => (
+                  {Kids.map((item) => (
                     <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name, "Kids")}>
-                        {item.name}
-                      </p>
-                    </li>
-                  ))}
-                  {mensCategories.map((item) => (
-                    <li key={item.id}>
-                      <p onClick={() => handleOption(item?.name, "Kids")}>
+                      <p
+                        className="capitalize"
+                        onClick={() => handleOption(item?.name, "Kids")}
+                      >
                         {item.name}
                       </p>
                     </li>
@@ -363,6 +349,7 @@ const Navbar = ({ adminNav }) => {
                   {homeCategories.map((item) => (
                     <li key={item.id}>
                       <p
+                        className="capitalize"
                         onClick={() => handleOption(item?.name, "Home&Kitchen")}
                       >
                         {item.name}
@@ -370,6 +357,28 @@ const Navbar = ({ adminNav }) => {
                     </li>
                   ))}
                 </ul>
+              </div>
+              <div className="block md:hidden">
+                <div className="flex items-center justify-center gap-1 md:gap-5 ">
+                  <div className="bg-sky-100 rounded-lg cursor-pointer">
+                    {/* <BiUser className="md:text-2xl text-xl" /> */}
+                    <div className="dropdown ">
+                      <label tabIndex={0} className="btn p-3  m-1">
+                        <BiUser className="md:text-2xl text-xl " />
+                      </label>
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-auto"
+                      >
+                        <li onClick={handleDashboard} className="w-32">
+                          <Link to="/dashboard/normalDashboard">
+                            My Account
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
               {cookies?.token !== "undefined" ? (
                 <button

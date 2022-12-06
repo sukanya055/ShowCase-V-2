@@ -9,24 +9,26 @@ import axios from "axios";
 import Loader from "../utils/Loader";
 import ReactPaginate from "react-paginate";
 const Products = () => {
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState("");
   const [selectedCollections, setSelectedCollections] = useState([]);
   const [sizeNumber, setSizeNumber] = useState(price?.max);
+  
+  const [defaultLoader, setDefaultLoader] = useState(false);
   const [sortedBy, setSortedBy] = useState("1");
   const { content } = useParams();
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(8);
   const [count, setCount] = useState();
-  console.log(content)
-  const { isLoading, data, refetch } = useQuery(
+  const [loader, setLoader] = useState(true);
 
+  const { isLoading, data, refetch } = useQuery(
     [
       "get-all-video",
       content?.split("-")[0],
       content?.split("-")[1],
       sortedBy,
       sizeNumber,
-      page
+      page,
     ],
 
     () =>
@@ -37,7 +39,6 @@ const Products = () => {
           price?.min || 0
         }&maxPrice=${sizeNumber}&size=${size}&page=${page}`
       )
-
   );
 
   useEffect(() => {
@@ -45,7 +46,17 @@ const Products = () => {
     setCount(length);
   }, [data?.data?.count]);
 
-  // if (isLoading) return <Loader />;
+  useEffect(() => {
+    if (sizeNumber) {
+      setLoader(false);
+    }
+  }, [sizeNumber]);
+  useEffect(() => {
+    if (defaultLoader) {
+      setLoader(false);
+    }
+  }, [defaultLoader]);
+
 
   const handlePageClick = (data) => {
     setPage(data?.selected);
@@ -61,7 +72,7 @@ const Products = () => {
     }
   };
 
-  console.log('number',content)
+
   return (
     <Layout>
       <div className="px-8 py-5">
@@ -84,10 +95,11 @@ const Products = () => {
           </label>
 
           <select
+            disabled={defaultLoader}
             className="select  w-auto select-primary bg-gray-100  max-w-xs capitalize "
             onChange={(e) => setSortedBy(e.target.value)}
           >
-            <option value="" disabled selected>
+            <option value="Sort By" disabled selected>
               Sort By
             </option>
 
@@ -106,12 +118,14 @@ const Products = () => {
               content={content}
               setPrice={setPrice}
               refetch={refetch}
+              setDefaultLoader={setDefaultLoader}
             />
           </div>
           <div className="md:basis-3/4 basis-4/4 h-full">
-            <MainProducts 
-            filteredData={data?.data?.result} 
-            isLoading={isLoading}
+            {loader && <Loader />}
+            <MainProducts
+              filteredData={data?.data?.result}
+              isLoading={isLoading}
             />
           </div>
         </div>
@@ -137,7 +151,7 @@ const Products = () => {
           </div>
         </div>
 
-        {data?.data?.result.length >0 && (
+        {data?.data?.result?.length > 0 && (
           <div className="flex justify-center items-center mb-5">
             <div className="w-[100%]  flex items-center justify-center">
               <ReactPaginate

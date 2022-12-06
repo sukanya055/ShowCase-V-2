@@ -24,7 +24,7 @@ const MapModal = ({ userDetails,origin,destination }) => {
         }
     }
 
-    console.log(origin,destination)
+
     return (
         <div className='bg-gray-400'>
             {/* The button to open modal */}
