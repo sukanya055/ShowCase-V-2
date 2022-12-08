@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ChatEngineWrapper, Socket, ChatFeed } from 'react-chat-engine'
+
 const UserChat = (props) => {
    
     const { formOpen, visible } = props || {}
@@ -29,7 +29,7 @@ const UserChat = (props) => {
                 `fixed bottom-[150px] right-[20px] w-[${props.visible ? '600px' : '0px'}] h-[${props.visible ? '500px' : '0px'}] bg-white rounded-xl form shadow-xl `
             }
         >
-            {
+            {/* {
                 chat && props.formOpen && <ChatEngineWrapper>
                     <Socket
                         projectID={'e78ee894-2af2-4f88-a44e-3193cd202a81'}
@@ -38,7 +38,7 @@ const UserChat = (props) => {
                     />
                     <ChatFeed activeChat={props?.chat?.id} />
                 </ChatEngineWrapper>
-            }
+            } */}
         </div>
 
     );

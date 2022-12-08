@@ -5,10 +5,11 @@ import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import auth from '../firebase.init';
 import { useCookies } from 'react-cookie';
+import { Layout } from '../components';
 
 const PrivateUserRoute = ({ children }) => {
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
     let token = localStorage.getItem("token");
     token && token.replace(/['"]+/g, "");
@@ -21,14 +22,14 @@ const PrivateUserRoute = ({ children }) => {
                         'Authorization': cookies?.token,
                     }
                 })
-               
+
                 if (data.status === 200) {
                     setLoading(false)
 
                 }
                 setLoading(false)
             } catch (error) {
-                
+
                 if (error?.response.status === 400) {
                     removeCookie('token', {
                         path: '/',
@@ -40,8 +41,8 @@ const PrivateUserRoute = ({ children }) => {
 
             }
         })()
-    }, [token, cookies, removeCookie,navigate])
-    if (loading) return <div className='text-center my-40'>Loading...</div>
+    }, [token, cookies, removeCookie, navigate])
+    if (loading) return <Layout> <div className='text-center my-40'>Loading...</div></Layout>
 
     return token ? children : <Navigate to={'/auth'} />
 
