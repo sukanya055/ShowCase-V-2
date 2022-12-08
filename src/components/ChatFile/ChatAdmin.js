@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ChatEngine } from 'react-chat-engine';
+
 import { Layout } from '../../components';
 import LeftBar from './LeftBar';
 import RightBar from './RightBar';

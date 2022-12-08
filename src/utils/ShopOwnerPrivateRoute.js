@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import auth from '../firebase.init';
 import { useCookies } from 'react-cookie';
+import { Layout } from '../components';
 
 const ShopOwnerPrivateRoute = ({ children }) => {
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
@@ -44,7 +45,7 @@ const ShopOwnerPrivateRoute = ({ children }) => {
             }
         })()
     }, [token, cookies, removeCookie, navigate])
-    if (loading) return <div className='text-center my-40'>Loading...</div>
+    if (loading) return <Layout><div className='text-center my-40'>Loading...</div></Layout>
 
     return userToken ? children : <Navigate to={'/auth'} />
 

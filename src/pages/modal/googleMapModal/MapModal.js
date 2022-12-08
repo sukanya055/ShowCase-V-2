@@ -31,8 +31,8 @@ const MapModal = ({ userDetails,origin,destination }) => {
             
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="my-modal-6" className="modal-toggle" />
-            <div className="modal modal-bottom sm:modal-middle mb-20 lg:mb-0">
-                <div className=" w-[300px]  md:w-[550px] lg:w-[770px] h-[500px] md:h-[600px] lg:h-[550px] ">
+            <div className="modal modal-bottom sm:modal-middle mb-20 lg:mb-0 ">
+                <div className=" w-[300px]  md:w-[550px] lg:max-w-[770px] h-[500px] md:h-[600px] lg:h-[550px] ">
                     <label htmlFor="my-modal-6" className="btn btn-sm btn-circle mb-7">✕</label>
 
                     <LoadScript

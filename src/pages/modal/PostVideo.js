@@ -149,7 +149,7 @@ const PostVideo = ({ openModal, setOpenModal, userId }) => {
 
             <input type="checkbox" id="my-modal-6" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
-                <div className="modal-box w-[800px]">
+                <div className="modal-box max-w-[900px] scrollbar-hide">
                     <label htmlFor="my-modal-6" className="btn btn-sm btn-circle ">✕</label>
                     <h5 className='text-center my-10 text-2xl font-bold'>Post Your Video</h5>
                     <div className="card-body">
