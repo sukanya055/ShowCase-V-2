@@ -102,7 +102,7 @@ const RightBar = ({ currentUserId, socket }) => {
             {
                 chats?.length > 0 ? <div>
                     <div className=''>
-                        <div className='p-2 h-[70vh]  overflow-y-auto my-4'>
+                        <div className='p-2 h-[70vh] scrollbar-hide overflow-y-auto my-4'>
 
 
                             <div

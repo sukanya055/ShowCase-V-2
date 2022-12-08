@@ -145,7 +145,7 @@ const Form = (props) => {
                 }>
                 <div
 
-                    className='p-2 max-h-[420px]  overflow-y-auto'>
+                    className='p-2 max-h-[420px]  overflow-y-auto scrollbar-hide'>
                     <p className='text-center py-3 font-bold text-xl'>Customer Support</p>
                     <div
                         ref={scrollRef}
@@ -183,7 +183,7 @@ const Form = (props) => {
                 className={
                     `fixed bottom-[150px] right-[20px]  bg-white rounded-xl form shadow-xl block md:hidden`
                 }>
-                <div className='p-2 h-[370px]  overflow-y-auto'>
+                <div className='p-2 h-[370px] scrollbar-hide overflow-y-auto'>
                     <p className='text-center py-3 font-bold text-xl'>Customer Support</p>
                     <div
                         ref={scrollRef}
