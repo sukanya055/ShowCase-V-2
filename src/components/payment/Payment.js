@@ -222,7 +222,7 @@ const Payment = () => {
                                 </div>
                                 <div className='mt-12 lg:pr-20'>
                                     <strong className='text-[#0d2366]'>Terms & Conditions:</strong>
-                                    <p className='text-[#515978] text-[14px] leading-6 mt-3'>You agree to share information entered on this page with Qurinomsolutions (owner of this page) and Razorpay, adhering to applicable laws.</p>
+                                    <p className='text-[#515978] text-[14px] leading-6 mt-3'>You agree to share information entered on this page with Qurinomsolutions (owner of this page) and Razorpay, adhering to applicable laws. <a href="/trems&conditions" className='underline text-blue-700'>Click Here</a></p>
                                 </div>
                             </div>
                             <div className="card flex-shrink-0 shadow-2xl bg-base-100 w-full md:w-[70%] lg:w-[40%] mx-auto mt-20 lg:mt-0">

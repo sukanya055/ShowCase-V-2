@@ -34,6 +34,7 @@ import Review from './pages/Review';
 import MobileRightBar from './components/ChatFile/MobileRightBar';
 import NotFound from './pages/NotFound';
 import AdminRoute from './utils/AdminRoute';
+import TermsAndConditions from './pages/TermsAndConditions';
 
 
 function App() {
@@ -145,6 +146,7 @@ function App() {
         <Route path="/admindashboard" element={<Dashboard />} />
         <Route path="/product/review/:id" element={<Review />} />
         <Route path='*' element={<NotFound/>}/>
+        <Route path='/trems&conditions' element={<TermsAndConditions/>} />
       </Routes>
     </div>
   );
